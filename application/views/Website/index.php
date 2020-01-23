@@ -49,12 +49,12 @@
        <div class="container">
          <div class="row">
            <div class="col-md-3">
-            <img class="logo-img" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
+            <img class="logo-img mt-2" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
            </div>
            <div class="col-md-9">
              <div class="row">
 
-               <div class="col-md-3 offset-md-5">
+               <div class="col-md-3 offset-md-5 ">
                 <label class="top-label" for="mobile">Mobile No.</label>
                </div>
                <div class="col-md-2">
@@ -66,7 +66,7 @@
             <form class="" action="<?php echo base_url(); ?>Member/check_login" method="post" >
               <div class="row">
                 <div class="col-md-3 offset-md-4">
-                   <input class="form-control form-control-sm mobile only_number required" name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
+                   <input class="form-control form-control-sm mobile only_number required " name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
                 </div>
                 <div class="col-md-3">
                   <input class="form-control form-control-sm" name="password" type="password" class="form-control top-input" required>
@@ -78,7 +78,7 @@
             </form>
             <div class="row">
               <div class="col-md-2 offset-md-10 text-left">
-                 <label class="top-label" for="mobile">Fogot Password</label>
+                 <label class="top-label font-12" for="mobile">Fogot Password</label>
               </div>
             </div>
            </div>
