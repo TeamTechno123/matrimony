@@ -29,9 +29,9 @@ body{
       background-color: #e2e6f1;
 }
 .heading h1{
-  font-size: 2rem;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  font-size: 1.2rem;
+  padding-top: 10px;
+  padding-bottom: 8px;
 }
 
 .heading h1:after{
@@ -40,7 +40,7 @@ body{
       position: absolute;
       left: 0;
       right: 0;
-      width: 12%;
+      width: 8%;
       bottom: 0%;
       margin: 0 auto;
 }
@@ -59,9 +59,13 @@ body{
 }
 
 .logo-img{
-  margin-top: 15px;
+  margin-top: 0px;
   width: 100%;
-  height: 65px;
+  height: 60px;
+}
+
+.navbar{
+  padding: 0px!important;
 }
 
 .company-img{
@@ -143,7 +147,7 @@ height: 50%;
 }
 
 .profile-page{
-  padding-top: 50px;
+  padding-top: 15px;
   padding-bottom: 30px;
   background-color: #e2e6f1;
 }
@@ -206,8 +210,8 @@ height: 50%;
 }
 
 .tab-div{
-  margin-bottom: 40px;
-  padding: 15px;
+  margin-bottom: 10px;
+  padding:8px 15px 8px 15px;
   box-shadow: 2px 2px 3px 3px #ccc;
   background-color: #e9ebee;
 }
@@ -220,9 +224,13 @@ height: 50%;
   margin-bottom: 0px;
 }
 
+.font-16{
+  font-size: 16px!important;
+}
+
 .tab-div:hover{
-  margin-bottom: 40px;
-  padding: 15px;
+  margin-bottom: 10px;
+  padding:8px 15px 8px 15px;
   box-shadow: 2px 2px 5px 5px #ccc;
 }
 
@@ -288,10 +296,20 @@ text-align: center;
   font-size: 14px;
 }
 .active-mem-img{
-  width: 185px!important;
-  height: 180px!important;
-  padding-left: 20px !important;
+  width: 145px!important;
+  height: 140px!important;
+  margin-left: 30px;
 }
+
+.profile-img{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.no-top-border{
+  border-top: 0px!important;
+}
+
 
 .center{
   margin-left: auto;
