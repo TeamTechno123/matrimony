@@ -35,7 +35,10 @@ class User extends CI_Controller{
   }
 
   public function logout(){
-    $this->session->sess_destroy();
+    $this->session->unset_userdata('user_id');
+    $this->session->unset_userdata('company_id');
+    $this->session->unset_userdata('role_id');
+    // $this->session->sess_destroy();
     header('location:'.base_url().'User');
   }
 

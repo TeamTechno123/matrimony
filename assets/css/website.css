@@ -441,3 +441,7 @@ text-align: center;
   .owl-theme .owl-nav.disabled+.owl-dots {
     margin-top: 0px !important;
 }
+
+.act_btn{
+  width:140px !important;
+}

@@ -9,6 +9,13 @@ class Member extends CI_Controller{
     $this->load->model('Member_Model');
   }
 
+  public function logout(){
+    $this->session->unset_userdata('mat_member_id');
+    $this->session->unset_userdata('member_is_login');
+    // $this->session->sess_destroy();
+    header('location:'.base_url().'Website');
+  }
+
   public function save_member(){
     $today = date('d-m-Y');
     $save_data = array(
@@ -202,8 +209,33 @@ class Member extends CI_Controller{
 
 /************************************* Active Members *************************************/
 
-public function active_members(){
-  $this->load->view('Website/active_members');
-}
+  public function active_members(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $franchise_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $gender = $franchise_info[0]['member_gender'];
+
+    $data['active_members_list'] = $this->Member_Model->active_members_list($gender,'active');
+
+    $this->load->view('Website/active_members', $data);
+  }
+
+/*******************************************Active Full Profile ***********************************/
+  public function active_full_profile($member_id){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $data['member_info'] = $this->Member_Model->get_member_info($member_id);
+
+    $today = date('d-m-Y');
+    $birthdate = $data['member_info'][0]['member_birth_date'];
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
+    $data['age'] = $age;
+    
+    $this->load->view('Website/active_full_profile',$data);
+  }
 
 }

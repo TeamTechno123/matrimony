@@ -27,6 +27,10 @@
             </div>
           </div>
           <div class="col-md-9">
+          <?php if($active_members_list){
+            foreach ($active_members_list as $list) {
+          ?>
+
 
             <div class="tab-div">
               <div class="row">
@@ -73,13 +77,13 @@
                         <div class="col-md-12">
                           <ul  class="inline" style="display: inline; list-style-type:none;">
                             <li>
-                              <button style="width:120px;" class="btn btn-success btn-sm" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</button>
+                              <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
                             </li>
                             <li>
-                              <button style="width:120px;" class="btn btn-success btn-sm" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
+                              <button class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
                             </li>
                             <li>
-                              <button style="width:120px;" class="btn btn-success btn-sm" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Send Massege</button>
+                              <button class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Send Massege</button>
                             </li>
                           </ul>
                         </div>
@@ -89,7 +93,8 @@
                 </table>
               </div>
             </div>
-
+          <?php  }
+          } ?>
 
             <br><br>
           </div>
