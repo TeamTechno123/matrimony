@@ -316,10 +316,13 @@ class Member extends CI_Controller{
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
 
-    $sent_interest_list = $this->Member_Model->get_interest($mat_member_id,'','*');
-    
+    $data['interest_list'] = $this->Member_Model->get_interest_member_list($mat_member_id,'');
 
-    $this->load->view('Website/sent_interest_list');
+
+
+
+
+    $this->load->view('Website/sent_interest_list',$data);
   }
 
 }

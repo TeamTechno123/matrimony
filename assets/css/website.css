@@ -473,6 +473,7 @@ text-align: center;
   width:150px !important;
 }
 
+
 .profile-page p{
   font-size: 14px !important;
 }
@@ -488,6 +489,11 @@ text-align: center;
 
 
 
+
+.inline{
+  display: inline;
+  list-style-type:none;
+}
 
 
 
@@ -575,4 +581,33 @@ text-align: center;
   .tbl_mem_info td{
     overflow: scroll;
   }
+
+  .active-mem-img{
+    width: 100%!important;
+    height: Auto;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .inline{
+    padding-top: 10px;
+    padding-left: 0px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    list-style-type:none;
+  }
+    .inline .act_btn{
+      width: 100%;
+      margin-top: 12px!important;
+    }
+
+    .navbar-brand{
+      width: 220px!important;
+    }
+    .logo-img{
+      margin: 10px!important
+    }
 }
