@@ -139,44 +139,42 @@
 
                 <div class="col-12 mt-1">
                   <ul  class="inline" style="display: inline; list-style-type:none;">
-                                <li class="pt-2">
-                                  <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
-                                </li>
-                                <li>
-                                  <?php if($interest_sent == ''){ ?>
-                                    <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
-                                  <?php } else{ ?>
-                                    <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
-                                  <?php } ?>
-                                </li>
-                                <li>
-                                  <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list->member_id; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
-                                </li>
-                                <!-- <li>
-                                  <?php if($shortlist_sent == ''){ ?>
-                                    <button class="btn btn-success btn-sm act_btn btn_shortlist" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Shorllist</button>
-                                  <?php } else{ ?>
-                                    <button class="btn btn-success btn-sm act_btn " type="submit" disabled><i class="fa fa-list" aria-hidden="true" disabled></i> Shorllisted</button>
-                                  <?php } ?>
-                                </li> -->
-                              </ul>
+                    <li class="pt-2">
+                      <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
+                    </li>
+                    <li>
+                      <?php if($interest_sent == ''){ ?>
+                        <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
+                      <?php } else{ ?>
+                        <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
+                      <?php } ?>
+                    </li>
+                    <li>
+                      <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list->member_id; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+                    </li>
+                    <!-- <li>
+                      <?php if($shortlist_sent == ''){ ?>
+                        <button class="btn btn-success btn-sm act_btn btn_shortlist" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Shorllist</button>
+                      <?php } else{ ?>
+                        <button class="btn btn-success btn-sm act_btn " type="submit" disabled><i class="fa fa-list" aria-hidden="true" disabled></i> Shorllisted</button>
+                      <?php } ?>
+                    </li> -->
+                  </ul>
                 </div>
               </div>
             </div>
         </div>
       </div>
+    <?php  }
+    } ?>
+  </div>
+
+  <div class="col-12 d-block d-sm-none">
+    <div class="adv pt-4">
+      <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+      <br>
     </div>
-
-
-          <?php  }
-          } ?>
-
-          <div class="col-12 d-block d-sm-none">
-            <div class="adv pt-4">
-              <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-              <br>
-            </div>
-          </div>
+  </div>
 
             <br><br>
           </div>

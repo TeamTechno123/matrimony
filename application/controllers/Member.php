@@ -231,6 +231,7 @@ class Member extends CI_Controller{
 
     $data['active_members_list'] = $this->Member_Model->active_members_list($gender,'active');
 
+    // print_r($data['active_members_list']);
     $this->load->view('Website/active_members', $data);
   }
 
@@ -317,12 +318,27 @@ class Member extends CI_Controller{
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
 
     $data['interest_list'] = $this->Member_Model->get_interest_member_list($mat_member_id,'');
+    $data['sent_list'] = 'sent_list';
+    $this->load->view('Website/interest_list',$data);
+  }
+
+  public function received_interest_list(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $data['interest_list'] = $this->Member_Model->get_interest_member_list('',$mat_member_id);
+    $data['received_list'] = 'received_list';
+    // print_r($data['interest_list']);
+    $this->load->view('Website/interest_list',$data);
+  }
 
 
+  public function accept_interest(){
+    $from_member_id = $this->input->post('from_member_id');
+    $to_member_id = $this->input->post('to_member_id');
 
-
-
-    $this->load->view('Website/sent_interest_list',$data);
+    $this->Member_Model->accept_interest($from_member_id,$to_member_id);
   }
 
 }

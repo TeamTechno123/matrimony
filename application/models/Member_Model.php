@@ -147,10 +147,10 @@ class Member_Model extends CI_Model{
     }
 
     if($from_member_id != ''){
-      $this->db->join('member','interest.from_member_id = member.member_id','LEFT');
+      $this->db->join('member','interest.to_member_id = member.member_id','LEFT');
     }
     if($to_member_id != ''){
-      $this->db->join('member','interest.to_member_id = member.member_id','LEFT');
+      $this->db->join('member','interest.from_member_id = member.member_id','LEFT');
     }
 
 
@@ -181,13 +181,17 @@ class Member_Model extends CI_Model{
     $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
     $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
     $query = $this->db->get();
-    // if($from_member_id != '' && $to_member_id != ''){
-    //   $result = $query->result_array();
-    // } else{
-      $result = $query->result();
-    // }
-
+    $result = $query->result();
+    $q = $this->db->last_query();
     return $result;
+    // return $q;
+  }
+
+  public function accept_interest($from_member_id,$to_member_id){
+    $this->db->where('from_member_id',$from_member_id);
+    $this->db->where('to_member_id',$to_member_id);
+    $this->db->set('interest_status','1');
+    $this->db->update('interest');
   }
 }
 ?>

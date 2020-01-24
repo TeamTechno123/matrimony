@@ -67,7 +67,7 @@
                             <a href="<?php echo base_url(); ?>Member/sent_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
                           </div>
                           <div class="col-12 mb-1">
-                            <button class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></button>
+                            <a href="<?php echo base_url(); ?>Member/received_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></a>
                           </div>
                           <div class="col-12 mb-1">
                             <button class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</button>
