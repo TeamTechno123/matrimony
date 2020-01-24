@@ -111,7 +111,7 @@
                   <p class="mb-1 text-bold ">Member Id : </p>
                 </div>
                 <div class="col-md-6 col-6 py-1">
-                 <p class="mb-1"><?php echo $member_info[0]['member_id']; ?></p>
+                 <p class="mb-1 text-danger"><?php echo $member_info[0]['member_id']; ?></p>
                 </div>
                 <div class="col-12">
                     <hr class="hr-web">

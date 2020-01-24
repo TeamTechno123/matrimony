@@ -497,6 +497,10 @@ text-align: center;
     height: auto;
   }
 
+  .nav-item{
+    text-align: center;
+  }
+
   .login-section h2{
   font-size: 26px;
   font-style: italic;
@@ -591,4 +595,10 @@ text-align: center;
     .logo-img{
       margin: 10px!important
     }
+
+    .navbar-toggler{
+      color: #fff!important;
+      border-color: #fff!important;
+    }
+
 }
