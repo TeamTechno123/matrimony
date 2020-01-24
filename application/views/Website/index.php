@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/website.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
@@ -40,21 +40,21 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/admin_css.css">
+      <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/website.css">
   <script src="<?php echo base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
 
     <title>BHARTIYA SHADI</title>
   </head>
   <body>
-    <section class="navbar-top">
+    <section class="navbar-top d-none d-sm-block">
        <div class="container">
          <div class="row">
            <div class="col-md-3">
-            <img class="logo-img" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
+            <img class="logo-img mt-2" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
            </div>
            <div class="col-md-9">
              <div class="row">
-
-               <div class="col-md-3 offset-md-5">
+               <div class="col-md-3 offset-md-5 ">
                 <label class="top-label" for="mobile">Mobile No.</label>
                </div>
                <div class="col-md-2">
@@ -66,7 +66,7 @@
             <form class="" action="<?php echo base_url(); ?>Member/check_login" method="post" >
               <div class="row">
                 <div class="col-md-3 offset-md-4">
-                   <input class="form-control form-control-sm mobile only_number required" name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
+                   <input class="form-control form-control-sm mobile only_number required " name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
                 </div>
                 <div class="col-md-3">
                   <input class="form-control form-control-sm" name="password" type="password" class="form-control top-input" required>
@@ -78,13 +78,47 @@
             </form>
             <div class="row">
               <div class="col-md-2 offset-md-10 text-left">
-                 <label class="top-label" for="mobile">Fogot Password</label>
+                 <label class="top-label font-12" for="mobile">Fogot Password</label>
               </div>
             </div>
            </div>
 
          </div>
        </div>
+    </section>
+
+    <section class="navbar-top d-block d-sm-none" >
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+           <img class="logo-img mt-2" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
+          </div>
+          <div class="col-12">
+             <form class="" action="<?php echo base_url(); ?>Member/check_login" method="post" >
+            <div class="row">
+              <div class="col-12">
+               <label class="top-label padding-8 text-center font-16 w-100" >Mobile No.</label>
+              </div>
+              <div class="col-12">
+                 <input class="form-control form-control-sm  mobile only_number required " name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
+              </div>
+              <div class="col-12">
+               <label class="top-label padding-8 text-center font-16 w-100">Password</label>
+              </div>
+              <div class="col-12">
+                <input  name="password" type="password" class="form-control  form-control-sm top-input" required>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-outline-light btn-web margin-8 w-100">Log In</button>
+              </div>
+              <div class="col-12">
+                 <label class="top-label font-12" for="mobile">Fogot Password ?</label>
+              </div>
+            </div>
+           </form>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="login-section">
@@ -151,16 +185,16 @@
             </div>
             <div class="col-md-12">
               <div class="row">
-              <div class="form-group col-md-2 mb-0">
+              <div class="form-group col-md-2  col-4 mb-0">
                 <label for="">Gender : </label>
               </div>
-              <div class="form-group col-md-2 mb-0">
+              <div class="form-group col-md-2 col-4 mb-0">
                 <div class="form-check">
                   <input class="form-check-input" value="Male" type="radio" name="member_gender">
                   Male
                 </div>
               </div>
-              <div class="form-group col-md-2 mb-0">
+              <div class="form-group col-md-2 col-4 mb-0">
                 <div class="form-check">
                   <input class="form-check-input" value="Female" type="radio" name="member_gender">
                   Female
@@ -226,7 +260,7 @@
                 </select>
               </div>
 
-              <div class="col-sm-12">
+              <div class="col-sm-12 text-center">
                 <button type="submit" class="btn btn-success mr-3">Save</button>
                 <button type="button" class="btn btn-info">Cancel</button>
               </div>

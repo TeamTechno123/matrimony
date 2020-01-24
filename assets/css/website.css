@@ -13,7 +13,7 @@ body{
 }
 
 .navbar-top{
-  padding: 8px 30px;
+  padding: 3px 30px;
   margin: 0px;
   background-color: #3b5998;
 }
@@ -65,7 +65,7 @@ body{
 }
 
 .navbar{
-  padding: 0px!important;
+  padding: 0px 16px 0px 16px!important;
 }
 
 .company-img{
@@ -90,7 +90,7 @@ font-weight: bold;
 }
 
 .input-login{
-  padding: 70px 10px 30px 40px;
+  padding: 20px 10px 30px 40px;
 }
 
 footer{
@@ -226,6 +226,10 @@ height: 50%;
 
 .font-16{
   font-size: 16px!important;
+}
+
+.font-12{
+  font-size: 12px !important;
 }
 
 .tab-div:hover{
@@ -462,4 +466,74 @@ text-align: center;
 
 .act_btn{
   width:140px !important;
+}
+
+
+@media only screen and (max-width: 418px) {
+
+
+
+  .logo-img{
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+  }
+
+  .login-section h2{
+  font-size: 26px;
+  font-style: italic;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  }
+
+
+  .company-img{
+    width: 100%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .padding-8{
+    padding-top: 8px;
+    padding-bottom: 0px;
+  }
+
+  .margin-8{
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .input-login{
+    padding: 10px 25px;
+  }
+
+  footer h4{
+    text-align: center;
+    padding: 10px  20px!important;
+  }
+.ul-m{
+  padding: 0px 10px!important;
+}
+
+  .ul-m li{
+
+    text-align: center;
+  }
+  .ul-m a{
+      color: #696969;
+  }
+
+  footer p{
+    padding: 5px 15px;
+    color: #696969;
+    text-align: center;
+  }
+
+  footer .bottom{
+    font-size: 16px;
+    border-top: 1px solid #5A5858;
+    padding-top: 10px;
+  }
 }
