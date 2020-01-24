@@ -3,6 +3,11 @@ body{
   margin: 0px;
 }
 
+.hr-web{
+  padding: 0px!important;
+  margin: 0px!important;
+}
+
 .head-nav .nav-link{
   font-size: 17px;
   color: #fff!important;
@@ -535,5 +540,13 @@ text-align: center;
     font-size: 16px;
     border-top: 1px solid #5A5858;
     padding-top: 10px;
+  }
+
+  .tbl_mem_info{
+    width: 100%;
+  }
+
+  .tbl_mem_info td{
+    overflow: scroll;
   }
 }
