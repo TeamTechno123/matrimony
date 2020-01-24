@@ -12,7 +12,7 @@
 <section class="profile-page">
   <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 d-none d-sm-block">
           <div class="adv">
             <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
              <br><br>
@@ -21,7 +21,7 @@
              </div>
           </div>
 
-          <div class="adv">
+          <div class="adv ">
             <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
              <br><br>
              <div class="w-100 center text-center">
@@ -61,34 +61,7 @@
                         </div>
                       </div>
 
-                      <!-- <hr class="white"> -->
-                      <!-- <table width="100%" class="profile-table-left" >
-                        <tr>
-                          <td><p class="text-left">Age : </p> </td>
-                          <td><p class="text-left"><?php echo $age; ?></p> </td>
-                        </tr>
-                        <tr>
-                          <td><p class="text-left">MOTHER TONGUE : </p> </td>
-                          <td><p class="text-left"><?php echo $member_info[0]['language_name']; ?></p> </td>
-                        </tr>
-                        <tr>
-                          <td><p class="text-left">RELIGION : </p> </td>
-                          <td><p class="text-left"><?php echo $member_info[0]['religion_name']; ?></p> </td>
-                        </tr>
-                        <tr>
-                          <td><p class="text-left">CASTE / SECT : </p> </td>
-                          <td><p class="text-left"><?php echo $member_info[0]['cast_name']; ?></p> </td>
-                        </tr>
-                        <tr>
-                          <td><p class="text-left">HEIGHT : </p> </td>
-                          <td><p class="text-left"><?php echo $member_info[0]['height_name']; ?></p> </td>
-                        </tr>
-                        <tr>
-                          <td><p class="text-left">LOCATION : </p> </td>
-                          <td><p class="text-left"><?php echo $member_info[0]['member_area']; ?></p> </td>
-                        </tr>
 
-                      </table> -->
                         <hr class="white">
 
                         <button class="btn btn-primary btn-profile w-100" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
@@ -112,6 +85,16 @@
                      </div>
                   </div>
 
+                  <div class="col-12 d-block d-sm-none">
+                    <div class="adv">
+                      <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+                       <br><br>
+                       <div class="w-100 center text-center">
+                         <!-- <button type="button" class="btn btn-outline-danger center" data-toggle="modal" data-target="#exampleModal">Danger</button> -->
+                       </div>
+                    </div>
+                  </div>
+
           <div class="col-md-8">
             <div class="frist">
               <div class="row">
@@ -125,37 +108,50 @@
                 </div>
               </div>
 
-              <table class="table tbl_mem_info">
-                <tbody>
-                  <tr>
-                     <th scope="row" style="font-size:18px;" class="text-danger" colspan="4"><?php echo $member_info[0]['member_name']; ?></th>
-                  </tr>
-                  <tr>
-                    <th>Member ID : </th>
-                     <th class="text-danger" colspan="3"><?php echo $member_info[0]['member_id']; ?></th>
-                  </tr>
-                  <tr>
-                    <th>Gender : </th>
-                    <td><?php echo $member_info[0]['member_gender']; ?> </td>
-                    <th>Age : </th>
-                    <td><?php echo $age; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Marital Status : </th>
-                    <td><?php echo $member_info[0]['marital_status_name']; ?></td>
-                    <th>City : </th>
-                    <td><?php echo $member_info[0]['city_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Area : </th>
-                    <td><?php echo $member_info[0]['member_area']; ?></td>
-                    <th>On Behalf : </th>
-                    <td><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="mb-1"><?php echo $member_info[0]['member_name']; ?></p>
+                </div>
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-6 col-6">
+                  <p class="mb-1">Member Id : </p>
+                </div>
+                <div class="col-md-6 col-6">
+                 <p class="mb-1"><?php echo $member_info[0]['member_id']; ?></p>
+                </div>
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Gender : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['member_gender']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Age : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $age; ?></p>
+                </div>
+              </div>
             </div>
 
+            <div class="col-12 d-block d-sm-none">
+              <div class="adv ">
+                <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
+                 <br><br>
+                 <div class="w-100 center text-center">
+                   <!-- <button type="button" class="btn btn-outline-danger center" data-toggle="modal" data-target="#exampleModal">Danger</button> -->
+                 </div>
+              </div>
+            </div>
 
             <div class="third">
               <div class="row">
@@ -168,88 +164,244 @@
                   </h5>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-6 col-6">
+                  <p class="mb-1">  Address : </p>
+                </div>
+                <div class="col-md-6 col-6">
+                 <p class="mb-1"><?php echo $member_info[0]['member_address']; ?> </p>
+                </div>
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
 
-              <table class="table tbl_mem_info">
-                <tbody>
-                  <tr>
-                    <th colspan="4">
-                      Address : <?php echo $member_info[0]['member_address']; ?>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th >Area : </th>
-                    <td><?php echo $member_info[0]['member_area']; ?></td>
-                    <th>City : </th>
-                    <td><?php echo $member_info[0]['city_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th >Tahasil : </th>
-                    <td><?php echo $member_info[0]['tahasil_name']; ?></td>
-                    <th>District : </th>
-                    <td><?php echo $member_info[0]['district_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th >State : </th>
-                    <td><?php echo $member_info[0]['state_name']; ?></td>
-                    <th>Country : </th>
-                    <td><?php echo $member_info[0]['country_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th >Blood Group : </th>
-                    <td><?php echo $member_info[0]['blood_group_name']; ?></td>
-                    <th>Body type : </th>
-                    <td><?php echo $member_info[0]['body_type_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Religion : </th>
-                    <td><?php echo $member_info[0]['religion_name']; ?></td>
-                    <th>Cast : </th>
-                    <td><?php echo $member_info[0]['cast_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Sub Cast : </th>
-                    <td><?php echo $member_info[0]['sub_cast_name']; ?></td>
-                    <th>Complexion : </th>
-                    <td><?php echo $member_info[0]['complexion_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Diet : </th>
-                    <td><?php echo $member_info[0]['diet_name']; ?></td>
-                    <th>Education : </th>
-                    <td><?php echo $member_info[0]['education_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Family Status : </th>
-                    <td><?php echo $member_info[0]['family_status_name']; ?></td>
-                    <th>Family Type : </th>
-                    <td><?php echo $member_info[0]['family_type_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Family Value : </th>
-                    <td><?php echo $member_info[0]['family_value_name']; ?></td>
-                    <th>Gothram : </th>
-                    <td><?php echo $member_info[0]['gothram_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Height : </th>
-                    <td><?php echo $member_info[0]['height_name']; ?></td>
-                    <th>Income : </th>
-                    <td><?php echo $member_info[0]['min_income'].'-'.$member_info[0]['max_income']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Moonsign : </th>
-                    <td><?php echo $member_info[0]['moonsign_name']; ?></td>
-                    <th>Occupation : </th>
-                    <td><?php echo $member_info[0]['occupation_name']; ?></td>
-                  </tr>
-                  <tr>
-                    <th>Resident Status : </th>
-                    <td><?php echo $member_info[0]['resident_status_name']; ?></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Area : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">City : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
+                </div>
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Tahasil : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['tahasil_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">District : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['district_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">State : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['state_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Country : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['country_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Blood Group : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['blood_group_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Body type : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['body_type_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Religion : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['religion_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Cast : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['cast_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Sub Cast  : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['sub_cast_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Complexion : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['complexion_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Diet  : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['diet_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Education : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['education_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Family Status  : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['family_status_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Family Type : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['family_type_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Family Value  : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['family_value_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Gothram : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['gothram_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Height : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['height_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Income : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['min_income'].'-'.$member_info[0]['max_income']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Moonsign : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['moonsign_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Occupation : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['occupation_name']; ?></p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1">Resident Status  : </p>
+                </div>
+                <div class="col-md-3 col-6">
+                  <p class="mb-1"><?php echo $member_info[0]['resident_status_name']; ?></p>
+                </div>
+                <div class="col-12 d-block d-sm-none">
+                    <hr class="hr-web">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 d-block d-sm-none">
+              <div class="adv">
+                <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+                 <br><br>
+                 <div class="w-100 center text-center">
+                   <!-- <button type="button" class="btn btn-outline-danger center" data-toggle="modal" data-target="#exampleModal">Danger</button> -->
+                 </div>
+              </div>
             </div>
           </div>
         </div>
