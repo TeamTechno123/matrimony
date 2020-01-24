@@ -66,8 +66,9 @@
           <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link active" href="<?php echo base_url(); ?>Website">Home <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/active_members">Active Members</a>
-            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/profile">Profile Page</a>
+            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/profile">Profile</a>
             <a class="nav-item nav-link" href="<?php echo base_url(); ?>Website/contact">Contact Us</a>
+            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/logout">Logout</a>
           </div>
         </div>
       </nav>

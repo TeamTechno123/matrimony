@@ -17,15 +17,12 @@
         <div class="col-md-3">
           <div class="adv">
             <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-            <br>
           </div>
           <div class="adv">
             <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
-            <br>
           </div>
           <div class="adv">
             <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-            <br>
           </div>
         </div>
 
@@ -55,18 +52,21 @@
                       <input type="hidden" id="profile_member_id" name="profile_member_id" value="<?php echo $member_info[0]['member_id']; ?>">
                       <input type="hidden" id="login_member_id" name="login_member_id" value="<?php echo $member_info[0]['member_id']; ?>">
                       <?php if(isset($interest_sent)){ ?>
-                        <button class="btn btn-primary btn-sm w-100 mb-2" id="btn_exp_interest" type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
+                        <button class="btn btn-primary btn-sm w-100 mb-2" type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
                       <?php  } else{ ?>
                         <button class="btn btn-primary btn-sm w-100 mb-2" id="btn_exp_interest" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
                       <?php } ?>
 
-
                       <div class="row">
                         <div class="col-6">
-                          <button class="btn btn-success btn-sm w-100 " id="btn_shortlist" type="submit"><i class="fa fa-list" aria-hidden="true"></i> Short List</button>
+                          <?php if(isset($shortlist_sent)){ ?>
+                            <button class="btn btn-success btn-sm w-100 " type="submit" disabled><i class="fa fa-list" aria-hidden="true" ></i> Shortlisted</button>
+                          <?php  } else{ ?>
+                            <button class="btn btn-success btn-sm w-100 " id="btn_shortlist" type="submit"><i class="fa fa-list" aria-hidden="true"></i> Shortlist</button>
+                          <?php } ?>
                         </div>
                         <div class="col-6">
-                          <button class="btn btn-success btn-sm w-100 " type="submit"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+                          <button class="btn btn-success btn-sm w-100 " type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
                         </div>
                       </div>
                     </div>
@@ -208,7 +208,33 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="" action="" method="post">
+              <textarea name="message_text" id="message_text" class="form-control form-control-sm" rows="4" cols="80" placeholder="Type your message..."></textarea>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="btn_msg_send" data-dismiss="modal" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
+
+
 <!-- End of Quick Info Update Modal -->
 
 <?php include("footer.php"); ?>
@@ -228,7 +254,7 @@
         success:function(result){
           if(result == 'success'){
             toastr.success('Interest sent successfully');
-            $('#btn_exp_interest').text('Interest Sent');
+            $('#btn_exp_interest').html('<i class="fa fa-heart" aria-hidden="true" ></i> Expressed Interest');
             $('#btn_exp_interest').attr('disabled','true');
           } else{
             toastr.error('Interest not sent');
@@ -236,6 +262,52 @@
         }
       });
     });
+
+    $('#btn_shortlist').on('click',function(){
+      var to_member_id = $('#profile_member_id').val();
+      var from_member_id = <?php echo $mat_member_id; ?>;
+      $.ajax({
+        url:'<?php echo base_url(); ?>Member/add_shortlist',
+        method:'post',
+        data:{'from_member_id':from_member_id,
+              'to_member_id':to_member_id},
+        success:function(result){
+          if(result == 'success'){
+            toastr.success('This Profile Shortlisted successfully');
+            $('#btn_shortlist').html('<i class="fa fa-list" aria-hidden="true" ></i> Shortlisted');
+            $('#btn_shortlist').attr('disabled','true');
+          } else{
+            toastr.error('Profile Shortlist Error');
+          }
+        }
+      });
+    });
+
+    $('#btn_msg_send').on('click',function(){
+      var to_member_id = $('#profile_member_id').val();
+      var from_member_id = <?php echo $mat_member_id; ?>;
+      var message_text = $('#message_text').val();
+      if(message_text == ''){
+        toastr.error('Message field is empty');
+      } else{
+        $('#message_text').val('');
+        $.ajax({
+          url:'<?php echo base_url(); ?>Member/add_message',
+          method:'post',
+          data:{'from_member_id':from_member_id,
+                'to_member_id':to_member_id,
+                'message_text':message_text},
+          success:function(result){
+            if(result == 'success'){
+              toastr.success('Message Sent successfully');
+            } else{
+              toastr.error('Message Not Sent');
+            }
+          }
+        });
+      }
+    });
+
   </script>
 
   <script type="text/javascript">
