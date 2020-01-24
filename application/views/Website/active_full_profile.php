@@ -14,7 +14,7 @@
 <section class="profile-page">
   <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3  d-none d-sm-block">
           <div class="adv">
             <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
           </div>
@@ -73,6 +73,13 @@
                    </div>
                 </div>
 
+                <div class="col-12 d-block d-sm-none">
+                  <div class="adv">
+                    <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%"  alt="">
+                    <br>
+                  </div>
+                </div>
+
                 <div class="col-md-8">
                   <div class="frist">
                     <div class="row">
@@ -81,7 +88,7 @@
                       </div>
                     </div>
 
-                    <table class="table tbl_mem_info">
+                    <!-- <table class="table tbl_mem_info">
                       <tbody>
                         <tr>
                            <th scope="row" style="font-size:18px;" class="text-danger" colspan="4"><?php echo $member_info[0]['member_name']; ?></th>
@@ -109,7 +116,85 @@
                           <td><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> -->
+
+                    <div class="row">
+                      <div class="col-md-12 py-1">
+                        <h5  class="mb-1 text-danger text-bold f-18"><?php echo $member_info[0]['member_name']; ?></h5>
+                      </div>
+                      <div class="col-12">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1 text-bold ">Member Id : </p>
+                      </div>
+                      <div class="col-md-6 col-6 py-1">
+                       <p class="mb-1 text-danger"><?php echo $member_info[0]['member_id']; ?></p>
+                      </div>
+                      <div class="col-12">
+                          <hr class="hr-web">
+                      </div>
+
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1 text-bold">Gender : </p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_gender']; ?></p>
+                      </div>
+                      <div class="col-12 d-block d-sm-none">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1 text-bold">Age : </p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $age; ?></p>
+                      </div>
+                      <div class="col-12">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1 text-bold">Marital Status : </p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['marital_status_name']; ?></p>
+                      </div>
+                      <div class="col-12 d-block d-sm-none">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1 text-bold">City : </p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
+                      </div>
+                      <div class="col-12">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1 text-bold">Area : </p>
+                      </div>
+
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
+                      </div>
+                      <div class="col-12 d-block d-sm-none">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1 text-bold">On Behalf : </p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 d-block d-sm-none">
+                    <div class="adv pt-4">
+                      <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%"  alt="">
+                      <br>
+                    </div>
                   </div>
 
                   <div class="third">

@@ -30,6 +30,7 @@ body{
   text-align: center;
   color: #fff;
 }
+
 .heading{
       background-color: #e2e6f1;
 }
@@ -266,8 +267,9 @@ height: 50%;
 }
 
 .contact{
-  padding-top: 30px;
-  padding-bottom: 30px;
+    background-color: #e2e6f1;
+  padding-top: 10px;
+  padding-bottom: 15px;
 }
 
 .policy{
@@ -482,31 +484,10 @@ text-align: center;
   font-size: 18px !important;
 }
 
-
-
-
-
-
-
-
-
 .inline{
   display: inline;
   list-style-type:none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @media only screen and (max-width: 418px) {
@@ -514,6 +495,10 @@ text-align: center;
     margin-top: 20px;
     width: 100%;
     height: auto;
+  }
+
+  .nav-item{
+    text-align: center;
   }
 
   .login-section h2{
@@ -610,4 +595,10 @@ text-align: center;
     .logo-img{
       margin: 10px!important
     }
+
+    .navbar-toggler{
+      color: #fff!important;
+      border-color: #fff!important;
+    }
+
 }
