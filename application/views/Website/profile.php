@@ -60,25 +60,17 @@
                           </div>
                         </div>
                       </div>
-
-
-                        <hr class="white">
-
-                        <button class="btn btn-primary btn-profile w-100" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
+                      <hr class="white">
+                        <!-- <button class="btn btn-primary btn-profile w-100" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button> -->
                         <div class="row">
-                          <div class="col-6">
-                            <button class="btn btn-success w-100  pl-1" type="submit">Short List</button>
+                          <div class="col-12 mb-1">
+                            <a href="<?php echo base_url(); ?>Member/sent_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
                           </div>
-                          <div class="col-6">
-                            <button class="btn btn-success w-100  pl-1" type="submit">Follow </button>
+                          <div class="col-12 mb-1">
+                            <button class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></button>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <button class="btn btn-primary w-100 btn-profile pl-1" type="submit">Short List</button>
-                          </div>
-                          <div class="col-6">
-                            <button class="btn btn-primary w-100 btn-profile pl-1" type="submit">Follow </button>
+                          <div class="col-12 mb-1">
+                            <button class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</button>
                           </div>
                         </div>
                       </div>
@@ -109,36 +101,66 @@
               </div>
 
               <div class="row">
-                <div class="col-md-12">
-                  <p class="mb-1"><?php echo $member_info[0]['member_name']; ?></p>
+                <div class="col-md-12 py-1">
+                  <h5  class="mb-1 text-danger text-bold f-18"><?php echo $member_info[0]['member_name']; ?></h5>
                 </div>
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-6 col-6">
-                  <p class="mb-1">Member Id : </p>
+                <div class="col-md-6 col-6 py-1">
+                  <p class="mb-1 text-bold ">Member Id : </p>
                 </div>
-                <div class="col-md-6 col-6">
+                <div class="col-md-6 col-6 py-1">
                  <p class="mb-1"><?php echo $member_info[0]['member_id']; ?></p>
                 </div>
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
 
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Gender : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Gender : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_gender']; ?></p>
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Age : </p>
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1"><?php echo $age; ?></p>
+                </div>
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Marital Status : </p>
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1"><?php echo $member_info[0]['marital_status_name']; ?></p>
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">City : </p>
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
+                </div>
+                <div class="col-12">
+                    <hr class="hr-web">
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Area : </p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Age : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1"><?php echo $age; ?></p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">On Behalf : </p>
+                </div>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1"><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></p>
                 </div>
               </div>
             </div>
@@ -155,93 +177,90 @@
 
             <div class="third">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 py-1">
                   <h5 class="mb-3">Basic Information : </h5>
                 </div>
-                <div class="col-md-6 text-right">
+                <div class="col-md-6 text-right py-1">
                   <h5>
                     <a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".basic_info_modal"> <i class="fa fa-edit"></i> </a>
                   </h5>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6 col-6">
-                  <p class="mb-1">  Address : </p>
-                </div>
-                <div class="col-md-6 col-6">
-                 <p class="mb-1"><?php echo $member_info[0]['member_address']; ?> </p>
+                <div class="col-md-12 col-12 py-1">
+                  <p class="mb-1"> <span class=" text-bold"> Address :</span> <?php echo $member_info[0]['member_address']; ?> </p>
                 </div>
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
 
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Area : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Area : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">City : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">City : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
                 </div>
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Tahasil : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Tahasil : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['tahasil_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">District : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">District : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['district_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">State : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">State : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['state_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Country : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Country : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['country_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Blood Group : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Blood Group : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['blood_group_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Body type : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Body type : </p>
                 </div>
                 <div class="col-md-3 col-6">
                   <p class="mb-1"><?php echo $member_info[0]['body_type_name']; ?></p>
@@ -250,143 +269,143 @@
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Religion : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Religion : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['religion_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Cast : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Cast : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['cast_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Sub Cast  : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Sub Cast  : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['sub_cast_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Complexion : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Complexion : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['complexion_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Diet  : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Diet  : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['diet_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Education : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Education : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['education_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Family Status  : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Family Status  : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['family_status_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Family Type : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Family Type : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['family_type_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Family Value  : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Family Value  : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['family_value_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Gothram : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Gothram : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['gothram_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Height : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Height : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['height_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Income : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Income : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['min_income'].'-'.$member_info[0]['max_income']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Moonsign : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Moonsign : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['moonsign_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Occupation : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Occupation : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['occupation_name']; ?></p>
                 </div>
 
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
-                <div class="col-md-3 col-6">
-                  <p class="mb-1">Resident Status  : </p>
+                <div class="col-md-3 col-6 py-1">
+                  <p class="mb-1 text-bold">Resident Status  : </p>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['resident_status_name']; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">

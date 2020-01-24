@@ -116,7 +116,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <h5 class="mb-3">Basic Information : </h5>
-                      </div>                    
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 col-6">

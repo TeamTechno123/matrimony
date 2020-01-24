@@ -141,6 +141,18 @@ class Member extends CI_Controller{
     $data['occupation_id'] = $member_info2[0]['occupation_id'];
     $data['resident_status_id'] = $member_info2[0]['resident_status_id'];
 
+    $get_sent_interest = $this->Member_Model->get_interest($mat_member_id,'','interest_id');
+    $sent_interest_cnt = 0;
+    foreach ($get_sent_interest as $get_sent_interest) {
+      $sent_interest_cnt++;
+    }
+    $get_received_interest = $this->Member_Model->get_interest('',$mat_member_id,'interest_id');
+    $rec_interect_cnt = 0;
+    foreach ($get_received_interest as $get_received_interest) {
+      $rec_interect_cnt++;
+    }
+    $data['sent_interest_cnt'] = $sent_interest_cnt;
+    $data['rec_interect_cnt'] = $rec_interect_cnt;
 
 	  $this->load->view('Website/profile',$data);
 	}
@@ -296,6 +308,18 @@ class Member extends CI_Controller{
     } else{
       echo 'error';
     }
+  }
+
+  /************************************** Interest List *****************************/
+  public function sent_interest_list(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $sent_interest_list = $this->Member_Model->get_interest($mat_member_id,'','*');
+    
+
+    $this->load->view('Website/sent_interest_list');
   }
 
 }
