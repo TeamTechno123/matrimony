@@ -30,6 +30,7 @@ body{
   text-align: center;
   color: #fff;
 }
+
 .heading{
       background-color: #e2e6f1;
 }
@@ -266,8 +267,9 @@ height: 50%;
 }
 
 .contact{
-  padding-top: 30px;
-  padding-bottom: 30px;
+    background-color: #e2e6f1;
+  padding-top: 10px;
+  padding-bottom: 15px;
 }
 
 .policy{
@@ -477,6 +479,8 @@ text-align: center;
   display: inline;
   list-style-type:none;
 }
+
+
 
 @media only screen and (max-width: 418px) {
 
