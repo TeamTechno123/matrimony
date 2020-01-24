@@ -384,7 +384,7 @@
                     <hr class="hr-web">
                 </div>
                 <div class="col-md-3 col-6">
-                  <p class="mb-1">Resident Status  : </p>
+                  <p class="mb-1 text-block">Resident Status  : </p>
                 </div>
                 <div class="col-md-3 col-6">
                   <p class="mb-1"><?php echo $member_info[0]['resident_status_name']; ?></p>
