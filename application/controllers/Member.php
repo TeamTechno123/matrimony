@@ -141,6 +141,18 @@ class Member extends CI_Controller{
     $data['occupation_id'] = $member_info2[0]['occupation_id'];
     $data['resident_status_id'] = $member_info2[0]['resident_status_id'];
 
+    $get_sent_interest = $this->Member_Model->get_interest($mat_member_id,'','interest_id');
+    $sent_interest_cnt = 0;
+    foreach ($get_sent_interest as $get_sent_interest) {
+      $sent_interest_cnt++;
+    }
+    $get_received_interest = $this->Member_Model->get_interest('',$mat_member_id,'interest_id');
+    $rec_interect_cnt = 0;
+    foreach ($get_received_interest as $get_received_interest) {
+      $rec_interect_cnt++;
+    }
+    $data['sent_interest_cnt'] = $sent_interest_cnt;
+    $data['rec_interect_cnt'] = $rec_interect_cnt;
 
 	  $this->load->view('Website/profile',$data);
 	}
@@ -233,11 +245,18 @@ class Member extends CI_Controller{
       header('location:'.base_url().'Member/active_members');
     }
 
-    $get_interest = $this->Member_Model->get_user_interest($mat_member_id,$member_id);
+    $get_interest = $this->Member_Model->get_interest($mat_member_id,$member_id,'*');
     if($get_interest){
       $data['interest_sent'] = 'sent';
       $data['interest_status'] = $get_interest[0]['interest_status'];
     }
+
+    $get_shortlist = $this->Member_Model->get_shortlist($mat_member_id,$member_id,'*');
+    if($get_shortlist){
+      $data['shortlist_sent'] = 'sent';
+    }
+
+    // print_r($data['shortlist_sent']);
 
     $data['member_info'] = $member_info;
     $today = date('d-m-Y');
@@ -260,6 +279,50 @@ class Member extends CI_Controller{
     } else{
       echo 'error';
     }
+  }
+
+  public function add_shortlist(){
+    $data['from_member_id'] = $this->input->post('from_member_id');
+    $data['to_member_id'] = $this->input->post('to_member_id');
+    $data['shortlist_date'] = date('d-m-Y');
+    $data['shortlist_time'] = date('h:m:s A');
+
+    $shortlist_id = $this->User_Model->save_data('shortlist', $data);
+    if($shortlist_id){
+      echo 'success';
+    } else{
+      echo 'error';
+    }
+  }
+
+  public function add_message(){
+    $data['from_member_id'] = $this->input->post('from_member_id');
+    $data['to_member_id'] = $this->input->post('to_member_id');
+    $data['message_text'] = $this->input->post('message_text');
+    $data['message_date'] = date('d-m-Y');
+    $data['message_time'] = date('h:m:s A');
+
+    $message_id = $this->User_Model->save_data('message', $data);
+    if($message_id){
+      echo 'success';
+    } else{
+      echo 'error';
+    }
+  }
+
+  /************************************** Interest List *****************************/
+  public function sent_interest_list(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $data['interest_list'] = $this->Member_Model->get_interest_member_list($mat_member_id,'');
+
+
+
+
+
+    $this->load->view('Website/sent_interest_list',$data);
   }
 
 }

@@ -472,7 +472,16 @@ text-align: center;
 }
 
 .act_btn{
-  width:140px !important;
+  width:150px !important;
+}
+
+
+.profile-page p{
+  font-size: 14px !important;
+}
+
+.f-18{
+  font-size: 18px !important;
 }
 
 .inline{
@@ -481,11 +490,7 @@ text-align: center;
 }
 
 
-
 @media only screen and (max-width: 418px) {
-
-
-
   .logo-img{
     margin-top: 20px;
     width: 100%;
