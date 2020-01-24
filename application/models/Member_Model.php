@@ -92,5 +92,26 @@ class Member_Model extends CI_Model{
     // return $q;
     return $result;
   }
+
+  // Used In 1. Member/active_full_profile,
+  public function get_user_interest($from_member_id,$to_member_id){
+    $this->db->select('*');
+    $this->db->from('interest');
+    if($from_member_id != ''){
+      $this->db->where('from_member_id',$from_member_id);
+    }
+    if($to_member_id != ''){
+      $this->db->where('to_member_id',$to_member_id);
+    }
+
+    $query = $this->db->get();
+    if($from_member_id != '' && $to_member_id != ''){
+      $result = $query->result_array();
+    } else{
+      $result = $query->result();
+    }
+
+    return $result;
+  }
 }
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2020 at 12:42 PM
+-- Generation Time: Jan 24, 2020 at 07:56 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -522,6 +522,31 @@ INSERT INTO `income` (`income_id`, `company_id`, `user_id`, `min_income`, `max_i
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `interest`
+--
+
+CREATE TABLE `interest` (
+  `interest_id` bigint(20) NOT NULL,
+  `from_member_id` int(11) NOT NULL,
+  `to_member_id` int(11) NOT NULL,
+  `interest_status` int(11) DEFAULT 0,
+  `interest_date` varchar(20) NOT NULL,
+  `interest_time` varchar(20) NOT NULL,
+  `interest_date2` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `interest`
+--
+
+INSERT INTO `interest` (`interest_id`, `from_member_id`, `to_member_id`, `interest_status`, `interest_date`, `interest_time`, `interest_date2`) VALUES
+(1, 6, 4, 0, '24-01-2020', '05:01:00 AM', '2020-01-24 05:19:00'),
+(2, 6, 4, 0, '24-01-2020', '05:01:02 AM', '2020-01-24 05:23:02'),
+(3, 6, 4, 0, '24-01-2020', '05:01:21 AM', '2020-01-24 05:26:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `language`
 --
 
@@ -616,7 +641,7 @@ CREATE TABLE `member` (
 INSERT INTO `member` (`member_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `language_id`, `religion_id`, `member_email`, `member_mobile`, `member_password`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `resident_status_id`) VALUES
 (2, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', 3, 3, 'abc@gmail.com', '9876543211', '123456', 0, '0', 3, NULL, 'active', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', 3, 3, 'abc@gmail.com', '9876543212', '123456', 0, '0', 3, NULL, 'active', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 3, 'demo', 'ttt', 3, 5, 4, 2, 8, 'ooo', 'Male', '01-02-1990', 3, 3, 'ddd@mmm.com', '9988556633', '123456', 1, '1', 3, NULL, 'active', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 3, 'demo', 'ttt', 3, 5, 4, 2, 8, 'ooo', 'Female', '01-02-1990', 3, 3, 'ddd@mmm.com', '9988556633', '123456', 1, '1', 3, NULL, 'active', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', 3, 3, 'aaaa@gmail.com', '9955447788', '123', NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
 (6, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', 2, 3, 'demo@qqq.com', '9966332255', '123', NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -798,6 +823,20 @@ INSERT INTO `role` (`role_id`, `role_name`, `date`) VALUES
 (3, 'Telecaller', '2020-01-15 09:28:50'),
 (4, 'Dealer', '2020-01-15 09:28:50'),
 (5, 'Sub Dealer', '2020-01-15 09:28:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shortlist`
+--
+
+CREATE TABLE `shortlist` (
+  `shortlist_id` bigint(20) NOT NULL,
+  `from_member_id` int(11) NOT NULL,
+  `to_member_id` int(11) NOT NULL,
+  `shortlist_date` varchar(20) NOT NULL,
+  `shortlist_date2` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1062,6 +1101,12 @@ ALTER TABLE `income`
   ADD PRIMARY KEY (`income_id`);
 
 --
+-- Indexes for table `interest`
+--
+ALTER TABLE `interest`
+  ADD PRIMARY KEY (`interest_id`);
+
+--
 -- Indexes for table `language`
 --
 ALTER TABLE `language`
@@ -1126,6 +1171,12 @@ ALTER TABLE `resident_status`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indexes for table `shortlist`
+--
+ALTER TABLE `shortlist`
+  ADD PRIMARY KEY (`shortlist_id`);
 
 --
 -- Indexes for table `staff`
@@ -1288,6 +1339,12 @@ ALTER TABLE `income`
   MODIFY `income_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `interest`
+--
+ALTER TABLE `interest`
+  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `language`
 --
 ALTER TABLE `language`
@@ -1352,6 +1409,12 @@ ALTER TABLE `resident_status`
 --
 ALTER TABLE `role`
   MODIFY `role_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `shortlist`
+--
+ALTER TABLE `shortlist`
+  MODIFY `shortlist_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `staff`

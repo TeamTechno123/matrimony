@@ -29,6 +29,9 @@
           <div class="col-md-9">
           <?php if($active_members_list){
             foreach ($active_members_list as $list) {
+              $today = date('d-m-Y');
+              $birthdate = $list->member_birth_date;
+              $age =  date_diff(date_create($birthdate), date_create($today))->y;
           ?>
 
 
@@ -44,39 +47,39 @@
                         <table class="table  active-table">
                           <tbody>
                             <tr>
-                               <th scope="row"  class="text-danger text-center font-16" colspan="2">Rahul Nikam</th>
+                               <th scope="row"  class="text-danger text-center font-16" colspan="2"><?php echo $list->member_name; ?></th>
                                <th>Member ID</th>
-                                <td class="text-danger">	3161CC63124</td>
+                                <td class="text-danger"><?php echo $list->member_id; ?></td>
                             </tr>
                             <tr>
                               <th >Age</th>
-                              <td>34</td>
-                              <th> Height</th>
-                              <td>7.00 Feet</td>
-                            </tr>
-                            <tr>
-                              <th >Religion</th>
-                              <td>Hindu</td>
-                            <th> Caste / Sect</th>
-                              <td>Maratha</td>
-                            </tr>
-                            <tr>
-                              <th>Mother Tongue</th>
-                              <td>Marathi</td>
+                              <td><?php echo $age; ?></td>
                               <th>Marital Status</th>
-                              <td>Unmarride</td>
+                              <td><?php echo $list->marital_status; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Religion</th>
+                              <td><?php echo $list->religion_name; ?></td>
+                              <th>Caste</th>
+                              <td><?php echo $list->cast_name; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Occupation</th>
+                              <td><?php echo $list->occupation_name; ?></td>
+                              <th>Education</th>
+                              <td><?php echo $list->education_name; ?></td>
                             </tr>
                             <tr>
                               <td colspan="4 ">
                                 <ul  class="inline" style="display: inline; list-style-type:none;">
                                 <li class="pt-2">
-                                  <button style="width:120px;" class="btn btn-success btn-sm" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</button>
+                                  <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
                                 </li>
                                 <li>
-                                  <button style="width:120px;" class="btn btn-success btn-sm" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
+                                  <button class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
                                 </li>
                                 <li>
-                                  <button style="width:120px;" class="btn btn-success btn-sm" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Send Massege</button>
+                                  <button class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-envelope" aria-hidden="true"></i> Send Message</button>
                                 </li>
                               </ul>
                             </td>
@@ -88,7 +91,7 @@
                   </tbody>
                 </table>
               </div>
-            </div>  
+            </div>
 
 
           <?php  }

@@ -228,14 +228,38 @@ class Member extends CI_Controller{
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
 
-    $data['member_info'] = $this->Member_Model->get_member_info($member_id);
+    $member_info = $this->Member_Model->get_member_info($member_id);
+    if(!$member_info){
+      header('location:'.base_url().'Member/active_members');
+    }
 
+    $get_interest = $this->Member_Model->get_user_interest($mat_member_id,$member_id);
+    if($get_interest){
+      $data['interest_sent'] = 'sent';
+      $data['interest_status'] = $get_interest[0]['interest_status'];
+    }
+
+    $data['member_info'] = $member_info;
     $today = date('d-m-Y');
     $birthdate = $data['member_info'][0]['member_birth_date'];
     $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $data['age'] = $age;
-    
+
     $this->load->view('Website/active_full_profile',$data);
+  }
+
+  public function add_interest(){
+    $data['from_member_id'] = $this->input->post('from_member_id');
+    $data['to_member_id'] = $this->input->post('to_member_id');
+    $data['interest_date'] = date('d-m-Y');
+    $data['interest_time'] = date('h:m:s A');
+
+    $interest_id = $this->User_Model->save_data('interest', $data);
+    if($interest_id){
+      echo 'success';
+    } else{
+      echo 'error';
+    }
   }
 
 }

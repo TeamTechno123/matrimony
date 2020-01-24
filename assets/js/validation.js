@@ -79,7 +79,6 @@ $(".text").keypress(function(event){
 // Only Number allowed in input.
 $(".only_number").keypress(function(event){
   var inputValue = event.which;
-  alert(inputValue);
   // allow letters and whitespaces only.
   if(!(inputValue >= 48 && inputValue <= 57) && (inputValue != 0)) {
       event.preventDefault();
