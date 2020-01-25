@@ -187,11 +187,60 @@ class Member_Model extends CI_Model{
     // return $q;
   }
 
-  public function accept_interest($from_member_id,$to_member_id){
+  public function accept_interest($from_member_id,$to_member_id,$interest){
     $this->db->where('from_member_id',$from_member_id);
     $this->db->where('to_member_id',$to_member_id);
-    $this->db->set('interest_status','1');
+    $this->db->set('interest_status',$interest);
     $this->db->update('interest');
+  }
+
+  public function masseges_member_list($member_id){
+    $this->db->select('message.to_member_id,member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,moonsign.*,occupation.*,resident_status.*');
+    $this->db->from('message');
+    // $this->db->where('from_member_id = '.$member_id.' OR to_member_id = '.$member_id);
+    $this->db->where('message.from_member_id',$member_id);
+    $this->db->group_by('message.to_member_id');
+
+    $this->db->join('member','message.to_member_id = member.member_id','LEFT');
+    $this->db->join('country','country.country_id = member.country_id','LEFT');
+    $this->db->join('state','state.state_id = member.state_id','LEFT');
+    $this->db->join('district','district.district_id = member.district_id','LEFT');
+    $this->db->join('tahasil','tahasil.tahasil_id = member.tahasil_id','LEFT');
+    $this->db->join('city','city.city_id = member.city_id','LEFT');
+    $this->db->join('language','language.language_id = member.language_id','LEFT');
+    $this->db->join('religion','religion.religion_id = member.religion_id','LEFT');
+    $this->db->join('onbehalf','onbehalf.onbehalf_id = member.onbehalf_id','LEFT');
+    $this->db->join('cast','cast.cast_id = member.cast_id','LEFT');
+    $this->db->join('marital_status','marital_status.marital_status_id = member.marital_status','LEFT');
+
+    $this->db->join('sub_cast','sub_cast.sub_cast_id = member.sub_cast_id','LEFT');
+    $this->db->join('blood_group','blood_group.blood_group_id = member.blood_group_id','LEFT');
+    $this->db->join('body_type','body_type.body_type_id = member.body_type_id','LEFT');
+    $this->db->join('complexion','complexion.complexion_id = member.complexion_id','LEFT');
+    $this->db->join('diet','diet.diet_id = member.diet_id','LEFT');
+    $this->db->join('education','education.education_id = member.education_id','LEFT');
+    $this->db->join('family_status','family_status.family_status_id = member.family_status_id','LEFT');
+    $this->db->join('family_type','family_type.family_type_id = member.family_type_id','LEFT');
+    $this->db->join('family_value','family_value.family_value_id = member.family_value_id','LEFT');
+    $this->db->join('gothram','gothram.gothram_id = member.gothram_id','LEFT');
+    $this->db->join('height','height.height_id = member.height_id','LEFT');
+    $this->db->join('income','income.income_id = member.income_id','LEFT');
+    $this->db->join('moonsign','moonsign.moonsign_id = member.moonsign_id','LEFT');
+    $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
+    $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
+
+    $query = $this->db->get();
+    $result = $query->result();
+    // $q = $this->db->last_query();
+    return $result;
+    // return $q;
+  }
+
+  public function masseges_list($from_member_id,$to_member_id){
+    $sql = "select * from message where (from_member_id = ".$from_member_id." AND to_member_id = ".$to_member_id.") OR (from_member_id = ".$to_member_id." AND to_member_id = ".$from_member_id.")";
+    $query = $this->db->query($sql);
+    $result = $query->result();
+    return $result;
   }
 }
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2020 at 07:56 AM
+-- Generation Time: Jan 25, 2020 at 05:41 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -540,9 +540,8 @@ CREATE TABLE `interest` (
 --
 
 INSERT INTO `interest` (`interest_id`, `from_member_id`, `to_member_id`, `interest_status`, `interest_date`, `interest_time`, `interest_date2`) VALUES
-(1, 6, 4, 0, '24-01-2020', '05:01:00 AM', '2020-01-24 05:19:00'),
-(2, 6, 4, 0, '24-01-2020', '05:01:02 AM', '2020-01-24 05:23:02'),
-(3, 6, 4, 0, '24-01-2020', '05:01:21 AM', '2020-01-24 05:26:21');
+(1, 5, 4, 0, '24-01-2020', '09:01:14 AM', '2020-01-24 12:31:28'),
+(2, 4, 5, 1, '24-01-2020', '11:01:47 AM', '2020-01-24 12:40:52');
 
 -- --------------------------------------------------------
 
@@ -644,6 +643,30 @@ INSERT INTO `member` (`member_id`, `company_id`, `member_name`, `member_address`
 (4, 3, 'demo', 'ttt', 3, 5, 4, 2, 8, 'ooo', 'Female', '01-02-1990', 3, 3, 'ddd@mmm.com', '9988556633', '123456', 1, '1', 3, NULL, 'active', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', 3, 3, 'aaaa@gmail.com', '9955447788', '123', NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
 (6, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', 2, 3, 'demo@qqq.com', '9966332255', '123', NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
+
+CREATE TABLE `message` (
+  `message_id` bigint(20) NOT NULL,
+  `from_member_id` int(11) NOT NULL,
+  `to_member_id` int(11) NOT NULL,
+  `message_text` text NOT NULL,
+  `message_date` varchar(20) NOT NULL,
+  `message_time` varchar(20) NOT NULL,
+  `message_date2` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`message_id`, `from_member_id`, `to_member_id`, `message_text`, `message_date`, `message_time`, `message_date2`) VALUES
+(1, 5, 4, 'Hello', '24-01-2020', '10:01:28 AM', '2020-01-24 10:02:28'),
+(2, 4, 5, 'hhhjjj', '24-01-2020', '11:01:03 AM', '2020-01-24 12:52:35');
 
 -- --------------------------------------------------------
 
@@ -835,8 +858,16 @@ CREATE TABLE `shortlist` (
   `from_member_id` int(11) NOT NULL,
   `to_member_id` int(11) NOT NULL,
   `shortlist_date` varchar(20) NOT NULL,
+  `shortlist_time` varchar(20) NOT NULL,
   `shortlist_date2` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `shortlist`
+--
+
+INSERT INTO `shortlist` (`shortlist_id`, `from_member_id`, `to_member_id`, `shortlist_date`, `shortlist_time`, `shortlist_date2`) VALUES
+(1, 5, 4, '24-01-2020', '07:01:42 AM', '2020-01-24 07:19:42');
 
 -- --------------------------------------------------------
 
@@ -1125,6 +1156,12 @@ ALTER TABLE `member`
   ADD PRIMARY KEY (`member_id`);
 
 --
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`message_id`);
+
+--
 -- Indexes for table `moonsign`
 --
 ALTER TABLE `moonsign`
@@ -1342,7 +1379,7 @@ ALTER TABLE `income`
 -- AUTO_INCREMENT for table `interest`
 --
 ALTER TABLE `interest`
-  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -1361,6 +1398,12 @@ ALTER TABLE `marital_status`
 --
 ALTER TABLE `member`
   MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `moonsign`
@@ -1414,7 +1457,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `shortlist`
 --
 ALTER TABLE `shortlist`
-  MODIFY `shortlist_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `shortlist_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff`

@@ -10,6 +10,7 @@
         </div>
       </div>
     </section>
+
     <section class="profile-page">
       <div class="container-fluid">
         <div class="row">
@@ -204,16 +205,179 @@
           </div>
         </div>
       </div>
+
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Advance Search</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-4">
+              <form class="" action="<?php echo base_url(); ?>Member/update_profile_basic/<?php echo $member_id; ?>" method="post" autocomplete="off">
+                <div class="row">
+                  <div class="form-group col-md-2">
+                    Looking For :
+                  </div>
+                  <div class="form-group col-md-4">
+                    <select class="form-control select2 form-control-sm" name="min_age" id="min_age2" style="width:100% !important;">
+                      <option selected="selected" > Bride </option>
+                      <option>Groom</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    Age From :
+                  </div>
+                  <div class="form-group col-md-2">
+                    <select class="form-control select2 form-control-sm" name="min_age" id="min_age2" style="width:100% !important;">
+                      <option selected="selected" value="" > Min </option>
+                      <option>ghdfgh</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <select class="form-control select2 form-control-sm w-100" name="max_age" id="max_age2" style="width:100% !important;">
+                      <option selected="selected" value="" > Max </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    Height :
+                  </div>
+                  <div class="form-group col-md-2">
+                    <select class="form-control select2 form-control-sm" name="min_height" id="min_height" style="width:100% !important;">
+                      <option selected="selected" value="" > Min </option>
+                      <option>ghdfgh</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <select class="form-control select2 form-control-sm w-100" name="max_height" id="max_height" style="width:100% !important;">
+                      <option selected="selected" value="" > Max </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="occupation" id="occupation" style="width:100% !important;">
+                      <option selected="selected" value="" > Occupation </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="marital_status" id="marital_status" style="width:100% !important;">
+                      <option selected="selected" value="" > Marital Status </option>
+                    </select>
+                  </div>
+
+
+
+
+                </div>
+                <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="Submit" class="btn btn-primary">Update</button>
+                </div> -->
+              </form>
+
+                <!-- <h4 class="text-center">Advance Search</h4>
+                <hr>
+
+
+                <div class="row pt-2">
+                <label class="">MEMBER ID: </label>
+                  <input type="text" class="form-control" placeholder="Member Id">
+                </div>
+                <div class="row pt-2">
+                    <label class=""   >MARITAL STATUS : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""   >RELIGION : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""   >CASTE / SECT : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""  >SUB CASTE : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""  >MOTHER TONGUE : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""  >PROFESSION : </label>
+                    <input type="text" class="form-control" placeholder="Profession">
+                </div>
+                <div class="row pt-2">
+                    <label class=""  >COUNTRY : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""  >STATE : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+                <div class="row pt-2">
+                    <label class=""  >CITY : </label>
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+
+                <div class=" pt-3">
+                  <p>MEMBER TYPE </p>
+                  <input type="radio" name="member_type" value="all"> All Members<br>
+                  <input type="radio" name="member_type" value="female"> Premium Members<br>
+                  <input type="radio" name="member_type" value="other"> Free Members<br>
+                </div>
+                <div class="row pt-3">
+                  <button type="button" class="btn btn-search  btn-danger w-100">Search</button>
+                </div> -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="btn_msg_send" data-dismiss="modal" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <script src="<?php echo base_url(); ?>assets/plugins/select2/js/select2.full.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="<?php echo base_url(); ?>assets/plugins/moment/moment.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
     <script type="text/javascript">
-
     // Send Interest...
     $('.btn_exp_interest').on('click',function(){
       var from_member_id = <?php echo $mat_member_id; ?>;

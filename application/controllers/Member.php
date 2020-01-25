@@ -337,8 +337,32 @@ class Member extends CI_Controller{
   public function accept_interest(){
     $from_member_id = $this->input->post('from_member_id');
     $to_member_id = $this->input->post('to_member_id');
+    $interest = $this->input->post('interest');
 
-    $this->Member_Model->accept_interest($from_member_id,$to_member_id);
+    $this->Member_Model->accept_interest($from_member_id,$to_member_id,$interest);
+  }
+
+  public function messages_list(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $data['messages_member_list'] = $this->Member_Model->masseges_member_list($mat_member_id);
+    $this->load->view('Website/messages_list',$data);
+  }
+
+  public function messages($to_member_id){
+
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    // $to_member_id = $this->input->post('to_member_id');
+    $data['to_member_id'] = $to_member_id;
+    $data['masseges_list'] = $this->Member_Model->masseges_list($mat_member_id,$to_member_id);
+    if(!$data['masseges_list']){ header('location:'.base_url().'Member/messages_list'); }
+
+    $this->load->view('Website/messages',$data);
   }
 
 }
