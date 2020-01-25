@@ -34,7 +34,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="user_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url(); ?>User/members_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-md-3 col-6">
