@@ -77,7 +77,7 @@ body{
 .company-img{
   width: 100%;
   height: 400px;
-  padding-right: 40px;
+  padding: 0px 40px 40px 40px;
 }
 
 .login-section {
@@ -86,9 +86,18 @@ body{
   background-color: #DFE3EE;
 }
 
+.drop-width{
+  width: 100%;
+  overflow-x: hidden;
+  opacity: 1;
+}
+
+.italic {
+  font-style: italic;
+}
 .login-section h2{
 font-size: 32px;
-font-style: italic;
+
 padding-top: 10px;
 padding-bottom: 10px;
 text-align: center;
@@ -96,7 +105,7 @@ font-weight: bold;
 }
 
 .input-login{
-  padding: 20px 10px 30px 40px;
+  padding: 0px 10px 30px 40px;
 }
 
 footer{
@@ -216,10 +225,10 @@ height: 50%;
 }
 
 .tab-div{
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   padding:8px 15px 8px 15px;
   box-shadow: 2px 2px 3px 3px #ccc;
-  background-color: #e9ebee;
+  background-color: #eff2f5;
 }
 
 .active-table{
@@ -239,7 +248,7 @@ height: 50%;
 }
 
 .tab-div:hover{
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   padding:8px 15px 8px 15px;
   box-shadow: 2px 2px 5px 5px #ccc;
 }
@@ -307,8 +316,8 @@ text-align: center;
   font-size: 14px;
 }
 .active-mem-img{
-  width: 145px!important;
-  height: 140px!important;
+  width: 152px!important;
+  height: 165px!important;
   margin-left: 30px;
 }
 
@@ -328,7 +337,8 @@ text-align: center;
 }
 
 .adv{
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .profile-table-left p{
@@ -336,6 +346,15 @@ text-align: center;
     margin-bottom: 5px;
     font-size: 14px;
   }
+.no-left-right-padding{
+  padding-left: 0px!important;
+  padding-right: 0px!important;
+}
+
+.no-left-padding{
+  padding-left: 0px!important;
+}
+
 
   .card-red{
     /* background-color: #e91e63; */
@@ -477,7 +496,7 @@ text-align: center;
 
 
 .profile-page p{
-  font-size: 14px !important;
+  font-size: 15px !important;
 }
 
 .f-18{
@@ -487,6 +506,7 @@ text-align: center;
 .inline{
   display: inline;
   list-style-type:none;
+
 }
 
 

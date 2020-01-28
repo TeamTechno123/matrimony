@@ -71,10 +71,10 @@
             <?php if($mat_member_id != null && $member_is_login != null ){ ?>
               <a class="nav-item nav-link" href="" data-toggle="modal" data-target="#searchModal"> <i class="fa fa-search"></i> </a>
             <?php } ?>
-            <a class="nav-item nav-link active" href="<?php echo base_url(); ?>Website">Home <span class="sr-only">(current)</span></a>
+            <!-- <a class="nav-item nav-link active" href="<?php echo base_url(); ?>Website">Home <span class="sr-only">(current)</span></a> -->
 
             <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/active_members">Active Members</a>
-            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/profile">Profile</a>
+            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/profile">My Profile</a>
             <a class="nav-item nav-link" href="<?php echo base_url(); ?>Website/contact">Contact Us</a>
             <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/logout">Logout</a>
           </div>

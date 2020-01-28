@@ -15,10 +15,10 @@
   <div class="container-fluid">
     <div class="row">
         <div class="col-md-3  d-none d-sm-block">
-          <div class="adv">
+          <div class="adv mb-4">
             <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
           </div>
-          <div class="adv">
+          <div class="adv mb-4">
             <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
           </div>
           <div class="adv">

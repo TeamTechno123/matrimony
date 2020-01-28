@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1 class="text-center">User Profile</h1>
+        <h1 class="text-center">My Profile</h1>
       </div>
     </div>
   </div>
@@ -38,11 +38,11 @@
           </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9 no-left-padding">
           <div class="profile-div">
             <div class="profile-div-left">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 ">
                   <div class="card card-red" style="width: 100%;">
                     <div class="card-body">
                       <div class="img w-100 text-center">
@@ -807,7 +807,7 @@
   </div>
 
 
-<?php include("footer.php"); ?>
+<?php include("script.php"); ?>
 
 <script type="text/javascript">
 $('.owl-carousel').owlCarousel({
