@@ -48,15 +48,24 @@
                       <div class="img w-100 text-center">
                         <div class="row owl-main">
                           <div class="owl-carousel owl-theme">
+                            <?php if($member_img == ''){ ?>
+                              <img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" width="100" alt="">
+                            <?php } else{?>
                             <div class="item">
-                              <a target="_blank" href="<?php echo base_url(); ?>assets/images/profile-girl.jpg">
-                                <img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt="">
+                              <a target="_blank" href="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>">
+                                <img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" width="100" alt="">
                               </a>
                             </div>
-                            <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
-                            <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
-                            <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
-                            <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
+
+                          <?php } if($member_image_list){
+                              foreach ($member_image_list as $list) {
+                            ?>
+                            <div class="item">
+                              <a target="_blank" href="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>">
+                                <img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" width="100" alt="">
+                              </a>
+                            </div>
+                            <?php  }   } ?>
                           </div>
                         </div>
                       </div>
@@ -71,6 +80,12 @@
                           </div>
                           <div class="col-12 mb-1">
                             <a href="<?php echo base_url(); ?>Member/messages_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</a>
+                          </div>
+                          <div class="col-12 mb-1">
+                            <a href="<?php echo base_url(); ?>Member/profile_gallery" class="btn btn-sm btn-success w-100  pl-1" type="submit">Profile Gallery</a>
+                          </div>
+                          <div class="col-12 mb-1">
+                            <a href="<?php echo base_url(); ?>Member/add_member" class="btn btn-sm btn-success w-100  pl-1" type="submit">Add Member/Lead</a>
                           </div>
                         </div>
                       </div>
@@ -427,8 +442,6 @@
       </div>
     </div>
   </div>
-
-
   </div>
 </div>
 </section>
@@ -532,7 +545,7 @@
             <div class="form-group col-md-6">
               <input type="email" class="form-control form-control-sm " name="member_email" id="member_email" value="<?php if(isset($member_email)){ echo $member_email; } ?>" title="Enter Email" placeholder="Enter Email" required>
             </div>
-            <div class="form-group col-md-6">
+            <!-- <div class="form-group col-md-6">
               <input type="text" class="form-control form-control-sm mobile only_number" name="member_mobile" id="member_mobile" value="<?php if(isset($member_mobile)){ echo $member_mobile; } ?>" title="Enter Mobile" placeholder="Enter Mobile" required>
             </div>
             <div class="form-group col-md-6">
@@ -540,7 +553,7 @@
             </div>
             <div class="form-group col-md-6">
               <input type="password" class="form-control form-control-sm" name="" id="confirm_password" value="<?php if(isset($member_password)){ echo $member_password; } ?>" title="Confirm Password" placeholder="Confirm Password" required>
-            </div>
+            </div> -->
             <div class="form-group col-md-6 drop-sm">
               <select class="form-control select2 form-control-sm w-100" name="profile_created_id" id="profile_created_id" title="Profile Created By" data-placeholder="Profile Created By" >
                 <option selected="selected" value="" >Profile Created By</option>

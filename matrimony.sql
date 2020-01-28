@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2020 at 01:24 PM
+-- Generation Time: Jan 28, 2020 at 11:09 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -543,7 +543,8 @@ INSERT INTO `interest` (`interest_id`, `from_member_id`, `to_member_id`, `intere
 (1, 5, 4, 2, '24-01-2020', '09:01:14 AM', '2020-01-25 09:46:05'),
 (2, 4, 5, 1, '24-01-2020', '11:01:47 AM', '2020-01-24 12:40:52'),
 (7, 4, 2, 0, '25-01-2020', '10:01:06 AM', '2020-01-25 10:57:06'),
-(8, 4, 3, 0, '25-01-2020', '11:01:50 AM', '2020-01-25 11:05:50');
+(8, 4, 3, 0, '25-01-2020', '11:01:50 AM', '2020-01-25 11:05:50'),
+(9, 7, 4, 0, '28-01-2020', '08:01:01 AM', '2020-01-28 08:21:01');
 
 -- --------------------------------------------------------
 
@@ -595,6 +596,7 @@ INSERT INTO `marital_status` (`marital_status_id`, `marital_status_name`) VALUES
 
 CREATE TABLE `member` (
   `member_id` bigint(20) NOT NULL,
+  `member_user_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `member_name` varchar(250) NOT NULL,
   `member_address` text DEFAULT NULL,
@@ -606,18 +608,21 @@ CREATE TABLE `member` (
   `member_area` varchar(250) DEFAULT NULL,
   `member_gender` varchar(20) NOT NULL,
   `member_birth_date` varchar(20) NOT NULL,
+  `member_age` int(11) DEFAULT NULL,
   `language_id` bigint(20) DEFAULT NULL,
   `religion_id` bigint(20) DEFAULT NULL,
   `member_email` varchar(150) NOT NULL,
   `member_mobile` varchar(20) NOT NULL,
   `member_otp` varchar(20) DEFAULT NULL,
+  `is_otp_check` int(11) NOT NULL DEFAULT 0 COMMENT '0=Ne, 1=Yes',
   `member_password` varchar(100) NOT NULL,
   `member_img` varchar(250) DEFAULT NULL,
+  `member_img_num` int(11) NOT NULL DEFAULT 4,
   `onbehalf_id` int(11) DEFAULT NULL COMMENT 'Created By',
   `marital_status` varchar(50) DEFAULT NULL,
   `cast_id` int(11) NOT NULL,
   `mamber_date` varchar(20) DEFAULT NULL,
-  `member_status` varchar(50) NOT NULL DEFAULT 'active',
+  `member_status` varchar(50) NOT NULL DEFAULT 'deactivate',
   `member_addedby` varchar(50) NOT NULL,
   `member_date2` timestamp NOT NULL DEFAULT current_timestamp(),
   `sub_cast_id` int(11) DEFAULT NULL,
@@ -641,12 +646,36 @@ CREATE TABLE `member` (
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`member_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `language_id`, `religion_id`, `member_email`, `member_mobile`, `member_otp`, `member_password`, `member_img`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `resident_status_id`) VALUES
-(2, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', 3, 3, 'abc@gmail.com', '9876543211', NULL, '123456', NULL, 0, '0', 3, NULL, 'active', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', 3, 3, 'abc@gmail.com', '9876543212', NULL, '123456', NULL, 0, '0', 3, NULL, 'active', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 3, 'demo', 'ttt', 3, 5, 4, 2, 8, 'ooo', 'Female', '01-02-1990', 3, 3, 'ddd@mmm.com', '9988556633', NULL, '123456', NULL, 1, '1', 3, NULL, 'active', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', 3, 3, 'aaaa@gmail.com', '9955447788', NULL, '123', NULL, NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
-(6, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', 2, 3, 'demo@qqq.com', '9966332255', NULL, '123', NULL, NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `member` (`member_id`, `member_user_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `member_age`, `language_id`, `religion_id`, `member_email`, `member_mobile`, `member_otp`, `is_otp_check`, `member_password`, `member_img`, `member_img_num`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `resident_status_id`) VALUES
+(2, 0, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', NULL, 3, 3, 'abc@gmail.com', '9876543211', NULL, 0, '123456', NULL, 4, 0, '0', 3, NULL, 'active', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 0, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', NULL, 3, 3, 'abc@gmail.com', '9876543212', '555666', 1, '123456', NULL, 4, 0, '0', 3, NULL, 'active', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 0, 3, 'demo', 'ttt', 3, 5, 4, 2, 8, 'ooo', 'Female', '01-02-1990', NULL, 3, 3, 'ddd@mmm.com', '9988556633', '222333', 1, '123456', 'profile_4_1580194865.jpg', 4, 1, '1', 3, NULL, 'active', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 0, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', NULL, 3, 3, 'aaaa@gmail.com', '9955447788', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
+(6, 0, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', NULL, 2, 3, 'demo@qqq.com', '9966332255', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'active', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 18, 0, 'Demo Add Lead', 'dfgdfg', 3, 5, 4, 2, 8, 'dsfg', 'Male', '15-06-1991', NULL, 3, 3, 'fgdf@sdf.com', '9673454383', '400367', 1, '123456', NULL, 4, NULL, '1', 3, '28-01-2020', 'deactivate', '0', '2020-01-28 10:03:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `member_image`
+--
+
+CREATE TABLE `member_image` (
+  `member_image_id` bigint(20) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `member_image_name` varchar(250) NOT NULL,
+  `member_image_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `member_image`
+--
+
+INSERT INTO `member_image` (`member_image_id`, `member_id`, `member_image_name`, `member_image_date`) VALUES
+(1, 4, 'member_image_4_1580194823.jpg', '2020-01-28 07:00:23'),
+(3, 4, 'member_image_4_1580194596.jpg', '2020-01-28 06:56:36'),
+(6, 4, 'member_image_4_1580194834.jpg', '2020-01-28 07:00:34'),
+(9, 4, 'member_image_4_1580194845.jpg', '2020-01-28 07:00:45');
 
 -- --------------------------------------------------------
 
@@ -860,7 +889,8 @@ INSERT INTO `role` (`role_id`, `role_name`, `date`) VALUES
 (2, 'Office Employee', '2020-01-15 09:28:50'),
 (3, 'Telecaller', '2020-01-15 09:28:50'),
 (4, 'Dealer', '2020-01-15 09:28:50'),
-(5, 'Sub Dealer', '2020-01-15 09:28:50');
+(5, 'Sub Dealer', '2020-01-15 09:28:50'),
+(6, 'Member', '2020-01-28 04:53:14');
 
 -- --------------------------------------------------------
 
@@ -1014,7 +1044,8 @@ INSERT INTO `user` (`user_id`, `company_id`, `role_id`, `user_name`, `user_city`
 (3, 3, 1, 'Admin', 'KOLHAPUR', 'demo@mail.com', '9876543210', '123456', 'active', 'Admin', '2019-12-26 06:07:57', 1),
 (7, 3, 2, 'Emp Demo', 'kop', 'ddd@ggg.com', '9988556622', '123', 'active', '3', '2020-01-21 11:47:39', 0),
 (8, 3, 4, 'Demo Franc', '', 'demofranc@ooo.com', '9876543211', '123456', 'active', '7', '2020-01-21 11:48:41', 0),
-(9, 3, 5, 'Demo Franc Local', '', 'ggg@jjj.com', '9876543212', '123456', 'active', '8', '2020-01-21 12:17:36', 0);
+(9, 3, 5, 'Demo Franc Local', '', 'ggg@jjj.com', '9876543212', '123456', 'active', '8', '2020-01-21 12:17:36', 0),
+(18, 0, 6, 'Demo Add Lead', '', '', '9673454383', '123456', 'deactivate', '0', '2020-01-28 10:03:48', 0);
 
 --
 -- Indexes for dumped tables
@@ -1169,6 +1200,12 @@ ALTER TABLE `marital_status`
 --
 ALTER TABLE `member`
   ADD PRIMARY KEY (`member_id`);
+
+--
+-- Indexes for table `member_image`
+--
+ALTER TABLE `member_image`
+  ADD PRIMARY KEY (`member_image_id`);
 
 --
 -- Indexes for table `message`
@@ -1394,7 +1431,7 @@ ALTER TABLE `income`
 -- AUTO_INCREMENT for table `interest`
 --
 ALTER TABLE `interest`
-  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -1412,7 +1449,13 @@ ALTER TABLE `marital_status`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `member_image`
+--
+ALTER TABLE `member_image`
+  MODIFY `member_image_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -1466,7 +1509,7 @@ ALTER TABLE `resident_status`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `role_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `shortlist`
@@ -1502,7 +1545,7 @@ ALTER TABLE `tahasil`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

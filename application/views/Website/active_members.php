@@ -59,7 +59,13 @@
             <div class="tab-div">
               <div class="row">
                 <div class="col-md-3 col-12">
-                  <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100%" alt="">
+                  <?php if($list->member_img == ''){  ?>
+                    <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" width="100%" alt="">
+                  <?php } else{ ?>
+                    <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_img; ?>" width="100%" alt="">
+                  <?php } ?>
+
+
                 </div>
                 <div class="col-md-9 col-12">
                   <div class="row">
