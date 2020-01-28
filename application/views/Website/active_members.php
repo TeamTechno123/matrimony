@@ -44,16 +44,18 @@
               $age =  date_diff(date_create($birthdate), date_create($today))->y;
               $member_id = $list->member_id;
               $get_interest = $this->Member_Model->get_interest($mat_member_id,$member_id,'interest_id');
+
               if($get_interest){
-                $interest_sent = 'sent';
+              $interest_sent = 'sent';
                 // $interest_status = $get_interest[0]['interest_status'];
               }
 
-              $get_shortlist = $this->Member_Model->get_shortlist($mat_member_id,$member_id,'shortlist_id');
-              if($get_shortlist){
-                $shortlist_sent = 'sent';
-              }
+              // $get_shortlist = $this->Member_Model->get_shortlist($mat_member_id,$member_id,'shortlist_id');
+              // if($get_shortlist){
+              //   $shortlist_sent = 'sent';
+              // }
           ?>
+
             <div class="tab-div">
               <div class="row">
                 <div class="col-md-3 col-12">
@@ -144,10 +146,12 @@
                       <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
                     </li>
                     <li>
-                      <?php if($interest_sent == ''){ ?>
-                        <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
+                      <?php
+                      //echo $interest_sent;
+                       if($get_interest){ ?>
+                         <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
                       <?php } else{ ?>
-                        <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
+                     <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
                       <?php } ?>
                     </li>
                     <li>
@@ -219,9 +223,9 @@
               </button>
             </div>
             <div class="modal-body p-4">
-              <form class="" action="<?php echo base_url(); ?>Member/update_profile_basic/<?php echo $member_id; ?>" method="post" autocomplete="off">
+              <form class="" action="<?php echo base_url(); ?>Member/search_member_list" method="post" autocomplete="off">
                 <div class="row">
-                  <div class="form-group col-md-2">
+                  <!-- <div class="form-group col-md-2">
                     Looking For :
                   </div>
                   <div class="form-group col-md-4">
@@ -229,19 +233,24 @@
                       <option selected="selected" > Bride </option>
                       <option>Groom</option>
                     </select>
-                  </div>
+                  </div> -->
                   <div class="form-group col-md-2">
                     Age From :
                   </div>
                   <div class="form-group col-md-2">
                     <select class="form-control select2 form-control-sm" name="min_age" id="min_age2" style="width:100% !important;">
                       <option selected="selected" value="" > Min </option>
-                      <option>ghdfgh</option>
+                      <?php for ($i=18; $i < 100 ; $i++) { ?>
+                        <option><?php echo $i; ?></option>
+                      <?php } ?>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                     <select class="form-control select2 form-control-sm w-100" name="max_age" id="max_age2" style="width:100% !important;">
                       <option selected="selected" value="" > Max </option>
+                      <?php for ($i=18; $i < 100 ; $i++) { ?>
+                        <option><?php echo $i; ?></option>
+                      <?php } ?>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
@@ -250,110 +259,73 @@
                   <div class="form-group col-md-2">
                     <select class="form-control select2 form-control-sm" name="min_height" id="min_height" style="width:100% !important;">
                       <option selected="selected" value="" > Min </option>
-                      <option>ghdfgh</option>
+                      <?php foreach ($height_list as $list) { ?>
+                        <option value="<?php echo $list->height_id ?>" <?php if(isset($height_id) && $height_id == $list->height_id ){ echo 'selected'; } ?>><?php echo $list->height_name; ?></option>
+                      <?php  } ?>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                     <select class="form-control select2 form-control-sm w-100" name="max_height" id="max_height" style="width:100% !important;">
                       <option selected="selected" value="" > Max </option>
+                      <?php foreach ($height_list as $list) { ?>
+                        <option value="<?php echo $list->height_id ?>" <?php if(isset($height_id) && $height_id == $list->height_id ){ echo 'selected'; } ?>><?php echo $list->height_name; ?></option>
+                      <?php  } ?>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="occupation" id="occupation" style="width:100% !important;">
-                      <option selected="selected" value="" > Occupation </option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="marital_status" id="marital_status" style="width:100% !important;">
+                    <select class="form-control select2 form-control-sm w-100" name="marital_status_id" id="marital_status_id" style="width:100% !important;">
                       <option selected="selected" value="" > Marital Status </option>
+                      <?php foreach ($marital_status_list as $list) { ?>
+                        <option value="<?php echo $list->marital_status_id ?>" <?php if(isset($marital_status) && $marital_status == $list->marital_status_id ){ echo 'selected'; } ?>><?php echo $list->marital_status_name; ?></option>
+                      <?php  } ?>
                     </select>
                   </div>
-
-
-
-
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id" style="width:100% !important;">
+                      <option selected="selected" value="" > Occupation </option>
+                      <?php foreach ($occupation_list as $list) { ?>
+                        <option value="<?php echo $list->occupation_id ?>" <?php if(isset($occupation_id) && $occupation_id == $list->occupation_id ){ echo 'selected'; } ?>><?php echo $list->occupation_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6 ">
+                  <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" style="width:100% !important;">
+                    <option selected="selected" value="" >City </option>
+                    <?php foreach ($city_list as $list) { ?>
+                      <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
+                    <?php  } ?>
+                  </select>
                 </div>
-                <!-- <div class="modal-footer">
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="language_id" id="language_id" style="width:100% !important;">
+                      <option selected="selected" value="" > Mother Tongue </option>
+                      <?php foreach ($language_list as $list) { ?>
+                        <option value="<?php echo $list->language_id ?>" <?php if(isset($language_id) && $language_id == $list->language_id ){ echo 'selected'; } ?>><?php echo $list->language_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6 drop-sm">
+                    <select class="form-control select2 form-control-sm w-100" name="religion_id" id="religion_id" title="Select Religion" data-placeholder="Select Religion" style="width:100% !important;">
+                      <option selected="selected" value="" >Select Religion</option>
+                      <?php foreach ($religion_list as $list) { ?>
+                        <option value="<?php echo $list->religion_id ?>" <?php if(isset($religion_id) && $religion_id == $list->religion_id ){ echo 'selected'; } ?>><?php echo $list->religion_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6 drop-sm">
+                    <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id" title="Select Caste" data-placeholder="Select Caste" style="width:100% !important;">
+                      <option selected="selected" value="" >Select Caste</option>
+                      <?php foreach ($cast_list as $list) { ?>
+                        <option value="<?php echo $list->cast_id ?>" <?php if(isset($cast_id) && $cast_id == $list->cast_id ){ echo 'selected'; } ?>><?php echo $list->cast_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="Submit" class="btn btn-primary">Update</button>
-                </div> -->
+                  <button type="Submit" id="btn_adv_search" class="btn btn-primary">Search</button>
+                </div>
               </form>
-
-                <!-- <h4 class="text-center">Advance Search</h4>
-                <hr>
-
-
-                <div class="row pt-2">
-                <label class="">MEMBER ID: </label>
-                  <input type="text" class="form-control" placeholder="Member Id">
-                </div>
-                <div class="row pt-2">
-                    <label class=""   >MARITAL STATUS : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""   >RELIGION : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""   >CASTE / SECT : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""  >SUB CASTE : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""  >MOTHER TONGUE : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""  >PROFESSION : </label>
-                    <input type="text" class="form-control" placeholder="Profession">
-                </div>
-                <div class="row pt-2">
-                    <label class=""  >COUNTRY : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""  >STATE : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-                <div class="row pt-2">
-                    <label class=""  >CITY : </label>
-                    <select class="form-control">
-                        <option>Default select</option>
-                    </select>
-                </div>
-
-                <div class=" pt-3">
-                  <p>MEMBER TYPE </p>
-                  <input type="radio" name="member_type" value="all"> All Members<br>
-                  <input type="radio" name="member_type" value="female"> Premium Members<br>
-                  <input type="radio" name="member_type" value="other"> Free Members<br>
-                </div>
-                <div class="row pt-3">
-                  <button type="button" class="btn btn-search  btn-danger w-100">Search</button>
-                </div> -->
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" id="btn_msg_send" data-dismiss="modal" class="btn btn-primary">Send</button>
             </div>
           </div>
         </div>

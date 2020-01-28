@@ -247,8 +247,8 @@
           $(this).html('<i class="fa fa-heart" aria-hidden="true" ></i> Accepted');
           $(this).closest('li').find('.reject').attr('disabled','true');
         } else{
-          toastr.danger('Interest Rejected successfully');
-          $(this).html('<i class="fa fa-heart" aria-hidden="true" ></i> Accepted');
+          toastr.error('Interest Rejected successfully');
+          $(this).html('<i class="fa fa-heart" aria-hidden="true" ></i> Rejected');
           $(this).closest('li').find('.accept').attr('disabled','true');
         }
 

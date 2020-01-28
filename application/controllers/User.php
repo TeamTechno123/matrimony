@@ -6,6 +6,7 @@ class User extends CI_Controller{
   public function __construct(){
   parent::__construct();
   $this->load->model('User_Model');
+  $this->load->model('Member_Model');  
 }
 
   public function index(){
@@ -3584,6 +3585,8 @@ public function delete_subcast($id){
 
     $this->form_validation->set_rules('member_name','Member Name','trim|required');
     if($this->form_validation->run() != FALSE){
+      $member_otp = mt_rand(100000, 999999);
+      $today = date('d-m-Y');
       $save_data = array(
         'company_id' => $company_id,
         'member_name' => $this->input->post('member_name'),
@@ -3600,13 +3603,20 @@ public function delete_subcast($id){
         'religion_id' => $this->input->post('religion_id'),
         'member_email' => $this->input->post('member_email'),
         'member_mobile' => $this->input->post('member_mobile'),
+        'member_otp' => $member_otp,
         'member_password' => $this->input->post('member_password'),
         'onbehalf_id' => $this->input->post('onbehalf_id'),
         'marital_status' => $this->input->post('marital_status'),
         'cast_id' => $this->input->post('cast_id'),
         'member_addedby' => $user_id,
+        'mamber_date' => $today,
       );
       $this->User_Model->save_data('member', $save_data);
+      $password = $this->input->post('member_password');
+      $mobile_no = $this->input->post('member_mobile');
+      $message = 'you are registered on bharatiyshadi.com username: '.$mobile_no.' password: '.$password.' OTP:'.$member_otp ;
+      $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
+
       header('location:'.base_url().'User/members_list');
     }
     $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');

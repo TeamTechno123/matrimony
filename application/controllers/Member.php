@@ -18,6 +18,7 @@ class Member extends CI_Controller{
 
   public function save_member(){
     $today = date('d-m-Y');
+    $member_otp = mt_rand(100000, 999999);
     $save_data = array(
       'company_id' => 0,
       'member_name' => $this->input->post('member_name'),
@@ -35,6 +36,7 @@ class Member extends CI_Controller{
       'member_email' => $this->input->post('member_email'),
       'member_mobile' => $this->input->post('member_mobile'),
       'member_password' => $this->input->post('member_password'),
+      'member_otp' => $member_otp,
       'mamber_date' => $today,
       'onbehalf_id' => $this->input->post('onbehalf_id'),
       'marital_status' => $this->input->post('marital_status'),
@@ -42,6 +44,11 @@ class Member extends CI_Controller{
       'member_addedby' => 0,
     );
     $this->User_Model->save_data('member', $save_data);
+    $password = $this->input->post('member_password');
+    $mobile_no = $this->input->post('member_mobile');
+    $message = 'you are registered on bharatiyshadi.com username: '.$mobile_no.' password: '.$password.' OTP:'.$member_otp ;
+    $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
+    header('location:'.base_url().'Website');
   }
 
   public function check_login(){
@@ -226,10 +233,37 @@ class Member extends CI_Controller{
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
 
-    $franchise_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
-    $gender = $franchise_info[0]['member_gender'];
+    $member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $gender = $member_info[0]['member_gender'];
 
     $data['active_members_list'] = $this->Member_Model->active_members_list($gender,'active');
+
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+		$data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+		$data['tahasil_list'] = $this->User_Model->get_list1('tahasil_id','ASC','tahasil');
+		$data['city_list'] = $this->User_Model->get_list1('city_id','ASC','city');
+		$data['language_list'] = $this->User_Model->get_list1('language_id','ASC','language');
+		$data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
+		$data['onbehalf_list'] = $this->User_Model->get_list1('onbehalf_id','ASC','onbehalf');
+		$data['cast_list'] = $this->User_Model->get_list1('cast_id','ASC','cast');
+		$data['marital_status_list'] = $this->User_Model->get_list1('marital_status_id','ASC','marital_status');
+
+    $data['sub_cast_list'] = $this->User_Model->get_list1('sub_cast_id','ASC','sub_cast');
+    $data['blood_group_list'] = $this->User_Model->get_list1('blood_group_id','ASC','blood_group');
+    $data['body_type_list'] = $this->User_Model->get_list1('body_type_id','ASC','body_type');
+    $data['complexion_list'] = $this->User_Model->get_list1('complexion_id','ASC','complexion');
+    $data['diet_list'] = $this->User_Model->get_list1('diet_id','ASC','diet');
+    $data['education_list'] = $this->User_Model->get_list1('education_id','ASC','education');
+    $data['family_status_list'] = $this->User_Model->get_list1('family_status_id','ASC','family_status');
+    $data['family_type_list'] = $this->User_Model->get_list1('family_type_id','ASC','family_type');
+    $data['family_value_list'] = $this->User_Model->get_list1('family_value_id','ASC','family_value');
+    $data['gothram_list'] = $this->User_Model->get_list1('gothram_id','ASC','gothram');
+    $data['height_list'] = $this->User_Model->get_list1('height_id','ASC','height');
+    $data['income_list'] = $this->User_Model->get_list1('income_id','ASC','income');
+    $data['moonsign_list'] = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
+    $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
+    $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
 
     // print_r($data['active_members_list']);
     $this->load->view('Website/active_members', $data);
@@ -276,6 +310,12 @@ class Member extends CI_Controller{
 
     $interest_id = $this->User_Model->save_data('interest', $data);
     if($interest_id){
+      $to_member_info = $this->User_Model->get_info_array('member_id', $data['to_member_id'], 'member');
+      $from_member_info = $this->User_Model->get_info_array('member_id', $data['from_member_id'], 'member');
+      $mobile_no = $to_member_info[0]['member_mobile'];
+      $from_name = $from_member_info[0]['member_name'];
+      $message = ''.$from_name.' sent you interest on bharatiyshadi.com';
+      $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
       echo 'success';
     } else{
       echo 'error';
@@ -339,9 +379,19 @@ class Member extends CI_Controller{
     $to_member_id = $this->input->post('to_member_id');
     $interest = $this->input->post('interest');
 
+    $to_member_info = $this->User_Model->get_info_array('member_id', $data['to_member_id'], 'member');
+    $from_member_info = $this->User_Model->get_info_array('member_id', $data['from_member_id'], 'member');
+    $mobile_no = $to_member_info[0]['member_mobile'];
+    $from_name = $from_member_info[0]['member_name'];
+    if($interest == 1){ $int = 'accepted'; }
+    else{ $int = 'rejected'; }
+    $message = ''.$from_name.' '.$int.' your interest request on bharatiyshadi.com';
+    $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
+
     $this->Member_Model->accept_interest($from_member_id,$to_member_id,$interest);
   }
 
+/************************************* Message ***********************************/
   public function messages_list(){
     $mat_member_id = $this->session->userdata('mat_member_id');
     $member_is_login = $this->session->userdata('member_is_login');
@@ -352,7 +402,6 @@ class Member extends CI_Controller{
   }
 
   public function messages($to_member_id){
-
     $mat_member_id = $this->session->userdata('mat_member_id');
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
@@ -363,6 +412,59 @@ class Member extends CI_Controller{
     if(!$data['masseges_list']){ header('location:'.base_url().'Member/messages_list'); }
 
     $this->load->view('Website/messages',$data);
+  }
+
+/***************************************** Advance Search **********************************/
+  public function search_member_list(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $min_age = $this->input->post('min_age');
+    $max_age = $this->input->post('max_age');
+    $min_height = $this->input->post('min_height');
+    $max_height = $this->input->post('max_height');
+    $marital_status_id = $this->input->post('marital_status_id');
+    $occupation_id = $this->input->post('occupation_id');
+    $city_id = $this->input->post('city_id');
+    $language_id = $this->input->post('language_id');
+    $religion_id = $this->input->post('religion_id');
+    $cast_id = $this->input->post('cast_id');
+
+    $member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $gender = $member_info[0]['member_gender'];
+
+    $data['active_members_list'] = $this->Member_Model->search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id);
+
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+		$data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+		$data['tahasil_list'] = $this->User_Model->get_list1('tahasil_id','ASC','tahasil');
+		$data['city_list'] = $this->User_Model->get_list1('city_id','ASC','city');
+		$data['language_list'] = $this->User_Model->get_list1('language_id','ASC','language');
+		$data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
+		$data['onbehalf_list'] = $this->User_Model->get_list1('onbehalf_id','ASC','onbehalf');
+		$data['cast_list'] = $this->User_Model->get_list1('cast_id','ASC','cast');
+		$data['marital_status_list'] = $this->User_Model->get_list1('marital_status_id','ASC','marital_status');
+
+    $data['sub_cast_list'] = $this->User_Model->get_list1('sub_cast_id','ASC','sub_cast');
+    $data['blood_group_list'] = $this->User_Model->get_list1('blood_group_id','ASC','blood_group');
+    $data['body_type_list'] = $this->User_Model->get_list1('body_type_id','ASC','body_type');
+    $data['complexion_list'] = $this->User_Model->get_list1('complexion_id','ASC','complexion');
+    $data['diet_list'] = $this->User_Model->get_list1('diet_id','ASC','diet');
+    $data['education_list'] = $this->User_Model->get_list1('education_id','ASC','education');
+    $data['family_status_list'] = $this->User_Model->get_list1('family_status_id','ASC','family_status');
+    $data['family_type_list'] = $this->User_Model->get_list1('family_type_id','ASC','family_type');
+    $data['family_value_list'] = $this->User_Model->get_list1('family_value_id','ASC','family_value');
+    $data['gothram_list'] = $this->User_Model->get_list1('gothram_id','ASC','gothram');
+    $data['height_list'] = $this->User_Model->get_list1('height_id','ASC','height');
+    $data['income_list'] = $this->User_Model->get_list1('income_id','ASC','income');
+    $data['moonsign_list'] = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
+    $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
+    $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
+
+    // print_r($data['active_members_list']);
+    $this->load->view('Website/active_members', $data);
   }
 
 }
