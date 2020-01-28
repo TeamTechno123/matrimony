@@ -207,4 +207,43 @@
     });
   </script>
 
-  
+  <script type="text/javascript">
+    $("#country_id").on("change", function(){
+      var country_id =  $('#country_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>Member/get_state_by_country',
+        type: 'POST',
+        data: {"country_id":country_id},
+        context: this,
+        success: function(result){
+          $('#state_id').html(result);
+        }
+      });
+    });
+
+    $("#state_id").on("change", function(){
+      var state_id =  $('#state_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>Member/get_district_by_state',
+        type: 'POST',
+        data: {"state_id":state_id},
+        context: this,
+        success: function(result){
+          $('#district_id').html(result);
+        }
+      });
+    });
+
+    $("#district_id").on("change", function(){
+      var district_id =  $('#district_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>Member/get_tahasil_by_district',
+        type: 'POST',
+        data: {"district_id":district_id},
+        context: this,
+        success: function(result){
+          $('#tahasil_id').html(result);
+        }
+      });
+    });
+  </script>

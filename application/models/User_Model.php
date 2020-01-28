@@ -103,6 +103,15 @@ class User_Model extends CI_Model{
     return $num;
   }
 
+  public function get_list_by_id($select_fields,$field_name,$value,$table_name){
+    $this->db->select($select_fields);
+    $this->db->where($field_name,$value);
+    $this->db->from($table_name);
+    $query = $this->db->get();
+    $result = $query->result();
+    return $result;
+  }
+
 
   public function get_state_list($company_id){
   $query = $this->db->select('state.*, country.*')

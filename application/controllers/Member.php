@@ -690,6 +690,36 @@ class Member extends CI_Controller{
     // echo $send_sms;
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
     else{ header('location:'.base_url().'Member/profile'); }
-
   }
+
+  // Get state List By Country....
+  public function get_state_by_country(){
+    $country_id = $this->input->post('country_id');
+    $state_list = $this->User_Model->get_list_by_id('*','country_id',$country_id,'state');
+    echo "<option value='' selected >Select State</option>";
+    foreach ($state_list as $list) {
+      echo "<option value='".$list->state_id."'> ".$list->state_name." </option>";
+    }
+  }
+
+  // Get District List By State....
+  public function get_district_by_state(){
+    $state_id = $this->input->post('state_id');
+    $district_list = $this->User_Model->get_list_by_id('*','state_id',$state_id,'district');
+    echo "<option value='' selected >Select District</option>";
+    foreach ($district_list as $list) {
+      echo "<option value='".$list->district_id."'> ".$list->district_name." </option>";
+    }
+  }
+
+  // Get Tahsil List By District....
+  public function get_tahasil_by_district(){
+    $district_id = $this->input->post('district_id');
+    $tahasil_list = $this->User_Model->get_list_by_id('*','district_id',$district_id,'tahasil');
+    echo "<option value='' selected >Select Tahasil</option>";
+    foreach ($tahasil_list as $list) {
+      echo "<option value='".$list->tahasil_id."'> ".$list->tahasil_name." </option>";
+    }
+  }
+
 }

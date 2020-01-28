@@ -3731,13 +3731,6 @@ public function delete_members($member_id){
   header('location:'.base_url().'User/members_list');
 }
 
-// public function members_profile(){
-//   $this->load->view('Include/head');
-//   $this->load->view('Include/navbar');
-//   $this->load->view('User/members_profile');
-//   $this->load->view('Include/footer');
-// }
-
 /****************************************************************************************************/
   // Check Duplication
   public function check_duplication(){
@@ -3748,5 +3741,7 @@ public function delete_members($member_id){
     $cnt = $this->User_Model->check_dupli_num($company_id,$column_val,$column_name,$table_name);
     echo $cnt;
   }
+
+  
 }
 ?>
