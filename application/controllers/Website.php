@@ -41,6 +41,7 @@ class Website extends CI_Controller {
 
 	public function contact()
 	{
+
 	  $this->load->view('Website/contact');
 	}
 
