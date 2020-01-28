@@ -164,7 +164,7 @@
 
                   <div class="col-sm-12 text-center">
                     <button type="submit" class="btn btn-success mr-3">Save</button>
-                    <button type="button" class="btn btn-info">Cancel</button>
+                    <a href="<?php echo base_url(); ?>Member/profile" class="btn btn-info">Cancel</a>
                   </div>
               </div>
           </form>
@@ -206,3 +206,5 @@
       });
     });
   </script>
+
+  

@@ -17,20 +17,16 @@ class Member extends CI_Controller{
   }
 
 
-
-  public function save_member(){
+  public function register_member(){
     $today = date('d-m-Y');
     $member_otp = mt_rand(100000, 999999);
-
-    $mat_member_id = $this->session->userdata('mat_member_id');
-    $member_is_login = $this->session->userdata('member_is_login');
-    $mat_member_user_id = $this->session->userdata('mat_member_user_id');
-    if($mat_member_id==null && $member_is_login == null ){ $member_addedby = 0; }
-    else{ $member_addedby =  $mat_member_user_id; }
+    $member_firstname = $this->input->post('member_name');
+    $member_lastname = $this->input->post('member_lastname');
+    $member_name = $member_firstname.' '.$member_lastname;
 
     $save_user_data = array(
       'role_id' => 6,
-      'user_name' => $this->input->post('member_name'),
+      'user_name' => $member_name,
       'user_mobile' => $this->input->post('member_mobile'),
       'user_password' => $this->input->post('member_password'),
       'user_status' => 'deactivate',
@@ -41,27 +37,14 @@ class Member extends CI_Controller{
     $save_data = array(
       'company_id' => 0,
       'member_user_id' => $member_user_id,
-      'member_name' => $this->input->post('member_name'),
-      'member_address' => $this->input->post('member_address'),
-      'country_id' => $this->input->post('country_id'),
-      'state_id' => $this->input->post('state_id'),
-      'district_id' => $this->input->post('district_id'),
-      'tahasil_id' => $this->input->post('tahasil_id'),
-      'city_id' => $this->input->post('city_id'),
-      'member_area' => $this->input->post('member_area'),
+      'member_name' => $member_name,
       'member_gender' => $this->input->post('member_gender'),
       'member_birth_date' => $this->input->post('member_birth_date'),
-      'language_id' => $this->input->post('language_id'),
-      'religion_id' => $this->input->post('religion_id'),
-      'member_email' => $this->input->post('member_email'),
       'member_mobile' => $this->input->post('member_mobile'),
       'member_password' => $this->input->post('member_password'),
       'member_otp' => $member_otp,
       'mamber_date' => $today,
-      'onbehalf_id' => $this->input->post('onbehalf_id'),
-      'marital_status' => $this->input->post('marital_status'),
-      'cast_id' => $this->input->post('cast_id'),
-      'member_addedby' => $member_addedby,
+      'member_addedby' => 0,
     );
     $this->User_Model->save_data('member', $save_data);
     // Send SMS...
@@ -76,6 +59,7 @@ class Member extends CI_Controller{
     else{ header('location:'.base_url().'Member/profile'); }
 
   }
+
 
   public function check_login(){
     $mobile_no = $this->input->post('mobile_no');
@@ -647,6 +631,65 @@ class Member extends CI_Controller{
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
 
     $this->load->view('Website/add_member',$data);
+
+  }
+
+  public function save_member(){
+    $today = date('d-m-Y');
+    $member_otp = mt_rand(100000, 999999);
+
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    $mat_member_user_id = $this->session->userdata('mat_member_user_id');
+    if($mat_member_id==null && $member_is_login == null ){ $member_addedby = 0; }
+    else{ $member_addedby =  $mat_member_user_id; }
+
+    $save_user_data = array(
+      'role_id' => 6,
+      'user_name' => $this->input->post('member_name'),
+      'user_mobile' => $this->input->post('member_mobile'),
+      'user_password' => $this->input->post('member_password'),
+      'user_status' => 'deactivate',
+      'user_addedby' => 0,
+    );
+    $member_user_id = $this->User_Model->save_data('user', $save_user_data);
+
+    $save_data = array(
+      'company_id' => 0,
+      'member_user_id' => $member_user_id,
+      'member_name' => $this->input->post('member_name'),
+      'member_address' => $this->input->post('member_address'),
+      'country_id' => $this->input->post('country_id'),
+      'state_id' => $this->input->post('state_id'),
+      'district_id' => $this->input->post('district_id'),
+      'tahasil_id' => $this->input->post('tahasil_id'),
+      'city_id' => $this->input->post('city_id'),
+      'member_area' => $this->input->post('member_area'),
+      'member_gender' => $this->input->post('member_gender'),
+      'member_birth_date' => $this->input->post('member_birth_date'),
+      'language_id' => $this->input->post('language_id'),
+      'religion_id' => $this->input->post('religion_id'),
+      'member_email' => $this->input->post('member_email'),
+      'member_mobile' => $this->input->post('member_mobile'),
+      'member_password' => $this->input->post('member_password'),
+      'member_otp' => $member_otp,
+      'mamber_date' => $today,
+      'onbehalf_id' => $this->input->post('onbehalf_id'),
+      'marital_status' => $this->input->post('marital_status'),
+      'cast_id' => $this->input->post('cast_id'),
+      'member_addedby' => $member_addedby,
+    );
+    $this->User_Model->save_data('member', $save_data);
+    // Send SMS...
+    $password = $this->input->post('member_password');
+    $mobile_no = $this->input->post('member_mobile');
+    $message2 = "You are registered on bharatiyshadi.com username: ".$mobile_no." password: ".$password." OTP:".$member_otp."" ;
+    $message = urlencode($message2);
+    // $message = 'hello';
+    $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
+    // echo $send_sms;
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+    else{ header('location:'.base_url().'Member/profile'); }
 
   }
 }

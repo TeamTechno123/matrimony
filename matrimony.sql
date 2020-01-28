@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2020 at 11:09 AM
+-- Generation Time: Jan 28, 2020 at 12:30 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -544,7 +544,8 @@ INSERT INTO `interest` (`interest_id`, `from_member_id`, `to_member_id`, `intere
 (2, 4, 5, 1, '24-01-2020', '11:01:47 AM', '2020-01-24 12:40:52'),
 (7, 4, 2, 0, '25-01-2020', '10:01:06 AM', '2020-01-25 10:57:06'),
 (8, 4, 3, 0, '25-01-2020', '11:01:50 AM', '2020-01-25 11:05:50'),
-(9, 7, 4, 0, '28-01-2020', '08:01:01 AM', '2020-01-28 08:21:01');
+(9, 7, 4, 0, '28-01-2020', '08:01:01 AM', '2020-01-28 08:21:01'),
+(10, 15, 4, 0, '28-01-2020', '11:01:32 AM', '2020-01-28 11:27:32');
 
 -- --------------------------------------------------------
 
@@ -603,7 +604,7 @@ CREATE TABLE `member` (
   `country_id` int(11) DEFAULT NULL,
   `state_id` int(11) DEFAULT NULL,
   `district_id` int(11) DEFAULT NULL,
-  `tahasil_id` int(11) NOT NULL,
+  `tahasil_id` int(11) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `member_area` varchar(250) DEFAULT NULL,
   `member_gender` varchar(20) NOT NULL,
@@ -611,7 +612,7 @@ CREATE TABLE `member` (
   `member_age` int(11) DEFAULT NULL,
   `language_id` bigint(20) DEFAULT NULL,
   `religion_id` bigint(20) DEFAULT NULL,
-  `member_email` varchar(150) NOT NULL,
+  `member_email` varchar(150) DEFAULT NULL,
   `member_mobile` varchar(20) NOT NULL,
   `member_otp` varchar(20) DEFAULT NULL,
   `is_otp_check` int(11) NOT NULL DEFAULT 0 COMMENT '0=Ne, 1=Yes',
@@ -620,7 +621,7 @@ CREATE TABLE `member` (
   `member_img_num` int(11) NOT NULL DEFAULT 4,
   `onbehalf_id` int(11) DEFAULT NULL COMMENT 'Created By',
   `marital_status` varchar(50) DEFAULT NULL,
-  `cast_id` int(11) NOT NULL,
+  `cast_id` int(11) DEFAULT NULL,
   `mamber_date` varchar(20) DEFAULT NULL,
   `member_status` varchar(50) NOT NULL DEFAULT 'deactivate',
   `member_addedby` varchar(50) NOT NULL,
@@ -1431,7 +1432,7 @@ ALTER TABLE `income`
 -- AUTO_INCREMENT for table `interest`
 --
 ALTER TABLE `interest`
-  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -1449,7 +1450,7 @@ ALTER TABLE `marital_status`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `member_image`
@@ -1545,7 +1546,7 @@ ALTER TABLE `tahasil`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
