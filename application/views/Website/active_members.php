@@ -1,4 +1,5 @@
 <?php include("header.php");
+      $active_page="active_members";
       $mat_member_id = $this->session->userdata('mat_member_id'); ?>
   <body>
     <section class="heading">
@@ -379,7 +380,6 @@
                       <?php  } ?>
                     </select>
                   </div> -->
-
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
