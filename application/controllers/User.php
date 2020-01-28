@@ -6,7 +6,7 @@ class User extends CI_Controller{
   public function __construct(){
   parent::__construct();
   $this->load->model('User_Model');
-  $this->load->model('Member_Model');  
+  $this->load->model('Member_Model');
 }
 
   public function index(){
@@ -3587,8 +3587,20 @@ public function delete_subcast($id){
     if($this->form_validation->run() != FALSE){
       $member_otp = mt_rand(100000, 999999);
       $today = date('d-m-Y');
+
+      $save_user_data = array(
+        'role_id' => 6,
+        'user_name' => $this->input->post('member_name'),
+        'user_mobile' => $this->input->post('member_mobile'),
+        'user_password' => $this->input->post('member_password'),
+        'user_status' => 'deactivate',
+        'user_addedby' => 0,
+      );
+      $member_user_id = $this->User_Model->save_data('user', $save_user_data);
+
       $save_data = array(
         'company_id' => $company_id,
+        'member_user_id' => $member_user_id,
         'member_name' => $this->input->post('member_name'),
         'member_address' => $this->input->post('member_address'),
         'country_id' => $this->input->post('country_id'),
@@ -3612,9 +3624,11 @@ public function delete_subcast($id){
         'mamber_date' => $today,
       );
       $this->User_Model->save_data('member', $save_data);
+      // Send SMS...
       $password = $this->input->post('member_password');
       $mobile_no = $this->input->post('member_mobile');
-      $message = 'you are registered on bharatiyshadi.com username: '.$mobile_no.' password: '.$password.' OTP:'.$member_otp ;
+      $message2 = 'You are registered on bharatiyshadi.com username: '.$mobile_no.' password: '.$password.' OTP:'.$member_otp ;
+      $message = urlencode($message2);
       $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
 
       header('location:'.base_url().'User/members_list');
@@ -3717,13 +3731,6 @@ public function delete_members($member_id){
   header('location:'.base_url().'User/members_list');
 }
 
-// public function members_profile(){
-//   $this->load->view('Include/head');
-//   $this->load->view('Include/navbar');
-//   $this->load->view('User/members_profile');
-//   $this->load->view('Include/footer');
-// }
-
 /****************************************************************************************************/
   // Check Duplication
   public function check_duplication(){
@@ -3734,5 +3741,7 @@ public function delete_members($member_id){
     $cnt = $this->User_Model->check_dupli_num($company_id,$column_val,$column_name,$table_name);
     echo $cnt;
   }
+
+  
 }
 ?>

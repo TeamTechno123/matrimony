@@ -1,28 +1,41 @@
 <?php
 class Member_Model extends CI_Model{
   public function send_sms($mobile_no,$message){
-    $url = "http://sms.amplusys.com/SecureApi.aspx?usr=dipak&key=236616E2-B077-4BD5-81FE-06D32AF5153A&smstype=TextSMS&to=".$mobile_no."&msg=".$message."&rout=Transactional&from=BSHADI";
-    //Curl Start
-    $ch  =  curl_init();
-    $timeout  =  30;
-    curl_setopt ($ch,CURLOPT_URL, $url) ;
-    curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
-    $response = curl_exec($ch) ;
-    curl_close($ch) ;
-    //Write out the response
-    // die($response);
+    // $url = "http://sms.amplusys.com/SecureApi.aspx?usr=dipak&key=236616E2-B077-4BD5-81FE-06D32AF5153A&smstype=TextSMS&to=".$mobile_no."&msg=".$message."&rout=Transactional&from=BSHADI";
+    //
+    // //Curl Start
+    // $ch  =  curl_init();
+    // $timeout  =  30;
+    // curl_setopt ($ch,CURLOPT_URL, $url) ;
+    // curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
+    // curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
+    // $response = curl_exec($ch) ;
+    // curl_close($ch) ;
+    // //Write out the response
+    // // die($response);
+    // // return $response;
   }
 
 
   function check_login($email, $password){
     $query = $this->db->select('*')
-        ->where('member_mobile', $email)
-        ->where('member_password', $password)
-        ->from('member')
-        ->get();
-      $result = $query->result_array();
-      return $result;
+      ->where('member_mobile', $email)
+      ->where('member_password', $password)
+      // ->where('member_password', $password)
+      ->from('member')
+      ->get();
+    $result = $query->result_array();
+    return $result;
+  }
+
+  public function verify_otp($otp_member_id,$member_otp){
+    $this->db->select('member_id');
+    $this->db->from('member');
+    $this->db->where('member_id',$otp_member_id);
+    $this->db->where('member_otp',$member_otp);
+    $query = $this->db->get();
+    $result = $query->result_array();
+    return $result;
   }
 
   public function get_member_info($member_id){
@@ -316,6 +329,18 @@ class Member_Model extends CI_Model{
     $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
     $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
 
+    $query = $this->db->get();
+    $result = $query->result();
+    $q = $this->db->last_query();
+    // return $q;
+    return $result;
+  }
+
+  /********************************** Profile Image *********************************/
+  public function member_image_list($mat_member_id){
+    $this->db->select('*');
+    $this->db->from('member_image');
+    $this->db->where('member_id',$mat_member_id);
     $query = $this->db->get();
     $result = $query->result();
     $q = $this->db->last_query();
