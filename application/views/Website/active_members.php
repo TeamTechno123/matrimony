@@ -272,38 +272,7 @@
                       <?php  } ?>
                     </select>
                   </div>
-                  <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="marital_status_id" id="marital_status_id" style="width:100% !important;">
-                      <option selected="selected" value="" > Marital Status </option>
-                      <?php foreach ($marital_status_list as $list) { ?>
-                        <option value="<?php echo $list->marital_status_id ?>" <?php if(isset($marital_status) && $marital_status == $list->marital_status_id ){ echo 'selected'; } ?>><?php echo $list->marital_status_name; ?></option>
-                      <?php  } ?>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id" style="width:100% !important;">
-                      <option selected="selected" value="" > Occupation </option>
-                      <?php foreach ($occupation_list as $list) { ?>
-                        <option value="<?php echo $list->occupation_id ?>" <?php if(isset($occupation_id) && $occupation_id == $list->occupation_id ){ echo 'selected'; } ?>><?php echo $list->occupation_name; ?></option>
-                      <?php  } ?>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6 ">
-                  <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" style="width:100% !important;">
-                    <option selected="selected" value="" >City </option>
-                    <?php foreach ($city_list as $list) { ?>
-                      <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
-                    <?php  } ?>
-                  </select>
-                </div>
-                  <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="language_id" id="language_id" style="width:100% !important;">
-                      <option selected="selected" value="" > Mother Tongue </option>
-                      <?php foreach ($language_list as $list) { ?>
-                        <option value="<?php echo $list->language_id ?>" <?php if(isset($language_id) && $language_id == $list->language_id ){ echo 'selected'; } ?>><?php echo $list->language_name; ?></option>
-                      <?php  } ?>
-                    </select>
-                  </div>
+
                   <div class="form-group col-md-6 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="religion_id" id="religion_id" title="Select Religion" data-placeholder="Select Religion" style="width:100% !important;">
                       <option selected="selected" value="" >Select Religion</option>
@@ -320,6 +289,97 @@
                       <?php  } ?>
                     </select>
                   </div>
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="marital_status_id" id="marital_status_id" style="width:100% !important;">
+                      <option selected="selected" value="" > Marital Status </option>
+                      <?php foreach ($marital_status_list as $list) { ?>
+                        <option value="<?php echo $list->marital_status_id ?>" <?php if(isset($marital_status) && $marital_status == $list->marital_status_id ){ echo 'selected'; } ?>><?php echo $list->marital_status_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id" style="width:100% !important;">
+                      <option selected="selected" value="" > Occupation </option>
+                      <?php foreach ($occupation_list as $list) { ?>
+                        <option value="<?php echo $list->occupation_id ?>" <?php if(isset($occupation_id) && $occupation_id == $list->occupation_id ){ echo 'selected'; } ?>><?php echo $list->occupation_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-6 ">
+                  <select class="form-control select2 form-control-sm w-100 " name="state_id" id="state_id" title="Select State" data-placeholder="Select State" style="width:100% !important;">
+                    <option selected="selected" value="" >State </option>
+                    <?php foreach ($state_list as $list) { ?>
+                      <option value="<?php echo $list->state_id ?>" <?php if(isset($state_id) && $state_id == $list->state_id ){ echo 'selected'; } ?>><?php echo $list->state_name; ?></option>
+                    <?php  } ?>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-6 ">
+                <select class="form-control select2 form-control-sm w-100 " name="district_id" id="district_id" title="Select District" data-placeholder="Select District" style="width:100% !important;">
+                  <option selected="selected" value="" >District </option>
+                  <?php foreach ($district_list as $list) { ?>
+                    <option value="<?php echo $list->district_id ?>" <?php if(isset($district_id) && $district_id == $list->district_id ){ echo 'selected'; } ?>><?php echo $list->district_name; ?></option>
+                  <?php  } ?>
+                </select>
+              </div>
+                  <div class="form-group col-md-6 ">
+                  <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" style="width:100% !important;">
+                    <option selected="selected" value="" >City </option>
+                    <?php foreach ($city_list as $list) { ?>
+                      <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
+                    <?php  } ?>
+                  </select>
+                </div>
+
+
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="language_id" id="language_id" title="Select Mother Tongue" data-placeholder="Select Mother Tongue" style="width:100% !important;">
+                      <option selected="selected" value="" > Mother Tongue </option>
+                      <?php foreach ($language_list as $list) { ?>
+                        <option value="<?php echo $list->language_id ?>" <?php if(isset($language_id) && $language_id == $list->language_id ){ echo 'selected'; } ?>><?php echo $list->language_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="education_id" id="education_id" title="Select Education" data-placeholder="Select Education" style="width:100% !important;">
+                      <option selected="selected" value="" > Education </option>
+                      <?php foreach ($education_list as $list) { ?>
+                        <option value="<?php echo $list->education_id ?>" <?php if(isset($education_id) && $education_id == $list->education_id ){ echo 'selected'; } ?>><?php echo $list->education_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <select class="form-control select2 form-control-sm w-100" name="diet_id" id="diet_id" title="Select Diet" data-placeholder="Select Diet" style="width:100% !important;">
+                      <option selected="selected" value="" >Select Diet </option>
+                      <?php foreach ($diet_list as $list) { ?>
+                        <option value="<?php echo $list->diet_id ?>" <?php if(isset($diet_id) && $diet_id == $list->diet_id ){ echo 'selected'; } ?>><?php echo $list->diet_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+
+                  <!-- <div class="form-group col-md-2">
+                    Weight :
+                  </div>
+                  <div class="form-group col-md-2">
+                    <select class="form-control select2 form-control-sm" name="min_weight" id="min_weight" style="width:100% !important;">
+                      <option selected="selected" value="" > Min </option>
+                      <?php foreach ($weight_list as $list) { ?>
+                        <option value="<?php echo $list->weight_id ?>" <?php if(isset($weight_id) && $weight_id == $list->weight_id ){ echo 'selected'; } ?>><?php echo $list->weight_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <select class="form-control select2 form-control-sm w-100" name="max_weight" id="max_weight" style="width:100% !important;">
+                      <option selected="selected" value="" > Max </option>
+                      <?php foreach ($weight_list as $list) { ?>
+                        <option value="<?php echo $list->weight_id ?>" <?php if(isset($weight_id) && $weight_id == $list->weight_id ){ echo 'selected'; } ?>><?php echo $list->weight_name; ?></option>
+                      <?php  } ?>
+                    </select>
+                  </div> -->
+
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
