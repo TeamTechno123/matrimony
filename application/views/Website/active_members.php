@@ -15,11 +15,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 d-none d-sm-block">
-            <div class="adv">
+            <div class="adv mb-4 mt-0">
               <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
               <br>
             </div>
-            <div class="adv">
+            <div class="adv mb-4">
               <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
                <br>
             </div>
@@ -64,16 +64,16 @@
                 <div class="col-md-9 col-12">
                   <div class="row">
                     <div class=" col-md-6 col-12">
-                  <h5 class="mb-1 text-danger text-bold f-18"> <?php echo $list->member_name; ?></h5>
+                  <h5 class="mb-1 text-black text-bold f-18"> <?php echo $list->member_name; ?></h5>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Member ID</p>
+                    <p class="mb-2">Member ID</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 text-danger"><?php echo $list->member_id; ?></p>
+                    <p class="mb-1 text-black"><?php echo $list->member_id; ?></p>
                 </div>
 
                 <div class="col-12">
@@ -81,19 +81,19 @@
                 </div>
 
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Age</p>
+                    <p class="mb-2">Age</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 "><?php echo $age; ?></p>
+                    <p class="mb-2"><?php echo $age; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Marital Status</p>
+                    <p class="mb-2">Marital Status</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 "><?php echo $list->marital_status; ?></p>
+                    <p class="mb-2"><?php echo $list->marital_status; ?></p>
                 </div>
 
                 <div class="col-12">
@@ -101,19 +101,19 @@
                 </div>
 
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Religion</p>
+                    <p class="mb-2">Religion</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 "><?php echo $list->religion_name; ?></p>
+                    <p class="mb-2"><?php echo $list->religion_name; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Caste</p>
+                    <p class="mb-2">Caste</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 "><?php echo $list->cast_name; ?></p>
+                    <p class="mb-2"><?php echo $list->cast_name; ?></p>
                 </div>
 
                 <div class="col-12">
@@ -121,26 +121,26 @@
                 </div>
 
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Occupation</p>
+                    <p class="mb-2">Occupation</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 "><?php echo $list->occupation_name; ?></p>
+                    <p class="mb-2"><?php echo $list->occupation_name; ?></p>
                 </div>
                 <div class="col-12 d-block d-sm-none">
                     <hr class="hr-web">
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1">Education</p>
+                    <p class="mb-2">Education</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <p class="mb-1 "><?php echo $list->education_name; ?></p>
+                    <p class="mb-2"><?php echo $list->education_name; ?></p>
                 </div>
                 <div class="col-12">
                     <hr class="hr-web">
                 </div>
 
 
-                <div class="col-12 mt-1">
+                <div class="col-12 mt-4 mb-2">
                   <ul  class="inline" style="display: inline; list-style-type:none;">
                     <li class="pt-2">
                       <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>

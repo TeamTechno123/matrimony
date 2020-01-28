@@ -21,8 +21,10 @@
     <div class="col-md-4">
       <h4>Usefull links</h4>
       <ul class="ul-m" style="list-style-type:none">
-        <li> <a href="<?php echo base_url(); ?>Website/profile">Profile</a> </li>
-        <li><a href="<?php echo base_url(); ?>Website/active_members">Active Members</a></li>
+        <li> <a href="<?php echo base_url(); ?>User">Franchising Login</a> </li>
+        <li><a href="<?php echo base_url(); ?>Member/active_members">Active Members</a></li>
+        <!-- <li> <a href="<?php echo base_url(); ?>Website/profile">Profile</a> </li>
+        <li><a href="<?php echo base_url(); ?>Website/active_members">Active Members</a></li> -->
         <li> <a href="<?php echo base_url(); ?>Website">Sign In</a> </li>
         <li> <a href="<?php echo base_url(); ?>Website/terms">Terms And Conditions</a> </li>
         <li><a href="<?php echo base_url(); ?>Website/policy">Policy</a> </li>
