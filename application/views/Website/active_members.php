@@ -433,6 +433,8 @@
     //   });
     // });
 
-
+    $(document).ready(function(){
+        $('#filter').show();
+    });
 
     </script>
