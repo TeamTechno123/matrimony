@@ -77,7 +77,7 @@
 
                 <div class="col-12 d-block d-sm-none">
                   <div class="adv">
-                    <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%"  alt="">
+                    <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%"  alt="">
                     <br>
                   </div>
                 </div>
@@ -164,7 +164,7 @@
 
                   <div class="col-12 d-block d-sm-none">
                     <div class="adv pt-4">
-                      <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%"  alt="">
+                      <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%"  alt="">
                       <br>
                     </div>
                   </div>
