@@ -219,5 +219,73 @@
   </script>
 
 
+  <script type="text/javascript">
+    $("#country_id").on("change", function(){
+      var country_id =  $('#country_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_state_by_country',
+        type: 'POST',
+        data: {"country_id":country_id},
+        context: this,
+        success: function(result){
+          $('#state_id').html(result);
+        }
+      });
+    });
+
+    $("#state_id").on("change", function(){
+      var state_id =  $('#state_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_district_by_state',
+        type: 'POST',
+        data: {"state_id":state_id},
+        context: this,
+        success: function(result){
+          $('#district_id').html(result);
+        }
+      });
+    });
+
+    $("#district_id").on("change", function(){
+      var district_id =  $('#district_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_tahasil_by_district',
+        type: 'POST',
+        data: {"district_id":district_id},
+        context: this,
+        success: function(result){
+          $('#tahasil_id').html(result);
+        }
+      });
+    });
+
+    $("#district_id").on("change", function(){
+      var district_id =  $('#district_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_city_by_district',
+        type: 'POST',
+        data: {"district_id":district_id},
+        context: this,
+        success: function(result){
+          $('#city_id').html(result);
+        }
+      });
+    });
+
+    $("#religion_id").on("change", function(){
+      var religion_id =  $('#religion_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_cast_by_religion',
+        type: 'POST',
+        data: {"religion_id":religion_id},
+        context: this,
+        success: function(result){
+          $('#cast_id').html(result);
+        }
+      });
+    });
+  </script>
+
+
 </body>
 </html>

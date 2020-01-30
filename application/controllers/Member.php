@@ -205,6 +205,26 @@ class Member extends CI_Controller{
 
     $data['member_image_list'] = $this->Member_Model->member_image_list($mat_member_id);
 
+    $page = 'My Profile';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+
 	  $this->load->view('Website/profile',$data);
 	}
 
@@ -231,7 +251,7 @@ class Member extends CI_Controller{
       'onbehalf_id' => $this->input->post('onbehalf_id'),
       'marital_status' => $this->input->post('marital_status'),
       'cast_id' => $this->input->post('cast_id'),
-      'member_addedby' => 0,
+      // 'member_addedby' => 0,
     );
     $this->User_Model->update_info('member_id', $mat_member_id, 'member', $update_data);
     header('location:'.base_url().'Member/profile');
@@ -280,7 +300,7 @@ class Member extends CI_Controller{
     $member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
     $gender = $member_info[0]['member_gender'];
 
-    $data['active_members_list'] = $this->Member_Model->active_members_list($gender,'active');
+    $data['active_members_list'] = $this->Member_Model->active_members_list($gender,'free');
 
     $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
 		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
@@ -309,7 +329,27 @@ class Member extends CI_Controller{
     $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
 
-    // print_r($data['active_members_list']);
+    $page = 'Active Members';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+
+    // print_r($data['advertisement']);
     $this->load->view('Website/active_members', $data);
   }
 
@@ -335,13 +375,31 @@ class Member extends CI_Controller{
       $data['shortlist_sent'] = 'sent';
     }
 
-    // print_r($data['shortlist_sent']);
-
     $data['member_info'] = $member_info;
     $today = date('d-m-Y');
     $birthdate = $data['member_info'][0]['member_birth_date'];
     $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $data['age'] = $age;
+
+    $page = 'User Profile';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
 
     $this->load->view('Website/active_full_profile',$data);
   }
@@ -404,6 +462,27 @@ class Member extends CI_Controller{
 
     $data['interest_list'] = $this->Member_Model->get_interest_member_list($mat_member_id,'');
     $data['sent_list'] = 'sent_list';
+
+    $page = 'Interest List';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+
     $this->load->view('Website/interest_list',$data);
   }
 
@@ -414,6 +493,26 @@ class Member extends CI_Controller{
 
     $data['interest_list'] = $this->Member_Model->get_interest_member_list('',$mat_member_id);
     $data['received_list'] = 'received_list';
+
+    $page = 'Interest List';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
     // print_r($data['interest_list']);
     $this->load->view('Website/interest_list',$data);
   }
@@ -444,6 +543,27 @@ class Member extends CI_Controller{
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
 
     $data['messages_member_list'] = $this->Member_Model->masseges_member_list($mat_member_id);
+
+    $page = 'Message List';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+
     $this->load->view('Website/messages_list',$data);
   }
 
@@ -456,6 +576,26 @@ class Member extends CI_Controller{
     $data['to_member_id'] = $to_member_id;
     $data['masseges_list'] = $this->Member_Model->masseges_list($mat_member_id,$to_member_id);
     if(!$data['masseges_list']){ header('location:'.base_url().'Member/messages_list'); }
+
+    $page = 'Message Details';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
 
     $this->load->view('Website/messages',$data);
   }
@@ -477,10 +617,16 @@ class Member extends CI_Controller{
     $religion_id = $this->input->post('religion_id');
     $cast_id = $this->input->post('cast_id');
 
+
+    $state_id = $this->input->post('state_id');
+    $district_id = $this->input->post('district_id');
+    $education_id = $this->input->post('education_id');
+    $diet_id = $this->input->post('diet_id');
+
     $member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
     $gender = $member_info[0]['member_gender'];
 
-    $data['active_members_list'] = $this->Member_Model->search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id);
+    $data['active_members_list'] = $this->Member_Model->search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id,$state_id,$district_id,$education_id,$diet_id);
 
     $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
 		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
@@ -524,6 +670,26 @@ class Member extends CI_Controller{
     $data['member_img'] = $member_info[0]['member_img'];
     $data['member_image_list'] = $this->Member_Model->member_image_list($mat_member_id);
     // print_r($data['member_image_list']);
+    $page = 'Photo Gallery';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+
     $this->load->view('Website/profile_gallery',$data);
   }
 
@@ -630,6 +796,27 @@ class Member extends CI_Controller{
     $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
 
+
+    $page = 'Add Lead';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+
     $this->load->view('Website/add_member',$data);
 
   }
@@ -690,36 +877,6 @@ class Member extends CI_Controller{
     // echo $send_sms;
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
     else{ header('location:'.base_url().'Member/profile'); }
-  }
-
-  // Get state List By Country....
-  public function get_state_by_country(){
-    $country_id = $this->input->post('country_id');
-    $state_list = $this->User_Model->get_list_by_id('*','country_id',$country_id,'state');
-    echo "<option value='' selected >Select State</option>";
-    foreach ($state_list as $list) {
-      echo "<option value='".$list->state_id."'> ".$list->state_name." </option>";
-    }
-  }
-
-  // Get District List By State....
-  public function get_district_by_state(){
-    $state_id = $this->input->post('state_id');
-    $district_list = $this->User_Model->get_list_by_id('*','state_id',$state_id,'district');
-    echo "<option value='' selected >Select District</option>";
-    foreach ($district_list as $list) {
-      echo "<option value='".$list->district_id."'> ".$list->district_name." </option>";
-    }
-  }
-
-  // Get Tahsil List By District....
-  public function get_tahasil_by_district(){
-    $district_id = $this->input->post('district_id');
-    $tahasil_list = $this->User_Model->get_list_by_id('*','district_id',$district_id,'tahasil');
-    echo "<option value='' selected >Select Tahasil</option>";
-    foreach ($tahasil_list as $list) {
-      echo "<option value='".$list->tahasil_id."'> ".$list->tahasil_name." </option>";
-    }
   }
 
 }

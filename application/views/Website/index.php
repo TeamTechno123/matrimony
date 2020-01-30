@@ -49,15 +49,15 @@
     <section class="navbar-top d-none d-sm-block">
        <div class="container">
          <div class="row">
-           <div class="col-md-3">
-            <img class="logo-img mt-2" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
+           <div class="col-md-5">
+            <img class="logo-img mt-2" src="<?php echo base_url(); ?>assets/images/logo.png"  alt="">
            </div>
-           <div class="col-md-9">
+           <div class="col-md-7">
              <div class="row">
-               <div class="col-md-2 offset-md-6 ">
+               <div class="col-md-3 offset-md-4 ">
                 <label class="top-label" for="mobile">Mobile No.</label>
                </div>
-               <div class="col-md-2">
+               <div class="col-md-3">
                 <label class="top-label" for="mobile">Password</label>
                </div>
                <div class="col-md-2">
@@ -65,10 +65,10 @@
              </div>
             <form class="" action="<?php echo base_url(); ?>Member/check_login" method="post" >
               <div class="row">
-                <div class="col-md-2 offset-md-6">
+                <div class="col-md-3 offset-md-4">
                    <input class="form-control form-control-sm mobile only_number required " name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <input class="form-control form-control-sm" name="password" type="password" class="form-control top-input" required>
                 </div>
                 <div class="col-md-2">
@@ -77,9 +77,9 @@
               </div>
             </form>
             <div class="row">
-              <div class="col-md-2 offset-md-10 text-left">
+              <!-- <div class="col-md-2 offset-md-10 text-left">
                  <label class="top-label font-12" for="mobile">Fogot Password</label>
-              </div>
+              </div> -->
             </div>
            </div>
 
@@ -121,11 +121,12 @@
       </div>
     </section>
 
-    <section class="login-section">
+    <section class="login-section" >
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h2 class="italic">We Understand Your Dream's</h2>
+            <!-- We Understand Your Dream's -->
+            <h2 class="text-center">We Understand Your Dream's</h2>
             <img class="company-img" src="<?php echo base_url(); ?>assets/images/matri.png" alt="">
           </div>
           <div class="col-md-5">
@@ -234,8 +235,8 @@
                   </div>
                 </div>
 
-                <div class="col-sm-4 mt-4 text-center">
-                  <button type="button" id="btn_register" class="btn btn-success mr-3 w-100">Creat Account</button>
+                <div class="col-sm-5 mt-4 text-center">
+                  <button type="button" id="btn_register" class="btn btn-success mr-3 w-100">Create Account</button>
                 </div>
           </div>
           <input type="hidden" name="member_birth_date" id="member_birth_date">

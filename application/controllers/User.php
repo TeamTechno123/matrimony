@@ -45,14 +45,23 @@ class User extends CI_Controller{
 
   public function dashboard(){
     $mat_user_id = $this->session->userdata('user_id');
-    $company_id = $this->session->userdata('company_id');
+    $mat_company_id = $this->session->userdata('company_id');
     $role_id = $this->session->userdata('role_id');
-    if($mat_user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
+    if($mat_user_id==null && $mat_company_id == null ){ header('location:'.base_url().'User'); }
+    $company_id = '';
+    if($role_id == 1 || $role_id == 2){
+      $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
+      $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
+      $data['dealer_cnt'] = $this->User_Model->get_count('franchise_id',$company_id,'','','franchise_status','active','franchise');
+      $data['adv_cnt'] = $this->User_Model->get_count('adv_id',$company_id,'','','adv_status','active','advertisement');
+    } else{
+      $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
+      $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'member_addedby',$mat_user_id,'member_status','free','member');
+      $data['dealer_cnt'] = $this->User_Model->get_count('franchise_id',$company_id,'franchise_addedby',$mat_user_id,'franchise_status','active','franchise');
+      $data['adv_cnt'] = $this->User_Model->get_count('adv_id',$company_id,'adv_addedby',$mat_user_id,'adv_status','active','advertisement');
+    }
 
-    $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','active','member');
-    $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'member_addedby',$mat_user_id,'member_status','active','member');
-    $data['dealer_cnt'] = $this->User_Model->get_count('franchise_id',$company_id,'franchise_addedby',$mat_user_id,'franchise_status','active','franchise');
-    $data['adv_cnt'] = $this->User_Model->get_count('adv_id',$company_id,'adv_addedby',$mat_user_id,'adv_status','active','advertisement');
+
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/dashboard',$data);
@@ -172,7 +181,7 @@ public function blood_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['blood_group_list'] = $this->User_Model->get_list($company_id,'blood_group_id','ASC','blood_group');
+    $data['blood_group_list'] = $this->User_Model->get_list1('blood_group_id','ASC','blood_group');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/blood_information_list',$data);
@@ -279,7 +288,7 @@ public function body_type_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['body_type_list'] = $this->User_Model->get_list($company_id,'body_type_id','ASC','body_type');
+    $data['body_type_list'] = $this->User_Model->get_list1('body_type_id','ASC','body_type');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/body_type_list',$data);
@@ -376,7 +385,7 @@ public function cast_information(){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
-  $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+  $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
   if($company_id){
       $this->load->view('Include/head', $data);
       $this->load->view('Include/navbar', $data);
@@ -390,7 +399,7 @@ public function cast_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-  $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+  $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
   $data['cast_list'] = $this->User_Model->get_cast_list($company_id);
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
@@ -426,7 +435,7 @@ public function edit_cast($id){
   // $role_id = $this->session->userdata('role_id');
   if($company_id){
     $make_info = $this->User_Model->get_info('cast_id', $id, 'cast');
-    $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+    $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
     if($make_info){
       foreach($make_info as $info){
         $data['update'] = 'update';
@@ -451,7 +460,7 @@ public function update_cast(){
   $role_id = $this->session->userdata('role_id');
   if($company_id){
     $cast_id = $this->input->post('cast_id');
-    $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+    $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
     $data = array(
       'religion_id' => $this->input->post('religion_id'),
       'cast_name' => $this->input->post('cast_name'),
@@ -473,35 +482,22 @@ public function delete_cast($id){
   }
 }
 
-
-// public function city_information_list(){
-//       $this->load->view('Include/head');
-//       $this->load->view('Include/navbar');
-//       $this->load->view('User/city_information_list');
-//       $this->load->view('Include/footer');
-// }
-//
-// public function city_information(){
-//       $this->load->view('Include/head');
-//       $this->load->view('Include/navbar');
-//       $this->load->view('User/city_information');
-//       $this->load->view('Include/footer');
-// }
+/************************************** City Information ********************************/
 
 public function city_information(){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
-  $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-  $data['state_list'] = $this->User_Model->get_state_list($company_id);
-  $data['district_list'] = $this->User_Model->get_district_list($company_id);
-  $data['tahasil_list'] = $this->User_Model->get_tahasil_list($company_id);
+  $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+  $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+  $data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+  $data['tahasil_list'] = $this->User_Model->get_list1('tahasil_id','ASC','tahasil');
   if($company_id){
-      $this->load->view('Include/head', $data);
-      $this->load->view('Include/navbar', $data);
-      $this->load->view('User/city_information', $data);
-      $this->load->view('Include/footer', $data);
-    }
+    $this->load->view('Include/head', $data);
+    $this->load->view('Include/navbar', $data);
+    $this->load->view('User/city_information', $data);
+    $this->load->view('Include/footer', $data);
+  }
 }
 
 public function city_information_list(){
@@ -547,10 +543,10 @@ public function edit_city($id){
   $role_id = $this->session->userdata('role_id');
   if($company_id){
     $make_info = $this->User_Model->get_city_info($company_id,$id);
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-    $data['state_list'] = $this->User_Model->get_list($company_id,'state_id','ASC','state');
-    $data['district_list'] = $this->User_Model->get_district_list($company_id);
-    $data['tahasil_list'] = $this->User_Model->get_tahasil_list($company_id);
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+    $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+    $data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+    $data['tahasil_list'] = $this->User_Model->get_list1('tahasil_id','ASC','tahasil');
     if($make_info){
       foreach($make_info as $info){
         $data['update'] = 'update';
@@ -610,8 +606,8 @@ public function district_information(){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
-  $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-  $data['state_list'] = $this->User_Model->get_state_list($company_id);
+  $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+  $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
   if($company_id){
       $this->load->view('Include/head', $data);
       $this->load->view('Include/navbar', $data);
@@ -661,8 +657,8 @@ public function edit_district($id){
   $role_id = $this->session->userdata('role_id');
   if($company_id){
     $make_info = $this->User_Model->get_district_info($company_id,$id);
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-    $data['state_list'] = $this->User_Model->get_list($company_id,'state_id','ASC','state');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+    $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
     if($make_info){
       foreach($make_info as $info){
         $data['update'] = 'update';
@@ -715,9 +711,9 @@ public function tahasil_information(){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
-  $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-  $data['state_list'] = $this->User_Model->get_state_list($company_id);
-  $data['district_list'] = $this->User_Model->get_district_list($company_id);
+  $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+  $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+  $data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
   if($company_id){
       $this->load->view('Include/head', $data);
       $this->load->view('Include/navbar', $data);
@@ -768,19 +764,20 @@ public function edit_tahasil($id){
   $role_id = $this->session->userdata('role_id');
   if($company_id){
     $make_info = $this->User_Model->get_tahasil_info($company_id,$id);
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-    $data['state_list'] = $this->User_Model->get_list($company_id,'state_id','ASC','state');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+    $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+    $data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
     if($make_info){
       foreach($make_info as $info){
         $data['update'] = 'update';
         $data['tahasil_id'] = $info->tahasil_id;
         $data['tahasil_name'] = $info->tahasil_name;
         $data['country_id'] = $info->country_id;
-        $data['country_name'] = $info->country_name;
+        // $data['country_name'] = $info->country_name;
         $data['state_id'] = $info->state_id;
-        $data['state_name'] = $info->state_name;
+        // $data['state_name'] = $info->state_name;
         $data['district_id'] = $info->district_id;
-        $data['district_name'] = $info->district_name;
+        // $data['district_name'] = $info->district_name;
       }
       $this->load->view('Include/head',$data);
       $this->load->view('Include/navbar',$data);
@@ -852,7 +849,7 @@ public function country_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/country_information_list',$data);
@@ -960,7 +957,7 @@ public function complexion_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['complexion_list'] = $this->User_Model->get_list($company_id,'complexion_id','ASC','complexion');
+    $data['complexion_list'] = $this->User_Model->get_list1('complexion_id','ASC','complexion');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/complexion_list',$data);
@@ -1056,7 +1053,7 @@ public function diet_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['diet_list'] = $this->User_Model->get_list($company_id,'diet_id','ASC','diet');
+    $data['diet_list'] = $this->User_Model->get_list1('diet_id','ASC','diet');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/diet_information_list',$data);
@@ -1150,7 +1147,7 @@ public function education_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['education_list'] = $this->User_Model->get_list($company_id,'education_id','ASC','education');
+    $data['education_list'] = $this->User_Model->get_list1('education_id','ASC','education');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/education_information_list',$data);
@@ -1257,7 +1254,7 @@ public function family_status_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['family_status'] = $this->User_Model->get_list($company_id,'family_status_id','ASC','family_status');
+    $data['family_status'] = $this->User_Model->get_list1('family_status_id','ASC','family_status');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/family_status_list',$data);
@@ -1363,7 +1360,7 @@ public function family_value_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['family_value'] = $this->User_Model->get_list($company_id,'family_value_id','ASC','family_value');
+    $data['family_value'] = $this->User_Model->get_list1('family_value_id','ASC','family_value');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/family_value_list',$data);
@@ -1469,7 +1466,7 @@ public function family_type_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['family_type'] = $this->User_Model->get_list($company_id,'family_type_id','ASC','family_type');
+    $data['family_type'] = $this->User_Model->get_list1('family_type_id','ASC','family_type');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/family_type_list',$data);
@@ -1564,7 +1561,7 @@ public function gothram_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['gothram_list'] = $this->User_Model->get_list($company_id,'gothram_id','ASC','gothram');
+    $data['gothram_list'] = $this->User_Model->get_list1('gothram_id','ASC','gothram');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/gothram_information_list',$data);
@@ -1670,7 +1667,7 @@ public function height_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['height_list'] = $this->User_Model->get_list($company_id,'height_id','ASC','height');
+    $data['height_list'] = $this->User_Model->get_list1('height_id','ASC','height');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/height_information_list',$data);
@@ -1776,7 +1773,7 @@ public function income_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['income_list'] = $this->User_Model->get_list($company_id,'income_id','ASC','income');
+    $data['income_list'] = $this->User_Model->get_list1('income_id','ASC','income');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/income_information_list',$data);
@@ -1885,7 +1882,7 @@ public function language_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['language_list'] = $this->User_Model->get_list($company_id,'language_id','ASC','language');
+    $data['language_list'] = $this->User_Model->get_list1('language_id','ASC','language');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/language_list',$data);
@@ -1991,7 +1988,7 @@ public function moonsign_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['moonsign_list'] = $this->User_Model->get_list($company_id,'moonsign_id','ASC','moonsign');
+    $data['moonsign_list'] = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/moonsign_information_list',$data);
@@ -2097,7 +2094,7 @@ public function occupation_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['occupation_list'] = $this->User_Model->get_list($company_id,'occupation_id','ASC','occupation');
+    $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/occupation_information_list',$data);
@@ -2203,7 +2200,7 @@ public function onbehalf_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['onbehalf_list'] = $this->User_Model->get_list($company_id,'onbehalf_id','ASC','onbehalf');
+    $data['onbehalf_list'] = $this->User_Model->get_list1('onbehalf_id','ASC','onbehalf');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/onbehalf_information_list',$data);
@@ -2309,7 +2306,7 @@ public function referenceby_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['referenceby_list'] = $this->User_Model->get_list($company_id,'reference_by_id','ASC','reference_by');
+    $data['referenceby_list'] = $this->User_Model->get_list1('reference_by_id','ASC','reference_by');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/referenceby_information_list',$data);
@@ -2414,7 +2411,7 @@ public function religion_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+    $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/religion_information_list',$data);
@@ -2521,7 +2518,7 @@ public function resident_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['resident_list'] = $this->User_Model->get_list($company_id,'resident_status_id','ASC','resident_status');
+    $data['resident_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/resident_information_list',$data);
@@ -2627,7 +2624,7 @@ public function role_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-    $data['role_list'] = $this->User_Model->get_list($company_id,'role_id','ASC','role');
+    $data['role_list'] = $this->User_Model->get_list1('role_id','ASC','role');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/role_information_list',$data);
@@ -2720,7 +2717,7 @@ public function state_information(){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
-  $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+  $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
   if($company_id){
       $this->load->view('Include/head', $data);
       $this->load->view('Include/navbar', $data);
@@ -2734,7 +2731,7 @@ public function state_information_list(){
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
   if($company_id){
-  $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+  $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
   $data['state_list'] = $this->User_Model->get_state_list($company_id);
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
@@ -2770,7 +2767,7 @@ public function edit_state($id){
   // $role_id = $this->session->userdata('role_id');
   if($company_id){
     $make_info = $this->User_Model->get_info('state_id', $id, 'state');
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
     if($make_info){
       foreach($make_info as $info){
         $data['update'] = 'update';
@@ -2795,7 +2792,7 @@ public function update_state(){
   $role_id = $this->session->userdata('role_id');
   if($company_id){
     $state_id = $this->input->post('state_id');
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
     $data = array(
       'country_id' => $this->input->post('country_id'),
       'state_name' => $this->input->post('state_name'),
@@ -2835,7 +2832,7 @@ public function subcast_information(){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
   $role_id = $this->session->userdata('role_id');
-  $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+  $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
   $data['cast_list'] = $this->User_Model->get_cast_list($company_id);
   if($company_id){
       $this->load->view('Include/head', $data);
@@ -2886,8 +2883,8 @@ public function edit_subcast($id){
   $role_id = $this->session->userdata('role_id');
   if($company_id){
     $make_info = $this->User_Model->get_subcast_info($company_id,$id);
-    $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
-    $data['cast_list'] = $this->User_Model->get_list($company_id,'cast_id','ASC','cast');
+    $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
+    $data['cast_list'] = $this->User_Model->get_list1('cast_id','ASC','cast');
     if($make_info){
       foreach($make_info as $info){
         $data['update'] = 'update';
@@ -2942,14 +2939,17 @@ public function delete_subcast($id){
     $user_id = $this->session->userdata('user_id');
     $company_id = $this->session->userdata('company_id');
     $role_id = $this->session->userdata('role_id');
-    $data['select_reach_list'] = $this->User_Model->get_list($company_id,'reach_id','ASC','advertisement_reach');
-
     if($company_id){
-        $this->load->view('Include/head', $data);
-        $this->load->view('Include/navbar', $data);
-        $this->load->view('User/advertise_information', $data);
-        $this->load->view('Include/footer', $data);
-      }
+      $data['select_reach_list'] = $this->User_Model->get_list1('reach_id','ASC','advertisement_reach');
+      $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+  		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+  		$data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+
+      $this->load->view('Include/head', $data);
+      $this->load->view('Include/navbar', $data);
+      $this->load->view('User/advertise_information', $data);
+      $this->load->view('Include/footer', $data);
+    }
   }
 
   public function advertise_information_list(){
@@ -2959,11 +2959,10 @@ public function delete_subcast($id){
     if($company_id){
 
       if($mat_role_id == 1 || $mat_role_id == 2 || $mat_role_id == 3 ){
-        $data['advertise_list'] = $this->User_Model->get_list($company_id,'adv_id','ASC','advertisement');
+        $data['advertise_list'] = $this->User_Model->get_list1('adv_id','ASC','advertisement');
       } else{
         $data['advertise_list'] = $this->User_Model->get_adv_list_by_user($company_id,$mat_user_id);
       }
-
 
       $this->load->view('Include/head',$data);
       $this->load->view('Include/navbar',$data);
@@ -2978,13 +2977,19 @@ public function delete_subcast($id){
     $user_id = $this->session->userdata('user_id');
     $company_id = $this->session->userdata('company_id');
     $role_id = $this->session->userdata('role_id');
-    $data['select_reach_list'] = $this->User_Model->get_list($company_id,'reach_id','ASC','advertisement_reach');
+    $data['select_reach_list'] = $this->User_Model->get_list1('reach_id','ASC','advertisement_reach');
     if($company_id){
       $adv_status = $this->input->post('adv_status');
       if(!isset($adv_status)){ $adv_status = 'active'; }
       $data = array(
         'company_id' => $company_id,
+        'adv_page'=>$this->input->post('adv_page'),
+        'adv_from_date'=>$this->input->post('adv_from_date'),
+        'adv_to_date'=>$this->input->post('adv_to_date'),
         'reach_id'=>$this->input->post('reach_id'),
+        'country_id'=>$this->input->post('country_id'),
+        'state_id'=>$this->input->post('state_id'),
+        'district_id'=>$this->input->post('district_id'),
         'adv_name' => $this->input->post('adv_name'),
         'adv_amount' => $this->input->post('adv_amount'),
         'adv_status' => $adv_status,
@@ -3027,19 +3032,29 @@ public function delete_subcast($id){
     $user_id = $this->session->userdata('user_id');
     $company_id = $this->session->userdata('company_id');
     $role_id = $this->session->userdata('role_id');
-    $data['select_reach_list'] = $this->User_Model->get_list($company_id,'reach_id','ASC','advertisement_reach');
+    $data['select_reach_list'] = $this->User_Model->get_list1('reach_id','ASC','advertisement_reach');
     if($company_id){
       $make_info = $this->User_Model->get_info('adv_id', $id, 'advertisement');
       if($make_info){
         foreach($make_info as $info){
           $data['update'] = 'update';
           $data['adv_id'] = $info->adv_id;
+          $data['adv_page'] = $info->adv_page;
+          $data['adv_from_date'] = $info->adv_from_date;
+          $data['adv_to_date'] = $info->adv_to_date;
           $data['reach_id'] = $info->reach_id;
+          $data['country_id'] = $info->country_id;
+          $data['state_id'] = $info->state_id;
+          $data['district_id'] = $info->district_id;
           $data['adv_name'] = $info->adv_name;
           $data['adv_amount'] = $info->adv_amount;
           $data['adv_image'] = $info->adv_image;
           $data['adv_status'] = $info->adv_status;
         }
+        $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+    		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+    		$data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+
         $this->load->view('Include/head',$data);
         $this->load->view('Include/navbar',$data);
         $this->load->view('User/advertise_information',$data);
@@ -3059,8 +3074,14 @@ public function delete_subcast($id){
       if(!isset($adv_status)){ $adv_status = 'active'; }
       $adv_id = $this->input->post('adv_id');
       $data = array(
+        'adv_page'=>$this->input->post('adv_page'),
+        'adv_from_date'=>$this->input->post('adv_from_date'),
+        'adv_to_date'=>$this->input->post('adv_to_date'),
         'adv_name' => $this->input->post('adv_name'),
         'reach_id' => $this->input->post('reach_id'),
+        'country_id'=>$this->input->post('country_id'),
+        'state_id'=>$this->input->post('state_id'),
+        'district_id'=>$this->input->post('district_id'),
         'adv_amount' => $this->input->post('adv_amount'),
         'adv_status' => $adv_status,
         'adv_addedby' => $user_id,
@@ -3113,7 +3134,7 @@ public function delete_subcast($id){
     $company_id = $this->session->userdata('company_id');
     $role_id = $this->session->userdata('role_id');
     if($user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
-    $data['package_list'] = $this->User_Model->get_list($company_id,'package_id','ASC','package');
+    $data['package_list'] = $this->User_Model->get_list1('package_id','ASC','package');
     $this->load->view('Include/head', $data);
     $this->load->view('Include/navbar', $data);
     $this->load->view('User/package_list', $data);
@@ -3252,7 +3273,7 @@ public function delete_subcast($id){
     $role_id = $this->session->userdata('role_id');
     if($user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
 
-    $data['staff_list'] = $this->User_Model->get_list($company_id,'staff_id','ASC','staff');
+    $data['staff_list'] = $this->User_Model->get_list1('staff_id','ASC','staff');
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/staff_information_list',$data);
@@ -3381,14 +3402,6 @@ public function delete_subcast($id){
     header('location:'.base_url().'User/staff_information_list');
   }
 
-/*****************************************************************************/
-  public function members_profile(){
-    $this->load->view('Include/head');
-    $this->load->view('Include/navbar');
-    $this->load->view('User/members_profile');
-    $this->load->view('Include/footer');
-  }
-
 /****************************** Franchise Information ***************************/
   // Franchise List...
   public function franchise_list(){
@@ -3399,7 +3412,7 @@ public function delete_subcast($id){
     if($mat_role_id == 4){
       $data['franchise_list'] = $this->User_Model->get_subdealer_list($company_id,$user_id);
     } else{
-      $data['franchise_list'] = $this->User_Model->get_list($company_id,'franchise_id','DESC','franchise');
+      $data['franchise_list'] = $this->User_Model->get_list1('franchise_id','DESC','franchise');
     }
 
 
@@ -3460,10 +3473,10 @@ public function delete_subcast($id){
     }
 
     $data['franchise_type_list'] = $this->User_Model->get_list1('franchise_type_id','ASC','franchise_type');
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
-    $data['state_list'] = $this->User_Model->get_state_list($company_id);
-    $data['district_list'] = $this->User_Model->get_district_list($company_id);
-    $data['tahasil_list'] = $this->User_Model->get_tahasil_list($company_id);
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
+    $data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
+    $data['district_list'] = $this->User_Model->get_list1('district_id','ASC','district');
+    $data['tahasil_list'] = $this->User_Model->get_list1('tahasil_id','ASC','tahasil');
     $this->load->view('Include/head', $data);
     $this->load->view('Include/navbar', $data);
     $this->load->view('User/franchise_information', $data);
@@ -3537,7 +3550,7 @@ public function delete_subcast($id){
 
 
     $data['franchise_type_list'] = $this->User_Model->get_list1('franchise_type_id','ASC','franchise_type');
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
     $data['state_list'] = $this->User_Model->get_state_list($company_id);
     $data['district_list'] = $this->User_Model->get_district_list($company_id);
     $data['tahasil_list'] = $this->User_Model->get_tahasil_list($company_id);
@@ -3566,7 +3579,7 @@ public function delete_subcast($id){
     if($mat_user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
 
     if($mat_role_id == 1 || $mat_role_id == 2 || $mat_role_id == 3){
-      $data['members_list'] = $this->User_Model->get_list($company_id,'member_id','ASC','member');
+      $data['members_list'] = $this->User_Model->get_list1('member_id','ASC','member');
     } else{
       $data['members_list'] = $this->User_Model->get_member_list_by_user($company_id,$mat_user_id);
     }
@@ -3633,14 +3646,14 @@ public function delete_subcast($id){
 
       header('location:'.base_url().'User/members_list');
     }
-    $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+    $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
     $data['state_list'] = $this->User_Model->get_state_list($company_id);
     $data['district_list'] = $this->User_Model->get_district_list($company_id);
     $data['tahasil_list'] = $this->User_Model->get_tahasil_list($company_id);
     $data['city_list'] = $this->User_Model->get_city_list($company_id);
-    $data['language_list'] = $this->User_Model->get_list($company_id,'language_id','ASC','language');
-    $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
-    $data['onbehalf_list'] = $this->User_Model->get_list($company_id,'onbehalf_id','ASC','onbehalf');
+    $data['language_list'] = $this->User_Model->get_list1('language_id','ASC','language');
+    $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
+    $data['onbehalf_list'] = $this->User_Model->get_list1('onbehalf_id','ASC','onbehalf');
     $data['marital_status_list'] = $this->User_Model->get_list1('marital_status_id','ASC','marital_status');
     // print_r($company_id);
     $this->load->view('Include/head',$data);
@@ -3678,19 +3691,19 @@ public function edit_members($member_id){
       'onbehalf_id' => $this->input->post('onbehalf_id'),
       'marital_status' => $this->input->post('marital_status'),
       'cast_id' => $this->input->post('cast_id'),
-      'member_addedby' => $user_id,
+      // 'member_addedby' => $user_id,
     );
     $this->User_Model->update_info('member_id', $member_id, 'member', $update_data);
     header('location:'.base_url().'User/members_list');
   }
 
-  $data['country_list'] = $this->User_Model->get_list($company_id,'country_id','ASC','country');
+  $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
   $data['state_list'] = $this->User_Model->get_state_list($company_id);
   $data['district_list'] = $this->User_Model->get_district_list($company_id);
   $data['tahasil_list'] = $this->User_Model->get_tahasil_list($company_id);
   $data['city_list'] = $this->User_Model->get_city_list($company_id);
-  $data['language_list'] = $this->User_Model->get_list($company_id,'language_id','ASC','language');
-  $data['religion_list'] = $this->User_Model->get_list($company_id,'religion_id','ASC','religion');
+  $data['language_list'] = $this->User_Model->get_list1('language_id','ASC','language');
+  $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
   $data['marital_status_list'] = $this->User_Model->get_list1('marital_status_id','ASC','marital_status');
 
   $member_info = $this->User_Model->get_info_array('member_id', $member_id, 'member');
@@ -3742,6 +3755,54 @@ public function delete_members($member_id){
     echo $cnt;
   }
 
-  
+  // Get state List By Country....
+  public function get_state_by_country(){
+    $country_id = $this->input->post('country_id');
+    $state_list = $this->User_Model->get_list_by_id('*','country_id',$country_id,'state');
+    echo "<option value='' selected >Select State</option>";
+    foreach ($state_list as $list) {
+      echo "<option value='".$list->state_id."'> ".$list->state_name." </option>";
+    }
+  }
+
+  // Get District List By State....
+  public function get_district_by_state(){
+    $state_id = $this->input->post('state_id');
+    $district_list = $this->User_Model->get_list_by_id('*','state_id',$state_id,'district');
+    echo "<option value='' selected >Select District</option>";
+    foreach ($district_list as $list) {
+      echo "<option value='".$list->district_id."'> ".$list->district_name." </option>";
+    }
+  }
+
+  // Get Tahsil List By District....
+  public function get_tahasil_by_district(){
+    $district_id = $this->input->post('district_id');
+    $tahasil_list = $this->User_Model->get_list_by_id('*','district_id',$district_id,'tahasil');
+    echo "<option value='' selected >Select Tahasil</option>";
+    foreach ($tahasil_list as $list) {
+      echo "<option value='".$list->tahasil_id."'> ".$list->tahasil_name." </option>";
+    }
+  }
+
+  // Get Tahsil List By District....
+  public function get_city_by_district(){
+    $district_id = $this->input->post('district_id');
+    $city_list = $this->User_Model->get_list_by_id('*','district_id',$district_id,'city');
+    echo "<option value='' selected >Select City</option>";
+    foreach ($city_list as $list) {
+      echo "<option value='".$list->city_id."'> ".$list->city_name." </option>";
+    }
+  }
+
+  // Get Tahsil List By District....
+  public function get_cast_by_religion(){
+    $religion_id = $this->input->post('religion_id');
+    $cast_list = $this->User_Model->get_list_by_id('*','religion_id',$religion_id,'cast');
+    echo "<option value='' selected >Select Caste</option>";
+    foreach ($cast_list as $list) {
+      echo "<option value='".$list->cast_id."'> ".$list->cast_name." </option>";
+    }
+  }
 }
 ?>

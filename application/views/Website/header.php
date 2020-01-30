@@ -62,20 +62,19 @@
 
     <section class="head-nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light bg-facebook">
-        <a class="navbar-brand" href="#">  <img class="logo-img" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt=""> </a>
+        <a class="navbar-brand" href="#">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="60%" alt=""> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
             <?php if($mat_member_id != null && $member_is_login != null ){ ?>
-              <a class="nav-item nav-link" id="filter" style="display:none;" href="" data-toggle="modal" data-target="#searchModal"> <button type="button" class="btn btn-primary">Filter <i class="fa fa-search pl-1"></i> </button>  </a>
+              <a class="nav-item nav-link text-white pt-2" id="filter" href="#" style="display:none;" data-toggle="modal" data-target="#searchModal"> Filter <i class="fa fa-search pl-1"></i>  </a>
             <?php } ?>
-            <!-- <a class="nav-item nav-link active" href="<?php echo base_url(); ?>Website">Home <span class="sr-only">(current)</span></a> -->
-            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/active_members">Active Members</a>
-            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/profile">My Profile</a>
-            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Website/contact">Contact Us</a>
-            <a class="nav-item nav-link" href="<?php echo base_url(); ?>Member/logout">Logout</a>
+            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/active_members">Active Members</a>
+            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/profile">My Profile</a>
+            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Website/contact">Contact Us</a>
+            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/logout">Logout</a>
           </div>
         </div>
       </nav>

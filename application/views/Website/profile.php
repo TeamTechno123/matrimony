@@ -13,28 +13,14 @@
   <div class="container-fluid">
     <div class="row">
         <div class="col-md-3 d-none d-sm-block">
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-             <br><br>
-             <div class="w-100 center text-center">
-               <!-- <button type="button" class="btn btn-outline-danger center" data-toggle="modal" data-target="#exampleModal">Danger</button> -->
-             </div>
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%" height="60%" alt="">
           </div>
-
-          <div class="adv ">
-            <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
-             <br><br>
-             <div class="w-100 center text-center">
-               <!-- <button type="button" class="btn btn-outline-danger center" data-toggle="modal" data-target="#exampleModal">Danger</button> -->
-             </div>
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="60%" alt="">
           </div>
-
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-             <br><br>
-             <div class="w-100 center text-center">
-               <!-- <button type="button" class="btn btn-outline-danger center" data-toggle="modal" data-target="#exampleModal">Danger</button> -->
-             </div>
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image3; ?>" width="100%" height="60%" alt="">
           </div>
         </div>
 
@@ -82,10 +68,10 @@
                             <a href="<?php echo base_url(); ?>Member/messages_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</a>
                           </div>
                           <div class="col-12 mb-1">
-                            <a href="<?php echo base_url(); ?>Member/profile_gallery" class="btn btn-sm btn-success w-100  pl-1" type="submit">Profile Gallery</a>
+                            <a href="<?php echo base_url(); ?>Member/profile_gallery" class="btn btn-sm btn-success w-100  pl-1" type="submit">Photo Gallery</a>
                           </div>
                           <div class="col-12 mb-1">
-                            <a href="<?php echo base_url(); ?>Member/add_member" class="btn btn-sm btn-success w-100  pl-1" type="submit">Add Member/Lead</a>
+                            <a href="<?php echo base_url(); ?>Member/add_member" class="btn btn-sm btn-success w-100  pl-1" type="submit">Add New Lead</a>
                           </div>
                         </div>
                       </div>
@@ -830,4 +816,84 @@ responsive:{
     }
 }
 })
+</script>
+
+<script type="text/javascript">
+  $("#country_id").on("change", function(){
+    var country_id =  $('#country_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_state_by_country',
+      type: 'POST',
+      data: {"country_id":country_id},
+      context: this,
+      success: function(result){
+        $('#state_id').html(result);
+      }
+    });
+  });
+
+  $("#state_id").on("change", function(){
+    var state_id =  $('#state_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_district_by_state',
+      type: 'POST',
+      data: {"state_id":state_id},
+      context: this,
+      success: function(result){
+        $('#district_id').html(result);
+      }
+    });
+  });
+
+  $("#district_id").on("change", function(){
+    var district_id =  $('#district_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_tahasil_by_district',
+      type: 'POST',
+      data: {"district_id":district_id},
+      context: this,
+      success: function(result){
+        $('#tahasil_id').html(result);
+      }
+    });
+  });
+
+  $("#district_id").on("change", function(){
+    var district_id =  $('#district_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_city_by_district',
+      type: 'POST',
+      data: {"district_id":district_id},
+      context: this,
+      success: function(result){
+        $('#city_id').html(result);
+      }
+    });
+  });
+
+  $("#religion_id").on("change", function(){
+    var religion_id =  $('#religion_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_cast_by_religion',
+      type: 'POST',
+      data: {"religion_id":religion_id},
+      context: this,
+      success: function(result){
+        $('#cast_id').html(result);
+      }
+    });
+  });
+
+  $("#religion_id2").on("change", function(){
+    var religion_id2 =  $('#religion_id2').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_cast_by_religion',
+      type: 'POST',
+      data: {"religion_id":religion_id2},
+      context: this,
+      success: function(result){
+        $('#cast_id2').html(result);
+      }
+    });
+  });
 </script>

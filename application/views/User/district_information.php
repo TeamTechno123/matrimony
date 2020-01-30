@@ -3,8 +3,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,8 +26,6 @@
               <div class="card-header">
                 <h3 class="card-title">District Information</h3>
               </div>
-
-
               <!-- /.card-header -->
               <!-- form start -->
               <?php if(isset($update)){ ?>
@@ -51,8 +47,8 @@
                 <select class="form-control select2" name="state_id" id="state_id" title="Select State" data-placeholder="Select State" style="width: 100%;" required>
                   <option selected="selected" value="" >Select State </option>
                   <?php foreach ($state_list as $state_list1) { ?>
-                        <option value="<?php echo $state_list1->state_id; ?>" <?php if(isset($state_id)){ if($state_list1->state_id == $state_id){ echo "selected"; } }  ?>><?php echo $state_list1->state_name; ?></option>
-                      <?php } ?>
+                    <option value="<?php echo $state_list1->state_id; ?>" <?php if(isset($state_id)){ if($state_list1->state_id == $state_id){ echo "selected"; } }  ?>><?php echo $state_list1->state_name; ?></option>
+                  <?php } ?>
                 </select>
               </div>
                   <div class="form-group col-md-12">
@@ -112,6 +108,21 @@ $('#btn_update, #btn_save').on('click',function(){
       $('#form_action').submit();
   }
 });
+</script>
+
+<script type="text/javascript">
+  $("#country_id").on("change", function(){
+    var country_id =  $('#country_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_state_by_country',
+      type: 'POST',
+      data: {"country_id":country_id},
+      context: this,
+      success: function(result){
+        $('#state_id').html(result);
+      }
+    });
+  });
 </script>
 
 
