@@ -62,7 +62,7 @@
 
     <section class="head-nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light bg-facebook">
-        <a class="navbar-brand w-50" href="#">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="60%" alt=""> </a>
+        <a class="navbar-brand" href="#">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt=""> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -82,7 +82,7 @@
 
             ?>
             <a class="nav-item nav-link text-white pt-2" id="filter" href="#" style="display:none;" data-toggle="modal" data-target="#searchModal"> Filter <i class="fa fa-search pl-1"></i>  </a>
-                  
+
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/received_interest_list">Interest (<?php echo $rec_interect_cnt; ?>)</a>
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/messages_list">Message (<?php echo $rec_msg_cnt; ?>)</a>
 

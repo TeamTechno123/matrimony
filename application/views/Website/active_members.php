@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 <?php include("header.php");
       $active_page="active_members";
       $mat_member_id = $this->session->userdata('mat_member_id'); ?>
-=======
-<?php
-  include("header.php");
-  $mat_member_id = $this->session->userdata('mat_member_id');
-?>
->>>>>>> 066c147056a1867c1020443d4a5a32918ee5cb04
   <body>
     <section class="heading">
       <div class="container">
