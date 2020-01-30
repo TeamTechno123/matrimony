@@ -148,7 +148,7 @@ color: #696969;
 }
 
 .profile-div{
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
 }
 
 .profile-desc{
@@ -517,6 +517,47 @@ text-align: center;
 
 .navbar-collapse .nav-item:hover{
   background-color: #0062cc;
+}
+
+/* Chat Box */
+
+.direct-chat-messages {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    height: calc(100vh - 300px);
+    overflow: auto;
+    padding: 10px;
+}
+
+.direct-chat-success .right>.direct-chat-text {
+    background: #F5FFD2;
+    border-color: #F5FFD2;
+    color: #000;
+}
+.direct-chat-success .right>.direct-chat-text::after, .direct-chat-success .right>.direct-chat-text::before {
+    border-left-color: #F5FFD2;
+}
+
+.direct-chat-text {
+    border-radius: .3rem;
+    background: #D2FFF8;
+    border: 1px solid #D2FFF8;
+    color: #444;
+    margin: 5px 0 0 50px;
+    padding: 5px 10px;
+    position: relative;
+}
+
+.direct-chat-text::after, .direct-chat-text::before {
+    border: solid transparent;
+    border-right-color: #D2FFF8;
+    content: ' ';
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 100%;
+    top: 15px;
+    width: 0;
 }
 
 

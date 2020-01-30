@@ -83,7 +83,6 @@
                   <li class="list-group-item">View Upto 75 Contact</li>
                   <li class="list-group-item">Standout From Other Profile</li>
                 </ul>
-
              </div>
             </div>
          </div>
@@ -93,6 +92,5 @@
 </section>
 
 
-
-
-<?php include("footer.php"); ?>
+<!-- <?php //include("footer.php"); ?> -->
+<?php include("script.php"); ?>
