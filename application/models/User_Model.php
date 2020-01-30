@@ -15,13 +15,16 @@ class User_Model extends CI_Model{
 
   public function get_count($id_type,$company_id,$added_by,$mat_user_id,$status_col,$status_key,$tbl_name){
     $this->db->select($id_type);
+    if($company_id != ''){
+      $this->db->where('company_id', $company_id);
+    }
     if($added_by != ''){
       $this->db->where($added_by, $mat_user_id);
     }
     if($status_col != ''){
       $this->db->where($status_col, $status_key);
     }
-    $this->db->where('company_id', $company_id);
+
     $this->db->from($tbl_name);
       $query =  $this->db->get();
     $result = $query->num_rows();

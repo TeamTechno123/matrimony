@@ -1,19 +1,18 @@
 <?php
 class Member_Model extends CI_Model{
   public function send_sms($mobile_no,$message){
-    // $url = "http://sms.amplusys.com/SecureApi.aspx?usr=dipak&key=236616E2-B077-4BD5-81FE-06D32AF5153A&smstype=TextSMS&to=".$mobile_no."&msg=".$message."&rout=Transactional&from=BSHADI";
-    //
-    // //Curl Start
-    // $ch  =  curl_init();
-    // $timeout  =  30;
-    // curl_setopt ($ch,CURLOPT_URL, $url) ;
-    // curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
-    // $response = curl_exec($ch) ;
-    // curl_close($ch) ;
-    // //Write out the response
-    // // die($response);
-    // // return $response;
+    $url = "http://sms.amplusys.com/SecureApi.aspx?usr=dipak&key=236616E2-B077-4BD5-81FE-06D32AF5153A&smstype=TextSMS&to=".$mobile_no."&msg=".$message."&rout=Transactional&from=BSHADI";
+    //Curl Start
+    $ch  =  curl_init();
+    $timeout  =  30;
+    curl_setopt ($ch,CURLOPT_URL, $url) ;
+    curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
+    $response = curl_exec($ch) ;
+    curl_close($ch) ;
+    //Write out the response
+    // die($response);
+    // return $response;
   }
 
 
@@ -84,7 +83,7 @@ class Member_Model extends CI_Model{
       $this->db->where('member.member_gender !=',$gender);
     }
     if($status != ''){
-      $this->db->where('member.member_status ',$status);
+      // $this->db->where('member.member_status ',$status);
     }
 
     $this->db->join('country','country.country_id = member.country_id','LEFT');
@@ -273,7 +272,7 @@ class Member_Model extends CI_Model{
   }
 
   /***************************************** Search Member ********************************/
-  public function search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id){
+  public function search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id,$state_id,$district_id,$education_id,$diet_id){
     $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*');
     $this->db->from('member');
 
@@ -300,6 +299,18 @@ class Member_Model extends CI_Model{
     }
     if($cast_id != ''){
       $this->db->where('member.cast_id',$cast_id);
+    }
+    if($state_id != ''){
+      $this->db->where('member.state_id',$state_id);
+    }
+    if($district_id != ''){
+      $this->db->where('member.district_id',$district_id);
+    }
+    if($education_id != ''){
+      $this->db->where('member.education_id',$education_id);
+    }
+    if($diet_id != ''){
+      $this->db->where('member.diet_id',$diet_id);
     }
 
     $this->db->join('country','country.country_id = member.country_id','LEFT');
@@ -343,6 +354,36 @@ class Member_Model extends CI_Model{
     $this->db->where('member_id',$mat_member_id);
     $query = $this->db->get();
     $result = $query->result();
+    $q = $this->db->last_query();
+    // return $q;
+    return $result;
+  }
+
+  /******************************** Advertisement ***************************/
+  public function get_advertisement($page,$today,$type,$loc_id){
+    $this->db->select('*');
+    $this->db->from('advertisement');
+    if($type == 'country'){
+      $this->db->where('reach_id',1);
+      $this->db->where('country_id',$loc_id);
+    }
+    if($type == 'state'){
+      $this->db->where('reach_id',2);
+      $this->db->where('state_id',$loc_id);
+    }
+    if($type == 'district'){
+      $this->db->where('reach_id',3);
+      $this->db->where('district_id',$loc_id);
+    }
+    $this->db->where("str_to_date(adv_from_date,'%d-%m-%Y') <= str_to_date('$today','%d-%m-%Y')");
+    $this->db->where("str_to_date(adv_to_date,'%d-%m-%Y') >= str_to_date('$today','%d-%m-%Y')");
+
+    // $this->db->where("str_to_date('$today','%d-%m-%Y') BETWEEN str_to_date('$from_date','%d-%m-%Y') AND str_to_date('$to_date','%d-%m-%Y')");
+    $this->db->where('adv_page',$page);
+    $this->db->order_by('adv_id', 'RANDOM');
+    $this->db->limit(1);
+    $query = $this->db->get();
+    $result = $query->result_array();
     $q = $this->db->last_query();
     // return $q;
     return $result;

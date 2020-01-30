@@ -3,8 +3,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -17,7 +15,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -28,8 +25,6 @@
               <div class="card-header">
                 <h3 class="card-title">Tahasil Information</h3>
               </div>
-
-
               <!-- /.card-header -->
               <!-- form start -->
               <?php if(isset($update)){ ?>
@@ -122,6 +117,33 @@ $('#btn_update, #btn_save').on('click',function(){
 });
 </script>
 
+<script type="text/javascript">
+  $("#country_id").on("change", function(){
+    var country_id =  $('#country_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_state_by_country',
+      type: 'POST',
+      data: {"country_id":country_id},
+      context: this,
+      success: function(result){
+        $('#state_id').html(result);
+      }
+    });
+  });
+
+  $("#state_id").on("change", function(){
+    var state_id =  $('#state_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_district_by_state',
+      type: 'POST',
+      data: {"state_id":state_id},
+      context: this,
+      success: function(result){
+        $('#district_id').html(result);
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

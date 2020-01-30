@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 <?php include("header.php");
       $active_page="active_members";
       $mat_member_id = $this->session->userdata('mat_member_id'); ?>
+=======
+<?php
+  include("header.php");
+  $mat_member_id = $this->session->userdata('mat_member_id');
+?>
+>>>>>>> 066c147056a1867c1020443d4a5a32918ee5cb04
   <body>
     <section class="heading">
       <div class="container">
@@ -17,16 +24,13 @@
         <div class="row">
           <div class="col-md-3 d-none d-sm-block">
             <div class="adv mb-4 mt-0">
-              <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-              <br>
+              <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%" height="60%" alt="">
             </div>
-            <div class="adv mb-4">
-              <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
-               <br>
+            <div class="adv mb-4 mt-0">
+              <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="60%" alt="">
             </div>
-            <div class="adv">
-              <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-               <br>
+            <div class="adv mb-4 mt-0">
+              <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image3; ?>" width="100%" height="60%" alt="">
             </div>
           </div>
           <div class="col-12 d-block d-sm-none">
@@ -291,9 +295,9 @@
                   <div class="form-group col-md-6 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id" title="Select Caste" data-placeholder="Select Caste" style="width:100% !important;">
                       <option selected="selected" value="" >Select Caste</option>
-                      <?php foreach ($cast_list as $list) { ?>
+                      <!-- <?php foreach ($cast_list as $list) { ?>
                         <option value="<?php echo $list->cast_id ?>" <?php if(isset($cast_id) && $cast_id == $list->cast_id ){ echo 'selected'; } ?>><?php echo $list->cast_name; ?></option>
-                      <?php  } ?>
+                      <?php  } ?> -->
                     </select>
                   </div>
                   <div class="form-group col-md-6">
@@ -325,17 +329,17 @@
                 <div class="form-group col-md-6 ">
                 <select class="form-control select2 form-control-sm w-100 " name="district_id" id="district_id" title="Select District" data-placeholder="Select District" style="width:100% !important;">
                   <option selected="selected" value="" >District </option>
-                  <?php foreach ($district_list as $list) { ?>
+                  <!-- <?php foreach ($district_list as $list) { ?>
                     <option value="<?php echo $list->district_id ?>" <?php if(isset($district_id) && $district_id == $list->district_id ){ echo 'selected'; } ?>><?php echo $list->district_name; ?></option>
-                  <?php  } ?>
+                  <?php  } ?> -->
                 </select>
               </div>
                   <div class="form-group col-md-6 ">
                   <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" style="width:100% !important;">
                     <option selected="selected" value="" >City </option>
-                    <?php foreach ($city_list as $list) { ?>
+                    <!-- <?php foreach ($city_list as $list) { ?>
                       <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
-                    <?php  } ?>
+                    <?php  } ?> -->
                   </select>
                 </div>
 
@@ -402,16 +406,17 @@
 
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<?php include("script.php"); ?>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="<?php echo base_url(); ?>assets/plugins/select2/js/select2.full.min.js"></script>
-    <!-- daterangepicker -->
+
     <script src="<?php echo base_url(); ?>assets/plugins/moment/moment.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script src="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> -->
 
     <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
@@ -497,4 +502,71 @@
         $('#filter').show();
     });
 
+    </script>
+
+    <script type="text/javascript">
+      $("#country_id").on("change", function(){
+        var country_id =  $('#country_id').find("option:selected").val();
+        $.ajax({
+          url:'<?php echo base_url(); ?>User/get_state_by_country',
+          type: 'POST',
+          data: {"country_id":country_id},
+          context: this,
+          success: function(result){
+            $('#state_id').html(result);
+          }
+        });
+      });
+
+      $("#state_id").on("change", function(){
+        var state_id =  $('#state_id').find("option:selected").val();
+        $.ajax({
+          url:'<?php echo base_url(); ?>User/get_district_by_state',
+          type: 'POST',
+          data: {"state_id":state_id},
+          context: this,
+          success: function(result){
+            $('#district_id').html(result);
+          }
+        });
+      });
+
+      $("#district_id").on("change", function(){
+        var district_id =  $('#district_id').find("option:selected").val();
+        $.ajax({
+          url:'<?php echo base_url(); ?>User/get_tahasil_by_district',
+          type: 'POST',
+          data: {"district_id":district_id},
+          context: this,
+          success: function(result){
+            $('#tahasil_id').html(result);
+          }
+        });
+      });
+
+      $("#district_id").on("change", function(){
+        var district_id =  $('#district_id').find("option:selected").val();
+        $.ajax({
+          url:'<?php echo base_url(); ?>User/get_city_by_district',
+          type: 'POST',
+          data: {"district_id":district_id},
+          context: this,
+          success: function(result){
+            $('#city_id').html(result);
+          }
+        });
+      });
+
+      $("#religion_id").on("change", function(){
+        var religion_id =  $('#religion_id').find("option:selected").val();
+        $.ajax({
+          url:'<?php echo base_url(); ?>User/get_cast_by_religion',
+          type: 'POST',
+          data: {"religion_id":religion_id},
+          context: this,
+          success: function(result){
+            $('#cast_id').html(result);
+          }
+        });
+      });
     </script>

@@ -81,6 +81,7 @@ body{
 }
 
 .login-section {
+  height:100vh;
   padding-top: 20px;
   padding-bottom: 30px;
   background-color: #DFE3EE;
@@ -102,6 +103,7 @@ padding-top: 10px;
 padding-bottom: 10px;
 text-align: center;
 font-weight: bold;
+color: #000;
 }
 
 .input-login{
@@ -507,6 +509,14 @@ text-align: center;
   display: inline;
   list-style-type:none;
 
+}
+
+/* .navbar-collapse .active{
+  background-color: #0062cc;
+} */
+
+.navbar-collapse .nav-item:hover{
+  background-color: #0062cc;
 }
 
 

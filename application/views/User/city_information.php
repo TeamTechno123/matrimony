@@ -3,8 +3,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,8 +26,6 @@
               <div class="card-header">
                 <h3 class="card-title">City Information</h3>
               </div>
-
-
               <!-- /.card-header -->
               <!-- form start -->
               <?php if(isset($update)){ ?>
@@ -50,25 +46,25 @@
                 <div class="form-group col-md-12 drop-lg">
                 <select class="form-control select2" name="state_id" id="state_id" title="Select State" data-placeholder="Select State" style="width: 100%;" required>
                   <option selected="selected" value="" >Select State </option>
-                  <?php foreach ($state_list as $state_list1) { ?>
+                  <!-- <?php foreach ($state_list as $state_list1) { ?>
                         <option value="<?php echo $state_list1->state_id; ?>" <?php if(isset($state_id)){ if($state_list1->state_id == $state_id){ echo "selected"; } }  ?>><?php echo $state_list1->state_name; ?></option>
-                      <?php } ?>
+                      <?php } ?> -->
                 </select>
               </div>
               <div class="form-group col-md-12 drop-lg">
               <select class="form-control select2" name="district_id" id="district_id" title="Select District" data-placeholder="Select District" style="width: 100%;" required>
                 <option selected="selected" value="" >Select District </option>
-                <?php foreach ($district_list as $district_list1) { ?>
+                <!-- <?php foreach ($district_list as $district_list1) { ?>
                       <option value="<?php echo $district_list1->district_id; ?>" <?php if(isset($district_id)){ if($district_list1->district_id == $district_id){ echo "selected"; } }  ?>><?php echo $district_list1->district_name; ?></option>
-                    <?php } ?>
+                    <?php } ?> -->
               </select>
             </div>
             <div class="form-group col-md-12 drop-lg">
             <select class="form-control select2" name="tahasil_id" id="tahasil_id" title="Select Tahasil" data-placeholder="Select Tahasil" style="width: 100%;" required>
               <option selected="selected" value="" >Select Tahasil </option>
-              <?php foreach ($tahasil_list as $tahasil_list1) { ?>
+              <!-- <?php foreach ($tahasil_list as $tahasil_list1) { ?>
                     <option value="<?php echo $tahasil_list1->tahasil_id; ?>" <?php if(isset($tahasil_id)){ if($tahasil_list1->tahasil_id == $tahasil_id){ echo "selected"; } }  ?>><?php echo $tahasil_list1->tahasil_name; ?></option>
-                  <?php } ?>
+                  <?php } ?> -->
             </select>
           </div>
                   <div class="form-group col-md-12">
@@ -130,6 +126,46 @@ $('#btn_update, #btn_save').on('click',function(){
 });
 </script>
 
+<script type="text/javascript">
+  $("#country_id").on("change", function(){
+    var country_id =  $('#country_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_state_by_country',
+      type: 'POST',
+      data: {"country_id":country_id},
+      context: this,
+      success: function(result){
+        $('#state_id').html(result);
+      }
+    });
+  });
+
+  $("#state_id").on("change", function(){
+    var state_id =  $('#state_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_district_by_state',
+      type: 'POST',
+      data: {"state_id":state_id},
+      context: this,
+      success: function(result){
+        $('#district_id').html(result);
+      }
+    });
+  });
+
+  $("#district_id").on("change", function(){
+    var district_id =  $('#district_id').find("option:selected").val();
+    $.ajax({
+      url:'<?php echo base_url(); ?>User/get_tahasil_by_district',
+      type: 'POST',
+      data: {"district_id":district_id},
+      context: this,
+      success: function(result){
+        $('#tahasil_id').html(result);
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1 class="text-center">Add Member/Lead</h1>
+        <h1 class="text-center">Add New Lead</h1>
       </div>
     </div>
   </div>
@@ -16,14 +16,14 @@
   <div class="container-fluid">
     <div class="row">
         <div class="col-md-3  d-none d-sm-block">
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%" height="60%" alt="">
           </div>
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="60%" alt="">
           </div>
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image3; ?>" width="100%" height="60%" alt="">
           </div>
         </div>
 
@@ -52,34 +52,34 @@
                       <div class="form-group col-md-6 ">
                       <select class="form-control select2 form-control-sm w-100" name="state_id" id="state_id"  title="Select State" data-placeholder="Select State" required>
                         <option selected="selected" value="" >Select State </option>
-                        <?php foreach ($state_list as $list) { ?>
+                        <!-- <?php foreach ($state_list as $list) { ?>
                           <option value="<?php echo $list->state_id ?>" <?php if(isset($state_id) && $state_id == $list->state_id ){ echo 'selected'; } ?>><?php echo $list->state_name; ?></option>
-                        <?php  } ?>
+                        <?php  } ?> -->
                       </select>
                     </div>
 
                   <div class="form-group col-md-6 ">
                   <select class="form-control select2 form-control-sm w-100" name="district_id" id="district_id"  title="Select District" data-placeholder="Select District" required>
                     <option selected="selected" value="" >Select District </option>
-                    <?php foreach ($district_list as $list) { ?>
+                    <!-- <?php foreach ($district_list as $list) { ?>
                       <option value="<?php echo $list->district_id ?>" <?php if(isset($district_id) && $district_id == $list->district_id ){ echo 'selected'; } ?>><?php echo $list->district_name; ?></option>
-                    <?php  } ?>
+                    <?php  } ?> -->
                   </select>
                 </div>
                     <div class="form-group col-md-6 ">
                     <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id"  title="Select Tahasil" data-placeholder="Select Tahasil" required>
                       <option selected="selected" value="" >Select Tahasil </option>
-                      <?php foreach ($tahasil_list as $list) { ?>
+                      <!-- <?php foreach ($tahasil_list as $list) { ?>
                         <option value="<?php echo $list->tahasil_id ?>" <?php if(isset($tahasil_id) && $tahasil_id == $list->tahasil_id ){ echo 'selected'; } ?>><?php echo $list->tahasil_name; ?></option>
-                      <?php  } ?>
+                      <?php  } ?> -->
                     </select>
                   </div>
                   <div class="form-group col-md-6 ">
                   <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" required>
                     <option selected="selected" value="" >Select City </option>
-                    <?php foreach ($city_list as $list) { ?>
+                    <!-- <?php foreach ($city_list as $list) { ?>
                       <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
-                    <?php  } ?>
+                    <?php  } ?> -->
                   </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -156,9 +156,9 @@
                   <div class="form-group col-md-6 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id" title="Select Caste" data-placeholder="Select Caste" >
                       <option selected="selected" value="" >Select Caste</option>
-                      <?php foreach ($cast_list as $list) { ?>
+                      <!-- <?php foreach ($cast_list as $list) { ?>
                         <option value="<?php echo $list->cast_id ?>" <?php if(isset($cast_id) && $cast_id == $list->cast_id ){ echo 'selected'; } ?>><?php echo $list->cast_name; ?></option>
-                      <?php  } ?>
+                      <?php  } ?> -->
                     </select>
                   </div>
 
@@ -211,7 +211,7 @@
     $("#country_id").on("change", function(){
       var country_id =  $('#country_id').find("option:selected").val();
       $.ajax({
-        url:'<?php echo base_url(); ?>Member/get_state_by_country',
+        url:'<?php echo base_url(); ?>User/get_state_by_country',
         type: 'POST',
         data: {"country_id":country_id},
         context: this,
@@ -224,7 +224,7 @@
     $("#state_id").on("change", function(){
       var state_id =  $('#state_id').find("option:selected").val();
       $.ajax({
-        url:'<?php echo base_url(); ?>Member/get_district_by_state',
+        url:'<?php echo base_url(); ?>User/get_district_by_state',
         type: 'POST',
         data: {"state_id":state_id},
         context: this,
@@ -237,12 +237,38 @@
     $("#district_id").on("change", function(){
       var district_id =  $('#district_id').find("option:selected").val();
       $.ajax({
-        url:'<?php echo base_url(); ?>Member/get_tahasil_by_district',
+        url:'<?php echo base_url(); ?>User/get_tahasil_by_district',
         type: 'POST',
         data: {"district_id":district_id},
         context: this,
         success: function(result){
           $('#tahasil_id').html(result);
+        }
+      });
+    });
+
+    $("#district_id").on("change", function(){
+      var district_id =  $('#district_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_city_by_district',
+        type: 'POST',
+        data: {"district_id":district_id},
+        context: this,
+        success: function(result){
+          $('#city_id').html(result);
+        }
+      });
+    });
+
+    $("#religion_id").on("change", function(){
+      var religion_id =  $('#religion_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_cast_by_religion',
+        type: 'POST',
+        data: {"religion_id":religion_id},
+        context: this,
+        success: function(result){
+          $('#cast_id').html(result);
         }
       });
     });

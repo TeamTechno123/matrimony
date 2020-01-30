@@ -15,14 +15,14 @@
   <div class="container-fluid">
     <div class="row">
         <div class="col-md-3  d-none d-sm-block">
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%" height="60%" alt="">
           </div>
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/vertical.jpg" width="100%" height="100%" alt="">
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="60%" alt="">
           </div>
-          <div class="adv">
-            <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+          <div class="adv mb-4 mt-0">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image3; ?>" width="100%" height="60%" alt="">
           </div>
         </div>
 
@@ -42,9 +42,9 @@
                         </div>
                         <div class="col-md-4 text-center my-2">
                           <?php if($member_img == ''){ ?>
-                            <img style="width: 100%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
+                            <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
                           <?php } else{?>
-                            <img style="width: 100%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
+                            <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
                           <?php } ?>
                           <input class="mt-1" type="file" name="member_img">
                           <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
@@ -58,7 +58,7 @@
                                 $cnt++;
                             ?>
                             <div class="col-md-6 text-center my-2">
-                              <img style="width: 100%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" alt="">
+                              <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" alt="">
                               <input class="mt-1" type="file" name="member_image_name[]" >
                               <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
                             </div>
@@ -68,7 +68,7 @@
                               for ($i=0; $i < $img_cnt; $i++) {
                             ?>
                             <div class="col-md-6 text-center my-2">
-                              <img style="width: 100%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
+                              <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
                               <input class="mt-1" type="file" name="member_image_name[]">
                               <input type="hidden" name="member_image_id[]" value="">
                             </div>

@@ -15,7 +15,7 @@
       <h4>Our Location</h4>
       <p>Saraswati Complex, Rajarampuri 10th lane, main road, Dist. : Kolhapur, State : Maharashtra Country : India . Pin 416008</p>
 <p>Mobile : 8624882140</p>
-<p>2020 | All Rights Reserved </p>
+<!-- <p>2020 | All Rights Reserved </p> -->
     </div>
 
     <div class="col-md-4">
