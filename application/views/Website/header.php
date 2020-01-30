@@ -62,18 +62,33 @@
 
     <section class="head-nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light bg-facebook">
-        <a class="navbar-brand" href="#">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="60%" alt=""> </a>
+        <a class="navbar-brand w-50" href="#">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="60%" alt=""> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
-            <?php if($mat_member_id != null && $member_is_login != null ){ ?>
-              <a class="nav-item nav-link text-white pt-2" id="filter" href="#" style="display:none;" data-toggle="modal" data-target="#searchModal"> Filter <i class="fa fa-search pl-1"></i>  </a>
-            <?php } ?>
+            <?php $get_received_interest = $this->Member_Model->get_interest('',$mat_member_id,'interest_id');
+            $rec_interect_cnt = 0;
+            foreach ($get_received_interest as $get_received_interest) {
+              $rec_interect_cnt++;
+            }
+            $msg_member_list = $this->Member_Model->masseges_member_list($mat_member_id);
+
+            $rec_msg_cnt = 0;
+            foreach ($msg_member_list as $msg_member_list) {
+              $rec_msg_cnt++;
+            }
+
+            ?>
+            <a class="nav-item nav-link text-white pt-2" id="filter" href="#" style="display:none;" data-toggle="modal" data-target="#searchModal"> Filter <i class="fa fa-search pl-1"></i>  </a>
+                  
+            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/received_interest_list">Interest (<?php echo $rec_interect_cnt; ?>)</a>
+            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/messages_list">Message (<?php echo $rec_msg_cnt; ?>)</a>
+
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/active_members">Active Members</a>
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/profile">My Profile</a>
-            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Website/contact">Contact Us</a>
+            <!-- <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Website/contact">Contact Us</a> -->
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/logout">Logout</a>
           </div>
         </div>

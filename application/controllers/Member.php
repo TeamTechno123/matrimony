@@ -47,14 +47,15 @@ class Member extends CI_Controller{
       'member_addedby' => 0,
     );
     $this->User_Model->save_data('member', $save_data);
+
     // Send SMS...
     $password = $this->input->post('member_password');
     $mobile_no = $this->input->post('member_mobile');
-    $message2 = "You are registered on bharatiyshadi.com username: ".$mobile_no." password: ".$password." OTP:".$member_otp."" ;
+    $message2 = "You are registered on \nbhartiyshadi.com \nusername: ".$mobile_no." \npassword: ".$password." \nOTP:".$member_otp."" ;
     $message = urlencode($message2);
-    // $message = 'hello';
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
-    // echo $send_sms;
+
+    $this->session->set_flashdata('reg_success','success');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
     else{ header('location:'.base_url().'Member/profile'); }
 
@@ -170,6 +171,8 @@ class Member extends CI_Controller{
     $data['religion_id'] = $member_info2[0]['religion_id'];
     $data['member_email'] = $member_info2[0]['member_email'];
     $data['member_mobile'] = $member_info2[0]['member_mobile'];
+    $data['show_email'] = $member_info2[0]['show_email'];
+    $data['show_mobile'] = $member_info2[0]['show_mobile'];
     $data['member_password'] = $member_info2[0]['member_password'];
     $data['onbehalf_id'] = $member_info2[0]['onbehalf_id'];
     $data['marital_status'] = $member_info2[0]['marital_status'];
@@ -195,11 +198,13 @@ class Member extends CI_Controller{
     foreach ($get_sent_interest as $get_sent_interest) {
       $sent_interest_cnt++;
     }
+
     $get_received_interest = $this->Member_Model->get_interest('',$mat_member_id,'interest_id');
     $rec_interect_cnt = 0;
     foreach ($get_received_interest as $get_received_interest) {
       $rec_interect_cnt++;
     }
+
     $data['sent_interest_cnt'] = $sent_interest_cnt;
     $data['rec_interect_cnt'] = $rec_interect_cnt;
 
@@ -246,7 +251,9 @@ class Member extends CI_Controller{
       'language_id' => $this->input->post('language_id'),
       'religion_id' => $this->input->post('religion_id'),
       'member_email' => $this->input->post('member_email'),
-      // 'member_mobile' => $this->input->post('member_mobile'),
+      'member_mobile' => $this->input->post('member_mobile'),
+      'show_email' => $this->input->post('show_email'),
+      'show_mobile' => $this->input->post('show_mobile'),
       // 'member_password' => $this->input->post('member_password'),
       'onbehalf_id' => $this->input->post('onbehalf_id'),
       'marital_status' => $this->input->post('marital_status'),
@@ -416,7 +423,7 @@ class Member extends CI_Controller{
       $from_member_info = $this->User_Model->get_info_array('member_id', $data['from_member_id'], 'member');
       $mobile_no = $to_member_info[0]['member_mobile'];
       $from_name = $from_member_info[0]['member_name'];
-      $message2 = ''.$from_name.' sent you interest on bharatiyshadi.com';
+      $message2 = "".$from_name." sent you interest on \nbhartiyshadi.com";
       $message = urlencode($message2);
       $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
       echo 'success';
@@ -529,7 +536,7 @@ class Member extends CI_Controller{
     $from_name = $from_member_info[0]['member_name'];
     if($interest == 1){ $int = 'accepted'; }
     else{ $int = 'rejected'; }
-    $message2 = ''.$from_name.' '.$int.' your interest request on bharatiyshadi.com';
+    $message2 = "".$from_name." ".$int." your interest request on \nbhartiyshadi.com";
     $message = urlencode($message2);
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
 
@@ -870,7 +877,7 @@ class Member extends CI_Controller{
     // Send SMS...
     $password = $this->input->post('member_password');
     $mobile_no = $this->input->post('member_mobile');
-    $message2 = "You are registered on bharatiyshadi.com username: ".$mobile_no." password: ".$password." OTP:".$member_otp."" ;
+    $message2 = "You are registered on \nbhartiyshadi.com \nusername: ".$mobile_no." \npassword: ".$password." \nOTP: ".$member_otp."" ;
     $message = urlencode($message2);
     // $message = 'hello';
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);

@@ -239,6 +239,12 @@
                   <button type="button" id="btn_register" class="btn btn-success mr-3 w-100">Create Account</button>
                 </div>
           </div>
+          <?php if($this->session->flashdata('reg_success')){ ?>
+            <div class="alert alert-success mt-3 reg_success" role="alert">
+              <b>Registered Successfully.</b>
+            </div>
+          <?php } ?>
+
           <input type="hidden" name="member_birth_date" id="member_birth_date">
       </form>
       </div>
@@ -262,6 +268,16 @@
     <script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.reg_success').show().delay(5000).fadeOut();
+        // toastr.success('success');
+      });
+    </script>
 
     <script type="text/javascript">
       $('#date1').datetimepicker({

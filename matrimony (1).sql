@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2020 at 01:47 PM
+-- Generation Time: Jan 30, 2020 at 10:43 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -797,7 +797,8 @@ INSERT INTO `interest` (`interest_id`, `from_member_id`, `to_member_id`, `intere
 (7, 4, 2, 0, '25-01-2020', '10:01:06 AM', '2020-01-25 10:57:06'),
 (8, 4, 3, 0, '25-01-2020', '11:01:50 AM', '2020-01-25 11:05:50'),
 (9, 7, 4, 0, '28-01-2020', '08:01:01 AM', '2020-01-28 08:21:01'),
-(10, 15, 4, 0, '28-01-2020', '11:01:32 AM', '2020-01-28 11:27:32');
+(10, 15, 4, 0, '28-01-2020', '11:01:32 AM', '2020-01-28 11:27:32'),
+(11, 4, 15, 0, '30-01-2020', '06:01:50 AM', '2020-01-30 06:46:50');
 
 -- --------------------------------------------------------
 
@@ -865,6 +866,8 @@ CREATE TABLE `member` (
   `language_id` bigint(20) DEFAULT NULL,
   `religion_id` bigint(20) DEFAULT NULL,
   `member_email` varchar(150) DEFAULT NULL,
+  `show_email` int(11) NOT NULL DEFAULT 0 COMMENT '0=no, 1=yes',
+  `show_mobile` int(11) NOT NULL DEFAULT 0 COMMENT '0=no, 1=yes',
   `member_mobile` varchar(20) NOT NULL,
   `member_otp` varchar(20) DEFAULT NULL,
   `is_otp_check` int(11) NOT NULL DEFAULT 0 COMMENT '0=Ne, 1=Yes',
@@ -899,13 +902,13 @@ CREATE TABLE `member` (
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`member_id`, `member_user_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `member_age`, `language_id`, `religion_id`, `member_email`, `member_mobile`, `member_otp`, `is_otp_check`, `member_password`, `member_img`, `member_img_num`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `resident_status_id`) VALUES
-(2, 0, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', NULL, 3, 3, 'abc@gmail.com', '9876543211', NULL, 0, '123456', NULL, 4, 0, '0', 3, NULL, 'free', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 0, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', NULL, 3, 3, 'abc@gmail.com', '9876543212', '555666', 1, '123456', NULL, 4, 0, '0', 3, NULL, 'free', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 0, 3, 'demo', 'ttt', 101, 5, 4, 2, 8, 'ooo', 'Female', '01-02-1990', NULL, 3, 3, 'ddd@mmm.com', '9988556633', '222333', 1, '123456', 'profile_4_1580291558.png', 4, 1, '1', 3, NULL, 'free', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 0, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', NULL, 3, 3, 'aaaa@gmail.com', '9955447788', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'free', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
-(6, 0, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', NULL, 2, 3, 'demo@qqq.com', '9966332255', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'free', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 18, 0, 'Demo Add Lead', 'dfgdfg', 3, 5, 4, 2, 8, 'dsfg', 'Male', '15-06-1991', NULL, 3, 3, 'fgdf@sdf.com', '9673454383', '400367', 1, '123456', NULL, 4, NULL, '1', 3, '28-01-2020', 'free', '0', '2020-01-28 10:03:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `member` (`member_id`, `member_user_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `member_age`, `language_id`, `religion_id`, `member_email`, `show_email`, `show_mobile`, `member_mobile`, `member_otp`, `is_otp_check`, `member_password`, `member_img`, `member_img_num`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `resident_status_id`) VALUES
+(2, 0, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', NULL, 3, 3, 'abc@gmail.com', 0, 0, '9876543211', NULL, 0, '123456', NULL, 4, 0, '0', 3, NULL, 'free', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 0, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', NULL, 3, 3, 'abc@gmail.com', 0, 0, '9876543212', '555666', 1, '123456', NULL, 4, 0, '0', 3, NULL, 'free', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 0, 3, 'demo', 'ttt', 101, 22, 6, 4, 0, 'ooo', 'Female', '01-02-1990', NULL, 3, 3, 'ddd@mmm.com', 1, 0, '9988556633', '222333', 1, '123456', 'profile_4_1580291558.png', 4, NULL, '1', 3, NULL, 'free', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 0, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', NULL, 3, 3, 'aaaa@gmail.com', 0, 0, '9955447788', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'free', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
+(6, 0, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', NULL, 2, 3, 'demo@qqq.com', 0, 0, '9966332255', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'free', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 18, 0, 'Demo Add Lead', 'dfgdfg', 3, 5, 4, 2, 8, 'dsfg', 'Male', '15-06-1991', NULL, 3, 3, 'fgdf@sdf.com', 0, 0, '9673454383', '400367', 1, '123456', NULL, 4, NULL, '1', 3, '28-01-2020', 'free', '0', '2020-01-28 10:03:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -954,7 +957,6 @@ CREATE TABLE `message` (
 INSERT INTO `message` (`message_id`, `company_id`, `from_member_id`, `to_member_id`, `message_text`, `message_date`, `message_time`, `message_date2`) VALUES
 (1, 0, 5, 4, 'Hello', '24-01-2020', '10:01:28 AM', '2020-01-24 10:02:28'),
 (2, 0, 4, 6, 'hhhjjj', '24-01-2020', '11:01:03 AM', '2020-01-25 04:46:17'),
-(3, 0, 6, 4, 'fdgdfg', '25-01-2020', '05:01:40 AM', '2020-01-25 06:40:56'),
 (4, NULL, 4, 6, 'uuu', '25-01-2020', '06:01:21 AM', '2020-01-25 06:57:21'),
 (5, NULL, 4, 6, 'fghgh', '25-01-2020', '07:01:06 AM', '2020-01-25 07:08:06'),
 (6, NULL, 4, 6, 'dfgdfg', '25-01-2020', '07:01:41 AM', '2020-01-25 07:08:41'),
@@ -962,8 +964,9 @@ INSERT INTO `message` (`message_id`, `company_id`, `from_member_id`, `to_member_
 (8, NULL, 4, 6, 'gvdg', '25-01-2020', '07:01:49 AM', '2020-01-25 07:09:49'),
 (9, NULL, 4, 6, 'kkk', '25-01-2020', '07:01:54 AM', '2020-01-25 07:09:54'),
 (10, NULL, 4, 6, 'uuy', '25-01-2020', '07:01:00 AM', '2020-01-25 07:10:00'),
-(11, NULL, 4, 6, 'fdgdfg', '25-01-2020', '07:01:46 AM', '2020-01-25 07:10:46'),
-(12, NULL, 4, 6, 'hii', '25-01-2020', '07:01:33 AM', '2020-01-25 07:23:33');
+(11, NULL, 2, 5, 'fdgdfg', '25-01-2020', '07:01:46 AM', '2020-01-30 07:57:40'),
+(12, NULL, 6, 5, 'hii', '25-01-2020', '07:01:33 AM', '2020-01-30 07:57:10'),
+(13, NULL, 6, 5, 'ghj', '30-01-2020', '06:01:03 AM', '2020-01-30 07:46:00');
 
 -- --------------------------------------------------------
 
@@ -3476,7 +3479,7 @@ INSERT INTO `user` (`user_id`, `company_id`, `role_id`, `user_name`, `user_city`
 (7, 3, 2, 'Emp Demo', 'kop', 'ddd@ggg.com', '9988556622', '123', 'active', '3', '2020-01-21 11:47:39', 0),
 (8, 3, 4, 'Demo Franc', '', 'demofranc@ooo.com', '9876543211', '123456', 'active', '7', '2020-01-21 11:48:41', 0),
 (9, 3, 5, 'Demo Franc Local', '', 'ggg@jjj.com', '9876543212', '123456', 'active', '8', '2020-01-21 12:17:36', 0),
-(18, 0, 6, 'Demo Add Lead', '', '', '9673454383', '123456', 'deactivate', '0', '2020-01-28 10:03:48', 0);
+(18, 0, 6, 'Demo Add Lead', '', '', '9673454383', '123456', 'deactivate', '0', '2020-01-30 08:15:45', 0);
 
 --
 -- Indexes for dumped tables
@@ -3862,7 +3865,7 @@ ALTER TABLE `income`
 -- AUTO_INCREMENT for table `interest`
 --
 ALTER TABLE `interest`
-  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -3892,7 +3895,7 @@ ALTER TABLE `member_image`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `moonsign`

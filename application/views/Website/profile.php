@@ -478,7 +478,7 @@
         </select>
           </div>
               <div class="form-group col-md-6 ">
-              <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id"  title="Select Tahasil" data-placeholder="Select Tahasil" required>
+              <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id"  title="Select Tahasil" data-placeholder="Select Tahasil">
                 <option selected="selected" value="" >Select Tahasil </option>
                 <?php foreach ($tahasil_list as $list) { ?>
                   <option value="<?php echo $list->tahasil_id ?>" <?php if(isset($tahasil_id) && $tahasil_id == $list->tahasil_id ){ echo 'selected'; } ?>><?php echo $list->tahasil_name; ?></option>
@@ -486,7 +486,7 @@
               </select>
             </div>
             <div class="form-group col-md-6 ">
-            <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" required>
+            <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City">
               <option selected="selected" value="" >Select City </option>
               <?php foreach ($city_list as $list) { ?>
                 <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
@@ -531,10 +531,40 @@
             <div class="form-group col-md-6">
               <input type="email" class="form-control form-control-sm " name="member_email" id="member_email" value="<?php if(isset($member_email)){ echo $member_email; } ?>" title="Enter Email" placeholder="Enter Email" required>
             </div>
-            <!-- <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <input type="text" class="form-control form-control-sm mobile only_number" name="member_mobile" id="member_mobile" value="<?php if(isset($member_mobile)){ echo $member_mobile; } ?>" title="Enter Mobile" placeholder="Enter Mobile" required>
             </div>
-            <div class="form-group col-md-6">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="form-group col-md-5 mb-0">
+                  <label for="">Show Email To : </label>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                  <input class="form-check-input" value="1" type="radio" name="show_email" <?php if(isset($show_email) && $show_email == '1'){ echo 'checked'; }  ?>>
+                  Public
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                  <input class="form-check-input" value="0" type="radio" name="show_email"<?php if(isset($show_email) && $show_email == '0'){ echo 'checked'; }?>>
+                  Only Me
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="form-group col-md-5 mb-0">
+                  <label for="">Show Mobile To : </label>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                  <input class="form-check-input" value="1" type="radio" name="show_mobile" <?php if(isset($show_mobile) && $show_mobile == '1'){ echo 'checked'; } ?>>
+                  Public
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                  <input class="form-check-input" value="0" type="radio" name="show_mobile"<?php if(isset($show_mobile) && $show_mobile == '0'){ echo 'checked'; } else{ echo 'checked'; } ?>>
+                  Only Me
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group col-md-6">
               <input type="password" class="form-control form-control-sm" name="member_password" id="member_password" value="<?php if(isset($member_password)){ echo $member_password; } ?>" title="Enter Password" placeholder="Enter Password" required>
             </div>
             <div class="form-group col-md-6">

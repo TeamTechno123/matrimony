@@ -41,10 +41,12 @@
                                 <img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt="">
                               </a>
                             </div>
+
                             <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
                             <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
                             <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
                             <div class="item"><img class="pb-2" src="<?php echo base_url(); ?>assets/images/profile-girl.jpg" width="100" alt=""></div>
+
                           </div>
                         </div>
                       </div>
@@ -58,14 +60,14 @@
                       <?php } ?>
 
                       <div class="row">
-                        <div class="col-6">
+                        <!-- <div class="col-6">
                           <?php if(isset($shortlist_sent)){ ?>
                             <button class="btn btn-success btn-sm w-100 " type="submit" disabled><i class="fa fa-list" aria-hidden="true" ></i> Shortlisted</button>
                           <?php  } else{ ?>
                             <button class="btn btn-success btn-sm w-100 " id="btn_shortlist" type="submit"><i class="fa fa-list" aria-hidden="true"></i> Shortlist</button>
                           <?php } ?>
-                        </div>
-                        <div class="col-6">
+                        </div> -->
+                        <div class="col-12">
                           <button class="btn btn-success btn-sm w-100 " type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
                         </div>
                       </div>
@@ -87,36 +89,6 @@
                         <h5 class="mb-3">Quick Information : </h5>
                       </div>
                     </div>
-
-                    <!-- <table class="table tbl_mem_info">
-                      <tbody>
-                        <tr>
-                           <th scope="row" style="font-size:18px;" class="text-danger" colspan="4"><?php echo $member_info[0]['member_name']; ?></th>
-                        </tr>
-                        <tr>
-                          <th>Member ID : </th>
-                           <th class="text-danger" colspan="3"><?php echo $member_info[0]['member_id']; ?></th>
-                        </tr>
-                        <tr>
-                          <th>Gender : </th>
-                          <td><?php echo $member_info[0]['member_gender']; ?> </td>
-                          <th>Age : </th>
-                          <td><?php echo $age; ?></td>
-                        </tr>
-                        <tr>
-                          <th>Marital Status : </th>
-                          <td><?php echo $member_info[0]['marital_status_name']; ?></td>
-                          <th>City : </th>
-                          <td><?php echo $member_info[0]['city_name']; ?></td>
-                        </tr>
-                        <tr>
-                          <th>Area : </th>
-                          <td><?php echo $member_info[0]['member_area']; ?></td>
-                          <th>On Behalf : </th>
-                          <td><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></td>
-                        </tr>
-                      </tbody>
-                    </table> -->
 
                     <div class="row">
                       <div class="col-md-12 py-1">
@@ -215,6 +187,25 @@
                       </div>
 
                       <div class="col-md-3 col-6">
+                        <p class="mb-1">Mobile : </p>
+                      </div>
+                      <div class="col-md-3 col-6">
+                        <p class="mb-1"><?php if($member_info[0]['show_mobile'] == 1){ echo $member_info[0]['member_mobile']; }  ?></p>
+                      </div>
+                      <div class="col-12 d-block d-sm-none">
+                          <hr class="hr-web">
+                      </div>
+                      <div class="col-md-3 col-6">
+                        <p class="mb-1">Email : </p>
+                      </div>
+                      <div class="col-md-3 col-6">
+                        <p class="mb-1"><?php if($member_info[0]['show_email'] == 1){ echo $member_info[0]['member_email']; } ?></p>
+                      </div>
+                      <div class="col-12">
+                          <hr class="hr-web">
+                      </div>
+
+                      <div class="col-md-3 col-6">
                         <p class="mb-1">Area : </p>
                       </div>
                       <div class="col-md-3 col-6">
@@ -232,6 +223,7 @@
                       <div class="col-12">
                           <hr class="hr-web">
                       </div>
+
                       <div class="col-md-3 col-6">
                         <p class="mb-1">Tahasil : </p>
                       </div>
@@ -469,7 +461,7 @@
 
 <!-- End of Quick Info Update Modal -->
 
-<?php include("footer.php"); ?>
+<?php include("script.php"); ?>
 
 
 <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>

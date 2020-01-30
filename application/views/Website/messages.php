@@ -31,7 +31,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <!-- DIRECT CHAT -->
-                <div class="card direct-chat direct-chat-warning">
+                <div class="card direct-chat direct-chat-success">
                   <div class="card-header">
                     <h3 class="card-title">Direct Chat</h3>
                   </div>
@@ -48,13 +48,13 @@
                           if($member_id == $mat_member_id){
                       ?>
                         <!-- Message to the right -->
-                        <div class="direct-chat-msg right">
+                        <div class="direct-chat-msg right text-right w-75 ml-auto mr-0">
                           <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-right"><?php //echo $member_info[0]['member_name']; ?> You to <?php echo $to_member_info[0]['member_name']; ?></span>
+                            <span class="direct-chat-name float-right"><?php //echo $member_info[0]['member_name']; ?> You </span>
                             <span class="direct-chat-timestamp float-left"><?php echo $masseges_list->message_date; ?> <?php echo $masseges_list->message_time; ?></span>
                           </div>
                           <!-- /.direct-chat-infos -->
-                          <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="">
+                          <img class="direct-chat-img" src="<?php base_url(); ?>assets/images/profile/" alt="">
                           <!-- /.direct-chat-img -->
                           <div class="direct-chat-text">
                             <?php echo $masseges_list->message_text; ?>
@@ -64,13 +64,13 @@
                         <!-- /.direct-chat-msg -->
                       <?php  } else{  ?>
                         <!-- Message. Default to the left -->
-                        <div class="direct-chat-msg">
+                        <div class="direct-chat-msg w-75 mr-auto ml-0">
                           <div class="direct-chat-infos clearfix">
                             <span class="direct-chat-name float-left"><?php echo $member_info[0]['member_name']; ?></span>
                             <span class="direct-chat-timestamp float-right"><?php echo $masseges_list->message_date; ?> <?php echo $masseges_list->message_time; ?></span>
                           </div>
                           <!-- /.direct-chat-infos -->
-                          <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="">
+                          <img class="direct-chat-img" src="<?php base_url(); ?>assets/images/profile/" alt="">
                           <!-- /.direct-chat-img -->
                           <div class="direct-chat-text">
                             <?php echo $masseges_list->message_text; ?>
@@ -111,7 +111,8 @@
 
 
 
-<?php include("footer.php"); ?>
+<?php //include("footer.php"); ?>
+<?php include("script.php"); ?>
 
 <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>

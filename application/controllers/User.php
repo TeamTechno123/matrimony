@@ -3002,7 +3002,7 @@ public function delete_subcast($id){
         $image_name = 'adv_'.$adv_id.'_'.$time;
 
         $config['upload_path'] = 'assets/images/adv/';
-        $config['allowed_types'] = 'jpg';
+        $config['allowed_types'] = 'jpg|png';
         $config['file_name'] = $image_name;
         $filename = $_FILES['adv_image']['name'];
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -3093,7 +3093,7 @@ public function delete_subcast($id){
         $time = time();
         $image_name = 'adv_'.$adv_id.'_'.$time;
         $config['upload_path'] = 'assets/images/adv/';
-        $config['allowed_types'] = 'jpg';
+        $config['allowed_types'] = 'jpg|png';
         $config['file_name'] = $image_name;
         $filename = $_FILES['adv_image']['name'];
         $ext = pathinfo($filename, PATHINFO_EXTENSION);

@@ -12,7 +12,7 @@ class Member_Model extends CI_Model{
     curl_close($ch) ;
     //Write out the response
     // die($response);
-    // return $response;
+    // return $url;
   }
 
 
