@@ -27,6 +27,13 @@
           </div>
         </div>
 
+        <div class="col-12 d-block d-sm-none">
+          <div class="adv pt-1">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%" height="60%" alt="">
+            <br>
+          </div>
+        </div>
+
         <div class="col-md-9">
           <div class="profile-div">
             <div class="profile-div-left">
@@ -147,6 +154,13 @@
                </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="col-12 d-block d-sm-none">
+            <div class="adv pt-4">
+              <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="60%" alt="">
+              <br>
             </div>
           </div>
         </div>
