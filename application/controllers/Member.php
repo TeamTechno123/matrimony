@@ -33,32 +33,38 @@ class Member extends CI_Controller{
       'user_addedby' => 0,
     );
     $member_user_id = $this->User_Model->save_data('user', $save_user_data);
-
+    $birthdate = $this->input->post('member_birth_date');
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $save_data = array(
       'company_id' => 0,
       'member_user_id' => $member_user_id,
       'member_name' => $member_name,
       'member_gender' => $this->input->post('member_gender'),
       'member_birth_date' => $this->input->post('member_birth_date'),
+      'member_age' => $age,
       'member_mobile' => $this->input->post('member_mobile'),
       'member_password' => $this->input->post('member_password'),
       'member_otp' => $member_otp,
       'mamber_date' => $today,
       'member_addedby' => 0,
     );
-    $this->User_Model->save_data('member', $save_data);
+    $otp_member_id = $this->User_Model->save_data('member', $save_data);
 
     // Send SMS...
     $password = $this->input->post('member_password');
     $mobile_no = $this->input->post('member_mobile');
+
     $message2 = "You are registered on \nbhartiyshadi.com \nusername: ".$mobile_no." \npassword: ".$password." \nOTP:".$member_otp."" ;
     $message = urlencode($message2);
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
 
     $this->session->set_flashdata('reg_success','success');
-    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
-    else{ header('location:'.base_url().'Member/profile'); }
 
+    $this->session->set_userdata('otp_member_id', $otp_member_id);
+    $this->session->set_userdata('mat_member_status', 'free');
+    header('location:'.base_url().'Member/check_otp');
+    // if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+    // else{ header('location:'.base_url().'Member/profile'); }
   }
 
 
@@ -72,22 +78,68 @@ class Member extends CI_Controller{
       header('location:'.base_url().'Website');
     }
     else{
-        $otp = $login[0]['member_otp'];
-        $is_otp_check = $login[0]['is_otp_check'];
-        if($is_otp_check == 1){
-          $this->session->set_userdata('mat_member_id', $login[0]['member_id']);
-          $this->session->set_userdata('mat_member_user_id', $login[0]['member_user_id']);
-          $this->session->set_userdata('member_is_login', 'member_login_success');
-          header('location:'.base_url().'Member/active_members');
+      $otp = $login[0]['member_otp'];
+      $is_otp_check = $login[0]['is_otp_check'];
+      if($is_otp_check == 1){
+        $this->session->set_userdata('mat_member_id', $login[0]['member_id']);
+        $this->session->set_userdata('mat_member_user_id', $login[0]['member_user_id']);
+        $this->session->set_userdata('mat_member_status', $login[0]['member_status']);
+        $this->session->set_userdata('member_is_login', 'member_login_success');
+        $member_status = $login[0]['member_status'];
+        if($member_status == 'free'){
+          header('location:'.base_url().'Payment/member_payment');
         } else{
-          $this->session->set_userdata('otp_member_id', $login[0]['member_id']);
-          header('location:'.base_url().'Member/check_otp');
+          header('location:'.base_url().'Member/active_members');
         }
-
-
-      // echo 'login';
+      } else{
+        $this->session->set_userdata('otp_member_id', $login[0]['member_id']);
+        $this->session->set_userdata('mat_member_status', $login[0]['member_status']);
+        header('location:'.base_url().'Member/check_otp');
+      }
     }
   }
+/*************************** Forgot Password ***********************/
+  // Check Mobile No. Send OTP...
+  public function check_mobile(){
+    $member_mobile = $this->input->post('member_mobile');
+    $check = $this->Member_Model->check_mobile($member_mobile);
+    if($check){
+      $member_otp = mt_rand(100000, 999999);
+      $update_data['member_otp'] = $member_otp;
+      $this->User_Model->update_info('member_mobile', $member_mobile, 'member', $update_data);
+      $mobile_no = $check[0]['member_mobile'];
+      $message2 = "bhartiyshadi.com \nOTP:".$member_otp."" ;
+      $message = urlencode($message2);
+      $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
+      // $this->session->set_flashdata('otp_sent','otp_sent');
+      echo 'success';
+    } else{
+      echo 'invalid';
+      // $this->session->set_flashdata('invalid_mobile','invalid_mobile');
+      // header('location:'.base_url().'Website');
+    }
+  }
+
+  // Check Verify OTP...
+  public function verify_otp_password(){
+    $member_mobile = $this->input->post('member_mobile');
+    $member_otp = $this->input->post('member_otp');
+    $check = $this->Member_Model->verify_otp_password($member_mobile,$member_otp);
+    if($check){
+      echo 'success';
+    } else{
+      echo 'invalid';
+    }
+  }
+
+  // Change Password...
+  public function change_password(){
+    $member_mobile = $this->input->post('member_mobile');
+    $member_data['member_password'] = $this->input->post('member_password');
+    $this->User_Model->update_info('member_mobile', $member_mobile, 'member', $member_data);
+  }
+
+
 /********************************* Check OTP ***************************************/
   public function check_otp(){
     $otp_member_id = $this->session->userdata('otp_member_id');
@@ -97,6 +149,7 @@ class Member extends CI_Controller{
 
   public function verify_otp(){
     $otp_member_id = $this->session->userdata('otp_member_id');
+    $member_status = $this->session->userdata('mat_member_status');
     if($otp_member_id==null){ header('location:'.base_url().'Website'); }
     $member_otp = $this->input->post('member_otp');
 
@@ -105,7 +158,12 @@ class Member extends CI_Controller{
       $member_data['is_otp_check'] = '1';
       $this->User_Model->update_info('member_id', $otp_member_id, 'member', $member_data);
       $this->session->set_userdata('mat_member_id', $otp_member_id);
-      header('location:'.base_url().'Member/active_members');
+
+      if($member_status == 'free'){
+        header('location:'.base_url().'Payment/member_payment');
+      } else{
+        header('location:'.base_url().'Member/active_members');
+      }
     } else{
       $this->session->set_flashdata('invalid_otp','invalid_otp');
       header('location:'.base_url().'Member/check_otp');
@@ -151,6 +209,8 @@ class Member extends CI_Controller{
     $data['moonsign_list'] = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
     $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
+    $data['marriage_type_list'] = $this->User_Model->get_list1('marriage_type_id','ASC','marriage_type');
+
 
     $member_info2 = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
     if(!$member_info2){ header('location:'.base_url().'Website'); }
@@ -191,7 +251,9 @@ class Member extends CI_Controller{
     $data['income_id'] = $member_info2[0]['income_id'];
     $data['moonsign_id'] = $member_info2[0]['moonsign_id'];
     $data['occupation_id'] = $member_info2[0]['occupation_id'];
+    $data['occupation_details'] = $member_info2[0]['occupation_details'];
     $data['resident_status_id'] = $member_info2[0]['resident_status_id'];
+    $data['marriage_type_id'] = $member_info2[0]['marriage_type_id'];
 
     $get_sent_interest = $this->Member_Model->get_interest($mat_member_id,'','interest_id');
     $sent_interest_cnt = 0;
@@ -220,15 +282,15 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
 	  $this->load->view('Website/profile',$data);
 	}
@@ -237,27 +299,21 @@ class Member extends CI_Controller{
     $mat_member_id = $this->session->userdata('mat_member_id');
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+    $birthdate = $this->input->post('member_birth_date');
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $update_data = array(
       'member_name' => $this->input->post('member_name'),
-      'member_address' => $this->input->post('member_address'),
-      'country_id' => $this->input->post('country_id'),
-      'state_id' => $this->input->post('state_id'),
-      'district_id' => $this->input->post('district_id'),
-      'tahasil_id' => $this->input->post('tahasil_id'),
-      'city_id' => $this->input->post('city_id'),
-      'member_area' => $this->input->post('member_area'),
       'member_gender' => $this->input->post('member_gender'),
       'member_birth_date' => $this->input->post('member_birth_date'),
+      'member_age' => $age,
       'language_id' => $this->input->post('language_id'),
-      'religion_id' => $this->input->post('religion_id'),
       'member_email' => $this->input->post('member_email'),
       'member_mobile' => $this->input->post('member_mobile'),
       'show_email' => $this->input->post('show_email'),
       'show_mobile' => $this->input->post('show_mobile'),
-      // 'member_password' => $this->input->post('member_password'),
       'onbehalf_id' => $this->input->post('onbehalf_id'),
       'marital_status' => $this->input->post('marital_status'),
-      'cast_id' => $this->input->post('cast_id'),
+      'marriage_type_id' => $this->input->post('marriage_type_id'),
       // 'member_addedby' => 0,
     );
     $this->User_Model->update_info('member_id', $mat_member_id, 'member', $update_data);
@@ -268,21 +324,69 @@ class Member extends CI_Controller{
     $mat_member_id = $this->session->userdata('mat_member_id');
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+    $cast_id = $this->input->post('cast_id');
+    if($cast_id == '-1'){
+      $save_cast_data['cast_name'] = $this->input->post('other_cast_name');
+      $save_cast_data['religion_id'] = $this->input->post('religion_id');
+      $cast_id = $this->User_Model->save_data('cast', $save_cast_data);
+    }
+    $sub_cast_id = $this->input->post('sub_cast_id');
+    if($sub_cast_id == '-1'){
+      $save_subcast_data['sub_cast_name'] = $this->input->post('other_subcast_name');
+      $save_subcast_data['cast_id'] = $cast_id;
+      $save_subcast_data['religion_id'] = $this->input->post('religion_id');
+      $sub_cast_id = $this->User_Model->save_data('sub_cast', $save_subcast_data);
+    }
+
+    $district_id = $this->input->post('district_id');
+    if($district_id == '-1'){
+      $save_district_data['district_name'] = $this->input->post('other_district_name');
+      $save_district_data['country_id'] = $this->input->post('country_id');
+      $save_district_data['state_id'] = $this->input->post('state_id');
+      $district_id = $this->User_Model->save_data('district', $save_district_data);
+    }
+
+    $tahasil_id = $this->input->post('tahasil_id');
+    if($tahasil_id == '-1'){
+      $save_tahasil_data['tahasil_name'] = $this->input->post('other_tahasil_name');
+      $save_tahasil_data['country_id'] = $this->input->post('country_id');
+      $save_tahasil_data['state_id'] = $this->input->post('state_id');
+      $save_tahasil_data['district_id'] = $district_id;
+      $tahasil_id = $this->User_Model->save_data('tahasil', $save_tahasil_data);
+    }
+
+    $city_id = $this->input->post('city_id');
+    if($city_id == '-1'){
+      $save_city_data['city_name'] = $this->input->post('other_city_name');
+      $save_city_data['country_id'] = $this->input->post('country_id');
+      $save_city_data['state_id'] = $this->input->post('state_id');
+      $save_city_data['district_id'] = $district_id;
+      $save_city_data['tahasil_id'] = $tahasil_id;
+      $city_id = $this->User_Model->save_data('city', $save_city_data);
+    }
+
+    $education_id = $this->input->post('education_id');
+    if($education_id == '-1'){
+      $save_education_data['education_name'] = $this->input->post('other_education_name');
+      $education_id = $this->User_Model->save_data('education', $save_education_data);
+    }
+
     $update_data = array(
+      'member_address' => $this->input->post('member_address'),
       'country_id' => $this->input->post('country_id'),
       'state_id' => $this->input->post('state_id'),
-      'district_id' => $this->input->post('district_id'),
-      'tahasil_id' => $this->input->post('tahasil_id'),
-      'city_id' => $this->input->post('city_id'),
+      'district_id' => $district_id,
+      'tahasil_id' => $tahasil_id,
+      'city_id' => $city_id,
       'member_area' => $this->input->post('member_area'),
       'religion_id' => $this->input->post('religion_id'),
-      'cast_id' => $this->input->post('cast_id'),
-      'sub_cast_id' => $this->input->post('sub_cast_id'),
+      'cast_id' => $cast_id,
+      'sub_cast_id' => $sub_cast_id,
       'complexion_id' => $this->input->post('complexion_id'),
       'blood_group_id' => $this->input->post('blood_group_id'),
       'body_type_id' => $this->input->post('body_type_id'),
       'diet_id' => $this->input->post('diet_id'),
-      'education_id' => $this->input->post('education_id'),
+      'education_id' => $education_id,
       'family_status_id' => $this->input->post('family_status_id'),
       'family_type_id' => $this->input->post('family_type_id'),
       'family_value_id' => $this->input->post('family_value_id'),
@@ -291,9 +395,26 @@ class Member extends CI_Controller{
       'income_id' => $this->input->post('income_id'),
       'moonsign_id' => $this->input->post('moonsign_id'),
       'occupation_id' => $this->input->post('occupation_id'),
+      'occupation_details' => $this->input->post('occupation_details'),
       'resident_status_id' => $this->input->post('resident_status_id'),
     );
     $this->User_Model->update_info('member_id', $mat_member_id, 'member', $update_data);
+    header('location:'.base_url().'Member/profile');
+  }
+
+  public function change_member_password(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    $mat_member_user_id = $this->session->userdata('mat_member_user_id');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $new_password = $this->input->post('new_password');
+    $update_password['member_password'] = $new_password;
+    $this->User_Model->update_info('member_id', $mat_member_id, 'member', $update_password);
+
+    $update_user_password['user_password'] = $new_password;
+    $this->User_Model->update_info('user_id', $mat_member_user_id, 'user', $update_user_password);
+
     header('location:'.base_url().'Member/profile');
   }
 
@@ -335,6 +456,7 @@ class Member extends CI_Controller{
     $data['moonsign_list'] = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
     $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
+    $data['marriage_type_list'] = $this->User_Model->get_list1('marriage_type_id','ASC','marriage_type');
 
     $page = 'Active Members';
     $today = date('d-m-Y');
@@ -346,17 +468,17 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
-    // print_r($data['advertisement']);
+    // print_r($advertisement);
     $this->load->view('Website/active_members', $data);
   }
 
@@ -370,6 +492,7 @@ class Member extends CI_Controller{
     if(!$member_info){
       header('location:'.base_url().'Member/active_members');
     }
+    $data['member_img'] = $member_info[0]['member_img'];
 
     $get_interest = $this->Member_Model->get_interest($mat_member_id,$member_id,'*');
     if($get_interest){
@@ -388,25 +511,28 @@ class Member extends CI_Controller{
     $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $data['age'] = $age;
 
+    $data['member_image_list'] = $this->Member_Model->member_image_list($mat_member_id);
+
     $page = 'User Profile';
     $today = date('d-m-Y');
 
     $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+
     $country_id = $adv_member_info[0]['country_id'];
     $state_id = $adv_member_info[0]['state_id'];
     $district_id = $adv_member_info[0]['district_id'];
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/active_full_profile',$data);
   }
@@ -480,15 +606,15 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/interest_list',$data);
   }
@@ -511,15 +637,15 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
     // print_r($data['interest_list']);
     $this->load->view('Website/interest_list',$data);
   }
@@ -549,7 +675,8 @@ class Member extends CI_Controller{
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
 
-    $data['messages_member_list'] = $this->Member_Model->masseges_member_list($mat_member_id);
+    // $data['messages_member_list'] = $this->Member_Model->masseges_member_list($mat_member_id);
+    $data['messages_member_list'] = $this->Member_Model->masseges_member_list2($mat_member_id);
 
     $page = 'Message List';
     $today = date('d-m-Y');
@@ -561,15 +688,15 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/messages_list',$data);
   }
@@ -594,15 +721,15 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/messages',$data);
   }
@@ -624,16 +751,16 @@ class Member extends CI_Controller{
     $religion_id = $this->input->post('religion_id');
     $cast_id = $this->input->post('cast_id');
 
-
     $state_id = $this->input->post('state_id');
     $district_id = $this->input->post('district_id');
     $education_id = $this->input->post('education_id');
     $diet_id = $this->input->post('diet_id');
+    $marriage_type_id = $this->input->post('marriage_type_id');
 
     $member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
     $gender = $member_info[0]['member_gender'];
 
-    $data['active_members_list'] = $this->Member_Model->search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id,$state_id,$district_id,$education_id,$diet_id);
+    $data['active_members_list'] = $this->Member_Model->search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id,$state_id,$district_id,$education_id,$diet_id,$marriage_type_id);
 
     $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
 		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
@@ -661,6 +788,27 @@ class Member extends CI_Controller{
     $data['moonsign_list'] = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
     $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
+    $data['marriage_type_list'] = $this->User_Model->get_list1('marriage_type_id','ASC','marriage_type');
+
+    $page = 'Active Members';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     // print_r($data['active_members_list']);
     $this->load->view('Website/active_members', $data);
@@ -687,15 +835,15 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/profile_gallery',$data);
   }
@@ -770,6 +918,40 @@ class Member extends CI_Controller{
   }
 
 /*************************************** Add Member/Lead ************************************/
+  public function lead_list(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    $mat_member_user_id = $this->session->userdata('mat_member_user_id');
+    if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
+
+    $data['lead_list'] = $this->User_Model->get_member_list_by_user('',$mat_member_user_id);
+    // print_r($data['lead_list']);
+    $data['tot_mem_commission'] = $this->User_Model->tot_commission('commission_amount',$mat_member_user_id);
+    $data['tot_mem_tds'] = $this->User_Model->tot_commission('tds_amount',$mat_member_user_id);
+    $data['tot_mem_amt'] = $this->User_Model->tot_commission('final_commission_amount',$mat_member_user_id);
+
+    $page = 'Add Lead';
+    $today = date('d-m-Y');
+
+    $adv_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+    $country_id = $adv_member_info[0]['country_id'];
+    $state_id = $adv_member_info[0]['state_id'];
+    $district_id = $adv_member_info[0]['district_id'];
+
+    $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
+    if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
+
+    $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
+    if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
+
+    $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
+    if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
+
+    $this->load->view('Website/lead_list',$data);
+  }
   public function add_member(){
     $mat_member_id = $this->session->userdata('mat_member_id');
     $member_is_login = $this->session->userdata('member_is_login');
@@ -803,7 +985,6 @@ class Member extends CI_Controller{
     $data['occupation_list'] = $this->User_Model->get_list1('occupation_id','ASC','occupation');
     $data['resident_status_list'] = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
 
-
     $page = 'Add Lead';
     $today = date('d-m-Y');
 
@@ -814,18 +995,17 @@ class Member extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/add_member',$data);
-
   }
 
   public function save_member(){
@@ -848,6 +1028,43 @@ class Member extends CI_Controller{
     );
     $member_user_id = $this->User_Model->save_data('user', $save_user_data);
 
+    // Save Member...
+    $cast_id = $this->input->post('cast_id');
+    if($cast_id == '-1'){
+      $save_cast_data['cast_name'] = $this->input->post('other_cast_name');
+      $save_cast_data['religion_id'] = $this->input->post('religion_id');
+      $cast_id = $this->User_Model->save_data('cast', $save_cast_data);
+    }
+
+    $district_id = $this->input->post('district_id');
+    if($district_id == '-1'){
+      $save_district_data['district_name'] = $this->input->post('other_district_name');
+      $save_district_data['country_id'] = $this->input->post('country_id');
+      $save_district_data['state_id'] = $this->input->post('state_id');
+      $district_id = $this->User_Model->save_data('district', $save_district_data);
+    }
+
+    $tahasil_id = $this->input->post('tahasil_id');
+    if($tahasil_id == '-1'){
+      $save_tahasil_data['tahasil_name'] = $this->input->post('other_tahasil_name');
+      $save_tahasil_data['country_id'] = $this->input->post('country_id');
+      $save_tahasil_data['state_id'] = $this->input->post('state_id');
+      $save_tahasil_data['district_id'] = $district_id;
+      $tahasil_id = $this->User_Model->save_data('tahasil', $save_tahasil_data);
+    }
+
+    $city_id = $this->input->post('city_id');
+    if($city_id == '-1'){
+      $save_city_data['city_name'] = $this->input->post('other_city_name');
+      $save_city_data['country_id'] = $this->input->post('country_id');
+      $save_city_data['state_id'] = $this->input->post('state_id');
+      $save_city_data['district_id'] = $district_id;
+      $save_city_data['tahasil_id'] = $tahasil_id;
+      $city_id = $this->User_Model->save_data('city', $save_city_data);
+    }
+
+    $birthdate = $this->input->post('member_birth_date');
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $save_data = array(
       'company_id' => 0,
       'member_user_id' => $member_user_id,
@@ -855,12 +1072,13 @@ class Member extends CI_Controller{
       'member_address' => $this->input->post('member_address'),
       'country_id' => $this->input->post('country_id'),
       'state_id' => $this->input->post('state_id'),
-      'district_id' => $this->input->post('district_id'),
-      'tahasil_id' => $this->input->post('tahasil_id'),
-      'city_id' => $this->input->post('city_id'),
+      'district_id' => $district_id,
+      'tahasil_id' => $tahasil_id,
+      'city_id' => $city_id,
       'member_area' => $this->input->post('member_area'),
       'member_gender' => $this->input->post('member_gender'),
       'member_birth_date' => $this->input->post('member_birth_date'),
+      'member_age' => $age,
       'language_id' => $this->input->post('language_id'),
       'religion_id' => $this->input->post('religion_id'),
       'member_email' => $this->input->post('member_email'),
@@ -870,7 +1088,7 @@ class Member extends CI_Controller{
       'mamber_date' => $today,
       'onbehalf_id' => $this->input->post('onbehalf_id'),
       'marital_status' => $this->input->post('marital_status'),
-      'cast_id' => $this->input->post('cast_id'),
+      'cast_id' => $cast_id,
       'member_addedby' => $member_addedby,
     );
     $this->User_Model->save_data('member', $save_data);
@@ -883,7 +1101,16 @@ class Member extends CI_Controller{
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
     // echo $send_sms;
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
-    else{ header('location:'.base_url().'Member/profile'); }
+    else{ header('location:'.base_url().'Member/lead_list'); }
+  }
+
+  public function payment_success(){
+    $mat_member_id = $this->session->userdata('mat_member_id');
+    $member_is_login = $this->session->userdata('member_is_login');
+    $mat_member_user_id = $this->session->userdata('mat_member_user_id');
+    $mat_member_status = $this->session->userdata('mat_member_status');
+    if($mat_member_status == 'free'){ header('location:'.base_url().'Member/active_members'); }
+    $this->load->view('Website/payment_success');
   }
 
 }

@@ -1,8 +1,6 @@
 <?php
 class User_Model extends CI_Model{
 
-
-
   function check_login($email, $password){
     $query = $this->db->select('*')
         ->where('user_mobile', $email)
@@ -11,24 +9,6 @@ class User_Model extends CI_Model{
         ->get();
       $result = $query->result_array();
       return $result;
-  }
-
-  public function get_count($id_type,$company_id,$added_by,$mat_user_id,$status_col,$status_key,$tbl_name){
-    $this->db->select($id_type);
-    if($company_id != ''){
-      $this->db->where('company_id', $company_id);
-    }
-    if($added_by != ''){
-      $this->db->where($added_by, $mat_user_id);
-    }
-    if($status_col != ''){
-      $this->db->where($status_col, $status_key);
-    }
-
-    $this->db->from($tbl_name);
-      $query =  $this->db->get();
-    $result = $query->num_rows();
-    return $result;
   }
 
   public function save_data($tbl_name, $data){
@@ -85,11 +65,13 @@ class User_Model extends CI_Model{
   }
 
   public function check_duplication($company_id,$value,$field_name,$table_name){
-    $query = $this->db->select($field_name)
-      ->where('company_id', $company_id)
-      ->where($field_name,$value)
-      ->from($table_name)
-      ->get();
+    $this->db->select($field_name);
+    if($company_id != ''){
+      $this->db->where('company_id', $company_id);
+    }
+    $this->db->where($field_name,$value);
+    $this->db->from($table_name);
+    $query =  $this->db->get();
     $result = $query->result();
     return $result;
   }
@@ -266,6 +248,7 @@ $query = $this->db->select('state.*, country.*,district.*,tahasil.*,city.*')
       return $result;
     }
 
+    // Used in 1. Admin Member List, 2. Wbsite Lead list,
     public function get_member_list_by_user($company_id,$mat_user_id){
       $this->db->select('*');
       $this->db->from('member');
@@ -275,6 +258,20 @@ $query = $this->db->select('state.*, country.*,district.*,tahasil.*,city.*')
       $this->db->order_by('member_id', 'DESC');
       $query = $this->db->get();
       $result = $query->result();
+      return $result;
+    }
+    // Used in 1. Admin Member List, 2. Wbsite Lead list,
+    public function get_commission_by_mem_user($mat_member_user_id,$member_id){
+      $this->db->select('*');
+      $this->db->from('commission');
+      if($mat_member_user_id != ''){
+        $this->db->where('commission_to_user_id',$mat_member_user_id);
+      }
+      if($member_id != ''){
+        $this->db->where('commission_from_member_id',$member_id);
+      }
+      $query = $this->db->get();
+      $result = $query->result_array();
       return $result;
     }
 
@@ -289,6 +286,90 @@ $query = $this->db->select('state.*, country.*,district.*,tahasil.*,city.*')
       $result = $query->result();
       return $result;
     }
+
+    public function tot_commission($field_name,$user_id){
+      $this->db->select('SUM('.$field_name.') as tot_mem_comm');
+      $this->db->from('commission');
+      $this->db->where('commission_to_user_id',$user_id);
+      $query = $this->db->get();
+      $result = $query->result_array();
+      if($result[0]['tot_mem_comm'] == ''){
+        $amt = 0;
+      } else{
+        $amt = $result[0]['tot_mem_comm'];
+      }
+      return $amt;
+    }
+
+    public function tot_adv_commission($field_name,$user_id){
+      $this->db->select('SUM('.$field_name.') as tot_adv_comm');
+      $this->db->from('adv_commission');
+      $this->db->where('adv_commission_to_user_id',$user_id);
+      $query = $this->db->get();
+      $result = $query->result_array();
+      if($result[0]['tot_adv_comm'] == ''){
+        $amt = 0;
+      } else{
+        $amt = $result[0]['tot_adv_comm'];
+      }
+      return $amt;
+    }
+
+    public function tot_adv_amount($field_name,$user_id){
+      $this->db->select('SUM('.$field_name.') as tot_adv_amt');
+      $this->db->from('advertisement');
+      $this->db->where('adv_addedby',$user_id);
+      $this->db->where('is_paid',1);
+      $query = $this->db->get();
+      $result = $query->result_array();
+      if($result[0]['tot_adv_amt'] == ''){
+        $amt = 0;
+      } else{
+        $amt = $result[0]['tot_adv_amt'];
+      }
+      return $amt;
+    }
+/************************************** Dashboard **************************************/
+
+  public function get_count($id_type,$company_id,$added_by,$mat_user_id,$status_col,$status_key,$tbl_name){
+    $this->db->select($id_type);
+    if($company_id != ''){
+      $this->db->where('company_id', $company_id);
+    }
+    if($added_by != ''){
+      $this->db->where($added_by, $mat_user_id);
+    }
+    if($status_col != ''){
+      $this->db->where($status_col, $status_key);
+    }
+
+    $this->db->from($tbl_name);
+      $query =  $this->db->get();
+    $result = $query->num_rows();
+    return $result;
+  }
+
+  public function get_franchise_count_by_type($franchise_type_id){
+    $this->db->select('franchise_id');
+    $this->db->from('franchise');
+    $this->db->where('franchise_type_id', $franchise_type_id);
+    $query = $this->db->get();
+    $result = $query->num_rows();
+    return $result;
+  }
+
+/**************************************************************/
+  public function pay_franchise_info($franchise_type_id,$location_type,$location_id,$tbl_name){
+    $query = $this->db->select('*')
+            ->where('franchise_type_id', $franchise_type_id)
+            ->where($location_type, $location_id)
+            ->from($tbl_name)
+            ->get();
+    $result = $query->result_array();
+    return $result;
+  }
+
+
 
 
 

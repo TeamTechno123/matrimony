@@ -46,7 +46,7 @@
                           <?php } else{?>
                             <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
                           <?php } ?>
-                          <input class="mt-1" type="file" name="member_img">
+                          <input class="mt-1 w-100" type="file" name="member_img">
                           <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
                         </div>
                         <div class="col-md-8">
@@ -59,7 +59,7 @@
                             ?>
                             <div class="col-md-6 text-center my-2">
                               <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" alt="">
-                              <input class="mt-1" type="file" name="member_image_name[]" >
+                              <input class="mt-1 w-100" type="file" name="member_image_name[]" >
                               <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
                             </div>
 
@@ -69,7 +69,7 @@
                             ?>
                             <div class="col-md-6 text-center my-2">
                               <img style="width: 40%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
-                              <input class="mt-1" type="file" name="member_image_name[]">
+                              <input class="mt-1 w-100" type="file" name="member_image_name[]">
                               <input type="hidden" name="member_image_id[]" value="">
                             </div>
                             <?php

@@ -3,8 +3,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -17,7 +15,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -28,8 +25,6 @@
               <div class="card-header">
                 <h3 class="card-title">Complexion Information</h3>
               </div>
-
-
               <!-- /.card-header -->
               <!-- form start -->
               <?php if(isset($update)){ ?>

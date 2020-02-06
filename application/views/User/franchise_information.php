@@ -119,6 +119,23 @@
                   <div class="form-group col-md-6">
                     <input type="password" class="form-control form-control-sm" name="franchise_c_password" id="franchise_c_password" value="<?php if(isset($franchise_password)){ echo $franchise_password; } ?>" title="Confirm Password" placeholder="Confirm Password" required>
                   </div>
+
+                  <div class="form-group col-md-12">
+                    <label for="">Bank Details : </label>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control form-control-sm" name="franchise_bank" id="franchise_bank" value="<?php if(isset($franchise_bank)){ echo $franchise_bank; } ?>" title="Enter Bank Name" placeholder="Enter Bank Name" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control form-control-sm" name="franchise_branch" id="franchise_branch" value="<?php if(isset($franchise_branch)){ echo $franchise_branch; } ?>" title="Enter Bank Branch" placeholder="Enter Bank Branch" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control form-control-sm" name="franchise_ifsc" id="franchise_ifsc" value="<?php if(isset($franchise_ifsc)){ echo $franchise_ifsc; } ?>" title="Enter IFSC Code" placeholder="Enter IFSC Code" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control form-control-sm" name="franchise_acc_no" id="franchise_acc_no" value="<?php if(isset($franchise_acc_no)){ echo $franchise_acc_no; } ?>" title="Enter Bank Acount Number" placeholder="Enter Bank Acount Number" required>
+                  </div>
+
                   <div class="form-group col-md-6 pl-4">
                     <input type="checkbox" name="franchise_status" <?php if(isset($franchise_status) && $franchise_status == 'deactivate'){ echo 'checked'; } ?> value="deactivate"> Disable This Franchise
                   </div>

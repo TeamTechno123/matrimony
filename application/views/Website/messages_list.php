@@ -1,5 +1,9 @@
 <?php include("header.php");
-      $mat_member_id = $this->session->userdata('mat_member_id'); ?>
+      $mat_member_id = $this->session->userdata('mat_member_id');
+      $mat_member_status = $this->session->userdata('mat_member_status');
+      $mat_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+?>
+
 <section class="heading">
   <div class="container">
     <div class="row">
@@ -32,16 +36,19 @@
             <div class="profile-div-left">
               <div class="row">
                 <div class="col-md-12">
-                  <div class="card card-red" style="width: 100%;">
-                    <div class="card-body">
                       <?php if($messages_member_list){
                         $interest_sent = '';
                         $shortlist_sent = '';
-                        foreach ($messages_member_list as $list) {
+                        foreach ($messages_member_list as $list2) {
+                          $msg_member_id = $list2->msg_member_id;
+
+                          $member_info = $this->Member_Model->get_member_info($msg_member_id);
+                          foreach ($member_info as $list) {
+                          }
                           $today = date('d-m-Y');
-                          $birthdate = $list->member_birth_date;
+                          $birthdate = $list['member_birth_date'];
                           $age =  date_diff(date_create($birthdate), date_create($today))->y;
-                          $member_id = $list->member_id;
+                          $member_id = $list['member_id'];
                       ?>
                         <div class="tab-div">
                           <div class="row">
@@ -51,7 +58,7 @@
                             <div class="col-md-9 col-12">
                               <div class="row">
                                 <div class=" col-md-6 col-12">
-                              <h5 class="mb-1 text-danger text-bold f-18"> <?php echo $list->member_name; ?></h5>
+                              <h5 class="mb-1 text-danger text-bold f-18"> <?php echo $list['member_name']; ?></h5>
                             </div>
                             <div class="col-12 d-block d-sm-none">
                                 <hr class="hr-web">
@@ -60,7 +67,7 @@
                                 <p class="mb-1 text-bold">Member ID</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 text-danger"><?php echo $list->member_id; ?></p>
+                                <p class="mb-1 text-danger"><?php echo $list['member_id']; ?></p>
                             </div>
 
                             <div class="col-12">
@@ -80,7 +87,7 @@
                                 <p class="mb-1 text-bold">Marital Status</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list->marital_status; ?></p>
+                                <p class="mb-1 "><?php echo $list['marital_status']; ?></p>
                             </div>
 
                             <div class="col-12">
@@ -91,7 +98,7 @@
                                 <p class="mb-1 text-bold">Religion</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list->religion_name; ?></p>
+                                <p class="mb-1 "><?php echo $list['religion_name']; ?></p>
                             </div>
                             <div class="col-12 d-block d-sm-none">
                                 <hr class="hr-web">
@@ -100,7 +107,7 @@
                                 <p class="mb-1 text-bold">Caste</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list->cast_name; ?></p>
+                                <p class="mb-1 "><?php echo $list['cast_name']; ?></p>
                             </div>
 
                             <div class="col-12">
@@ -111,7 +118,7 @@
                                 <p class="mb-1 text-bold">Occupation</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list->occupation_name; ?></p>
+                                <p class="mb-1 "><?php echo $list['occupation_name']; ?></p>
                             </div>
                             <div class="col-12 d-block d-sm-none">
                                 <hr class="hr-web">
@@ -120,19 +127,34 @@
                                 <p class="mb-1 text-bold">Education</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list->education_name; ?></p>
+                                <p class="mb-1 "><?php echo $list['education_name']; ?></p>
                             </div>
                             <div class="col-12">
                                 <hr class="hr-web">
                             </div>
 
-                            <div class="col-12 mt-1">
+                            <div class="col-12 mt-3">
                               <ul  class="inline" style="display: inline; list-style-type:none;">
                                 <li class="pt-2">
-                                  <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
+                                  <?php if($mat_member_status == 'free'){
+                                    if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
+                                  ?>
+                                    <button class="btn btn-success btn-sm act_btn btn_open_modal" data-toggle="modal" data-target="#profile_complete_Modal"><i class="fa fa-address-card" aria-hidden="true"></i>  Full Profile</button>
+                                  <?php } else{ ?>
+                                    <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Full Profile</a>
+                                  <?php } }  else{ ?>
+                                    <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
+                                  <?php } ?>
                                 </li>
                                 <li>
-                                  <a href="<?php echo base_url(); ?>Member/messages/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn btn_msg" to_member_id="<?php echo $list->member_id; ?>" ><i class="fa fa-envelope" aria-hidden="true"></i> Message</a>
+                                  <?php if($mat_member_status == 'free'){
+                                  if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
+                                 ?><button class="btn btn-success btn-sm act_btn btn_open_modal" data-toggle="modal" data-target="#profile_complete_Modal"><i class="fa fa-envelope" aria-hidden="true"></i>  Message</button>
+                               <?php } else{ ?>
+                                    <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Message</a>
+                                  <?php } }  else{ ?>
+                                    <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list->member_id; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+                                  <?php } ?>
                                 </li>
                               </ul>
                             </div>
@@ -140,10 +162,8 @@
                         </div>
                     </div>
                   </div>
-                </div>
                   <?php  }
                   } ?>
-                </div>
                </div>
                 </div>
               </div>

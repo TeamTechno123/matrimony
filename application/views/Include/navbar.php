@@ -12,6 +12,18 @@
   </ul>
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="far fa-user"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <span class="dropdown-item dropdown-header">Profile</span>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-default">
+          <i class="fas fa-lock mr-2"></i> Change Password
+        </a>
+      </div>
+    </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url(); ?>User/logout">
         <i class="fas fa-sign-out-alt"></i>
@@ -24,6 +36,53 @@
     </li>
   </ul>
 </nav>
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Change Password</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="" action="<?php echo base_url(); ?>User/change_password" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="password" class="form-control" name="new_password" id="new_password" title="Enter New Password" placeholder="Enter New Password" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="new_con_password" id="new_con_password" title="Confirm New Password" placeholder="Confirm New Password" required>
+          </div>
+          <div style="display:none;" class="psw_alert alert alert-danger p-2 col-md-8 offset-md-2" role="alert">
+            New Password and Confirm Password must be same
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+      <!-- /.modal -->
+
+      <script type="text/javascript">
+      $("#new_password, #new_con_password").on('change',function(){
+        var new_password = $('#new_password').val();
+        var new_con_password = $('#new_con_password').val();
+        if(new_password != new_con_password){
+          $('#new_con_password').val('');
+          $('.psw_alert').show().delay(5000).fadeOut();
+        }
+      });
+      </script>
+
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="<?php echo base_url() ?>User/dashboard" class="brand-link">
@@ -182,20 +241,22 @@
             </p>
           </a>
           <ul class="nav nav-treeview" style="display: none;">
-            <?php //if($role_id == 1 || $role_id == 2 || $role_id == 4){ ?>
+            <?php if($role_id == 1 || $role_id == 2 || $role_id == 3 || $role_id == 4 || $role_id == 5){ ?>
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/members_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Members Information</p>
               </a>
             </li>
+            <?php } ?>
+            <?php if($role_id == 1 || $role_id == 2 || $role_id == 4 || $role_id == 5){ ?>
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/advertise_information_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Advertisement Information</p>
               </a>
             </li>
-          <?php //} ?>
+          <?php } ?>
           <?php if($role_id == 1){ ?>
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/package_list" class="nav-link">
@@ -234,10 +295,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/cast_information_list" class="nav-link">
+              <a href="<?php echo base_url(); ?>User/height_information_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
-                  Cast Information
+                  Height Information
                 </p>
               </a>
             </li>
@@ -273,91 +334,77 @@
                 </p>
               </a>
             </li>
-
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/family_type_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Family Type Information
-                </p>
+                <p>Family Type Information</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/family_value_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Family Value Information
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/gothram_information_list" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Gothram Information
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/height_information_list" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Height Information
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/income_information_list" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Income Information
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/moonsign_information_list" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Moonsign Information
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/occupation_information_list" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Occupation Information
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>User/religion_information_list" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-              Religion Information
-                </p>
+                <p>Family Value Information</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/resident_information_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>
-              Resident Status Information
-                </p>
+                <p>Resident Status</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/income_information_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Income Information</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/gothram_information_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Gothram Information</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/moonsign_information_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Moonsign Information</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/occupation_information_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Occupation Information</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/religion_information_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Religion Information</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/cast_information_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Cast Information</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="<?php echo base_url(); ?>User/subcast_information_list" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>
-              Sub Cast Information
-                </p>
+                <p>Sub Cast Information</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>User/marriage_type_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Interested In</p>
               </a>
             </li>
           </ul>
         </li>
       <?php } ?>
-      <?php if($role_id == 1){ ?>
+      <?php if($role_id == 1 || $role_id == 2 ){ ?>
         <li class="nav-item has-treeview">
             <a href="#" class="nav-link head">
               <i class="nav-icon fas fa-chart-pie"></i>
@@ -367,19 +414,21 @@
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <!-- <li class="nav-item">
-                <a href="<?php echo base_url(); ?>Transaction/application_information" class="nav-link">
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>Report/member_invoice_list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Application Information
-                  </p>
+                  <p>Member Invoice</p>
                 </a>
-              </li> -->
-
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>Report/adv_invoice_list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertise Invoice</p>
+                </a>
+              </li>
             </ul>
           </li>
         <?php } ?>
-        <?php if($role_id == 1){ ?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link head">
               <i class="nav-icon fas fa-file"></i>
@@ -389,16 +438,64 @@
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <!-- <li class="nav-item">
-                <a href="<?php echo base_url(); ?>Report/application_report" class="nav-link">
+              <?php if($role_id == 1 || $role_id == 2){ ?>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>Report/franchise_list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Application Report
-                  </p>
+                  <p>Franchise List Report</p>
                 </a>
-              </li> -->
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>Report/franchise_member_commission_list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Member Commission</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>Report/franchise_adv_commission_list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertise Commission</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>Report/advertise_payment_list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertise Payment</p>
+                </a>
+              </li>
+              <?php } ?>
+              <?php if($role_id == 4 || $role_id == 5){ ?>
+                <li class="nav-item">
+                  <a href="<?php echo base_url(); ?>Report/member_commission_list" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member Commission</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?php echo base_url(); ?>Report/adv_commission_list" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Advertise Commission</p>
+                  </a>
+                </li>
+              <?php } ?>
+              <?php if($role_id == 1 || $role_id == 2 || $role_id == 3){ ?>
+                <li class="nav-item">
+                  <a href="<?php echo base_url(); ?>Report/member_list_report" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Members</p>
+                  </a>
+                </li>
+              <?php } ?>
             </ul>
           </li>
+
+        <?php if($role_id == 4 || $role_id == 5){ ?>
+        <li class="nav-item head">
+          <a href="<?php echo base_url(); ?>User/commission" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Commission</p>
+          </a>
+        </li>
         <?php } ?>
     </nav>
     <!-- /.sidebar-menu -->

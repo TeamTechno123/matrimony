@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2020 at 10:43 AM
+-- Generation Time: Feb 06, 2020 at 06:09 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -61,7 +61,12 @@ CREATE TABLE `advertisement` (
   `adv_name` varchar(500) DEFAULT NULL,
   `adv_amount` double DEFAULT NULL,
   `adv_image` varchar(250) DEFAULT NULL,
-  `adv_status` varchar(50) NOT NULL DEFAULT 'active',
+  `adv_status` varchar(50) NOT NULL DEFAULT 'inactive',
+  `is_paid` int(11) NOT NULL DEFAULT 0,
+  `paid_amt` double DEFAULT NULL,
+  `paid_gst` double DEFAULT NULL,
+  `paid_final_amt` double DEFAULT NULL,
+  `paid_date` varchar(20) DEFAULT NULL,
   `adv_addedby` varchar(50) DEFAULT NULL,
   `adv_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -70,13 +75,16 @@ CREATE TABLE `advertisement` (
 -- Dumping data for table `advertisement`
 --
 
-INSERT INTO `advertisement` (`adv_id`, `company_id`, `reach_id`, `country_id`, `state_id`, `district_id`, `adv_page`, `adv_from_date`, `adv_to_date`, `adv_name`, `adv_amount`, `adv_image`, `adv_status`, `adv_addedby`, `adv_date`) VALUES
-(8, 3, 1, 101, 22, 0, 'My Profile', '01-01-2020', '29-02-2020', 'Newspaper ', 5000, 'adv_8_1580295307.jpg', 'active', '3', '2020-01-29 12:33:12'),
-(9, 3, 1, NULL, NULL, NULL, 'My Profile', '01-12-2019', '31-01-2020', 'Social Media Marketing', 50, 'adv_9_1580296477.jpg', 'active', '3', '2020-01-29 12:33:02'),
-(10, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'www', 1000, NULL, 'active', NULL, '2020-01-15 05:26:24'),
-(11, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'www', 1000, NULL, 'active', NULL, '2020-01-15 05:26:57'),
-(12, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'www', 1000, 'adv_12_1579066098.jpg', 'active', NULL, '2020-01-15 05:28:18'),
-(13, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'ppp', 500, 'adv_13_1579066891.jpg', 'active', '3', '2020-01-15 05:42:01');
+INSERT INTO `advertisement` (`adv_id`, `company_id`, `reach_id`, `country_id`, `state_id`, `district_id`, `adv_page`, `adv_from_date`, `adv_to_date`, `adv_name`, `adv_amount`, `adv_image`, `adv_status`, `is_paid`, `paid_amt`, `paid_gst`, `paid_final_amt`, `paid_date`, `adv_addedby`, `adv_date`) VALUES
+(1, 3, 2, 101, 22, 0, 'Active Members', '28-01-2020', '27-02-2020', 'd', 2000, 'adv_1_1580619889.jpg', 'active', 0, NULL, NULL, NULL, NULL, '3', '2020-02-02 05:04:49'),
+(2, 3, 1, 0, 0, 0, 'Active Members', '29-01-2020', '31-01-2020', 'matrimony', 1000, NULL, 'active', 0, NULL, NULL, NULL, NULL, '3', '2020-01-29 08:38:06'),
+(3, 3, 1, 101, 0, 0, 'Active Members', '30-01-2020', '29-02-2020', 'matrimony', 1000, 'adv_3_1580375913.png', 'active', 0, NULL, NULL, NULL, NULL, '3', '2020-01-30 03:48:33'),
+(4, 3, 2, 0, 0, 0, 'Active Members', '29-01-2020', '01-02-2020', 'a', 0, 'adv_4_1580376023.png', 'active', 0, NULL, NULL, NULL, NULL, '3', '2020-02-02 04:52:30'),
+(5, 3, 1, 0, 0, 0, 'Active Members', '29-01-2020', '31-01-2020', 'a', 0, 'adv_5_1580376119.jpg', 'active', 0, NULL, NULL, NULL, NULL, '3', '2020-01-30 03:51:59'),
+(6, 3, 1, 101, 0, 0, 'Active Members', '29-01-2020', '31-01-2020', 'a', 0, 'adv_6_1580376895.jpg', 'active', 0, NULL, NULL, NULL, NULL, '3', '2020-01-30 04:04:55'),
+(7, 3, 1, 101, 22, 6, 'Active Members', '29-01-2020', '31-01-2020', 'a', 0, 'adv_7_1580377318.png', 'inactive', 0, NULL, NULL, NULL, NULL, '3', '2020-02-02 05:52:55'),
+(8, 3, 1, 101, 22, 7, 'Active Members', '01-02-2020', '29-02-2020', 'sdfgdfg', 3000, 'adv_8_1580542649.jpg', 'active', 1, 1000, 100, 900, '04-02-2020', '8', '2020-02-04 11:42:22'),
+(9, 3, 2, 101, 22, 0, 'My Profile', '', '', 'hytbj', 2000, 'adv_9_1580622078.jpg', 'active', 0, NULL, NULL, NULL, NULL, '8', '2020-02-02 05:41:18');
 
 -- --------------------------------------------------------
 
@@ -99,6 +107,22 @@ INSERT INTO `advertisement_reach` (`reach_id`, `company_id`, `reach_name`, `reac
 (1, 0, 'Pan India', 1),
 (2, 0, 'State', 1),
 (3, 0, 'District', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adv_commission`
+--
+
+CREATE TABLE `adv_commission` (
+  `adv_commission_id` int(11) NOT NULL,
+  `adv_id` int(11) NOT NULL,
+  `adv_commission_to_user_id` int(11) NOT NULL,
+  `adv_commission_amt` double NOT NULL,
+  `adv_tds_amt` double DEFAULT NULL,
+  `adv_final_amt` double DEFAULT NULL,
+  `adv_commission_date` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -164,7 +188,9 @@ CREATE TABLE `cast` (
 INSERT INTO `cast` (`cast_id`, `company_id`, `user_id`, `religion_id`, `cast_name`, `date`) VALUES
 (1, 3, 3, 3, 'Kunabi', '2019-12-27 07:33:23'),
 (3, 3, 3, 3, 'Maratha', '2019-12-27 07:33:37'),
-(4, 3, 3, 3, 'Lohar', '2019-12-27 07:33:49');
+(4, 3, 3, 3, 'Lohar', '2019-12-27 07:33:49'),
+(5, 0, 0, 3, 'Lingayat', '2020-01-31 06:50:40'),
+(6, 0, 0, 3, 'Kumbhar', '2020-02-04 10:18:41');
 
 -- --------------------------------------------------------
 
@@ -190,7 +216,32 @@ CREATE TABLE `city` (
 
 INSERT INTO `city` (`city_id`, `company_id`, `user_id`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_name`, `date`) VALUES
 (7, 3, 3, 3, 5, 4, 3, 'sangav', '2020-01-14 10:28:09'),
-(8, 3, 3, 3, 5, 5, 3, 'wagholi', '2020-01-14 10:29:03');
+(8, 3, 3, 3, 5, 5, 3, 'wagholi', '2020-01-14 10:29:03'),
+(9, 0, 0, 101, 22, 6, 4, 'Hasurchampu', '2020-01-31 08:00:10'),
+(10, 0, 0, 101, 22, 6, 6, 'asur', '2020-02-04 06:22:37'),
+(11, 0, 0, 101, 22, 7, 8, 'ASD', '2020-02-04 06:24:30'),
+(12, 0, 0, 101, 22, 8, 12, 'sdfg', '2020-02-04 06:32:05'),
+(13, 0, 0, 101, 22, 6, 2, 'Sangav', '2020-02-04 09:56:25'),
+(14, 0, 0, 101, 22, 9, 3, 'Karad', '2020-02-04 10:18:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `commission`
+--
+
+CREATE TABLE `commission` (
+  `commission_id` int(11) NOT NULL,
+  `commission_to_user_id` int(11) NOT NULL,
+  `commission_from_member_id` int(11) NOT NULL,
+  `commission_to_user_role` int(11) NOT NULL,
+  `franchise_type_id` int(11) NOT NULL,
+  `franchise_id` int(11) NOT NULL,
+  `commission_amount` double NOT NULL,
+  `tds_amount` double NOT NULL,
+  `final_commission_amount` double NOT NULL,
+  `commission_date` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -204,6 +255,7 @@ CREATE TABLE `company` (
   `company_address` varchar(350) NOT NULL,
   `company_city` varchar(150) NOT NULL,
   `company_state` varchar(150) NOT NULL,
+  `company_statecode` int(11) NOT NULL,
   `company_district` varchar(150) NOT NULL,
   `company_pincode` bigint(20) DEFAULT NULL,
   `company_mob1` varchar(12) NOT NULL,
@@ -225,8 +277,8 @@ CREATE TABLE `company` (
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`company_id`, `company_name`, `company_address`, `company_city`, `company_state`, `company_district`, `company_pincode`, `company_mob1`, `company_mob2`, `company_email`, `company_website`, `company_pan_no`, `company_gst_no`, `company_lic1`, `company_lic2`, `company_start_date`, `company_end_date`, `company_logo`, `admin_roll_id`, `date`) VALUES
-(3, 'BHARTIYA SHADI ', 'RAJARAMPURI KOLHAPUR', 'KOLHAPUR', 'MAHARASHTRA', 'KOLHAPUR', 416004, '9876543210', '9876543210', 'root@gmail.com', 'dcs.com', 'abcd1234', '1245678', '12457', '1245', '01-04-2019', '31-03-2020', '', 1, '2019-12-26 06:43:33');
+INSERT INTO `company` (`company_id`, `company_name`, `company_address`, `company_city`, `company_state`, `company_statecode`, `company_district`, `company_pincode`, `company_mob1`, `company_mob2`, `company_email`, `company_website`, `company_pan_no`, `company_gst_no`, `company_lic1`, `company_lic2`, `company_start_date`, `company_end_date`, `company_logo`, `admin_roll_id`, `date`) VALUES
+(3, 'BHARTIYA SHADI ', 'RAJARAMPURI KOLHAPUR', 'KOLHAPUR', 'MAHARASHTRA', 0, 'KOLHAPUR', 416004, '9876543210', '9876543210', 'root@gmail.com', 'dcs.com', 'abcd1234', '1245678', '12457', '1245', '01-04-2019', '31-03-2020', '', 1, '2019-12-26 06:43:33');
 
 -- --------------------------------------------------------
 
@@ -562,7 +614,9 @@ CREATE TABLE `district` (
 
 INSERT INTO `district` (`district_id`, `company_id`, `user_id`, `country_id`, `state_id`, `district_name`, `date`) VALUES
 (6, 3, 3, 101, 22, 'Kolhapur', '2020-01-29 11:25:22'),
-(7, 3, 3, 101, 22, 'Sangali', '2020-01-29 11:25:57');
+(7, 3, 3, 101, 22, 'Sangali', '2020-01-29 11:25:57'),
+(8, 0, 0, 101, 22, 'Solapur', '2020-02-04 06:32:05'),
+(9, 0, 0, 101, 22, 'Satara', '2020-02-04 10:18:41');
 
 -- --------------------------------------------------------
 
@@ -584,7 +638,8 @@ CREATE TABLE `education` (
 
 INSERT INTO `education` (`education_id`, `company_id`, `user_id`, `education_name`, `date`) VALUES
 (2, 3, 3, 'C A', '2019-12-26 10:32:54'),
-(3, 3, 3, 'M com', '2019-12-26 10:33:13');
+(3, 3, 3, 'M com', '2019-12-26 10:33:13'),
+(4, 0, 0, 'BE', '2020-02-04 09:56:25');
 
 -- --------------------------------------------------------
 
@@ -671,6 +726,10 @@ CREATE TABLE `franchise` (
   `franchise_email` varchar(150) DEFAULT NULL,
   `franchise_mobile` varchar(15) DEFAULT NULL,
   `franchise_password` varchar(50) DEFAULT NULL,
+  `franchise_bank` varchar(250) DEFAULT NULL,
+  `franchise_branch` varchar(250) DEFAULT NULL,
+  `franchise_ifsc` varchar(50) DEFAULT NULL,
+  `franchise_acc_no` varchar(50) DEFAULT NULL,
   `franchise_status` varchar(50) NOT NULL DEFAULT 'active',
   `franchise_addedby` varchar(50) NOT NULL,
   `franchise_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -680,9 +739,9 @@ CREATE TABLE `franchise` (
 -- Dumping data for table `franchise`
 --
 
-INSERT INTO `franchise` (`franchise_id`, `company_id`, `franchise_type_id`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `user_id`, `franchise_name`, `franchise_address`, `franchise_gender`, `franchise_email`, `franchise_mobile`, `franchise_password`, `franchise_status`, `franchise_addedby`, `franchise_date`) VALUES
-(3, 3, 1, 3, 5, 4, 2, 8, 'Demo Franc', 'Kolhapur', 'Male', 'demofranc@ooo.com', '9876543211', '123456', 'active', '7', '2020-01-29 07:53:58'),
-(4, 3, 5, 3, 5, 4, 2, 9, 'Demo Franc Local', 'Kolhapur', 'Male', 'ggg@jjj.com', '9876543212', '123456', 'active', '8', '2020-01-21 12:14:53');
+INSERT INTO `franchise` (`franchise_id`, `company_id`, `franchise_type_id`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `user_id`, `franchise_name`, `franchise_address`, `franchise_gender`, `franchise_email`, `franchise_mobile`, `franchise_password`, `franchise_bank`, `franchise_branch`, `franchise_ifsc`, `franchise_acc_no`, `franchise_status`, `franchise_addedby`, `franchise_date`) VALUES
+(3, 3, 1, 101, 22, 6, 4, 8, 'Demo Franc', 'Kolhapur', 'Male', 'demofranc@ooo.com', '9876543211', '123456', 'SBI', 'Kop', '123', '123456', 'active', '7', '2020-02-02 07:55:34'),
+(4, 3, 5, 101, 22, 6, 4, 9, 'Demo Franc Local', 'Kolhapur', 'Male', 'ggg@jjj.com', '9876543212', '123456', NULL, NULL, NULL, NULL, 'active', '8', '2020-02-01 06:04:49');
 
 -- --------------------------------------------------------
 
@@ -798,7 +857,11 @@ INSERT INTO `interest` (`interest_id`, `from_member_id`, `to_member_id`, `intere
 (8, 4, 3, 0, '25-01-2020', '11:01:50 AM', '2020-01-25 11:05:50'),
 (9, 7, 4, 0, '28-01-2020', '08:01:01 AM', '2020-01-28 08:21:01'),
 (10, 15, 4, 0, '28-01-2020', '11:01:32 AM', '2020-01-28 11:27:32'),
-(11, 4, 15, 0, '30-01-2020', '06:01:50 AM', '2020-01-30 06:46:50');
+(11, 4, 15, 0, '30-01-2020', '06:01:50 AM', '2020-01-30 06:46:50'),
+(16, 19, 2, 0, '04-02-2020', '07:02:38 AM', '2020-02-04 07:28:38'),
+(17, 19, 3, 0, '04-02-2020', '07:02:08 AM', '2020-02-04 07:35:08'),
+(18, 4, 20, 0, '04-02-2020', '10:02:09 AM', '2020-02-04 10:50:09'),
+(19, 21, 19, 0, '05-02-2020', '12:02:51 PM', '2020-02-05 12:39:51');
 
 -- --------------------------------------------------------
 
@@ -840,7 +903,32 @@ CREATE TABLE `marital_status` (
 INSERT INTO `marital_status` (`marital_status_id`, `marital_status_name`) VALUES
 (1, 'Never Married'),
 (2, 'Divorcee'),
-(3, 'Widow');
+(3, 'Widow / Widower'),
+(4, 'Separated'),
+(5, 'Awaiting Divorce'),
+(6, 'Annulled');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marriage_type`
+--
+
+CREATE TABLE `marriage_type` (
+  `marriage_type_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `marriage_type_name` varchar(250) DEFAULT NULL,
+  `marriage_type_addedby` varchar(50) DEFAULT NULL,
+  `marriage_type_status` int(11) NOT NULL DEFAULT 1,
+  `marriage_type_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `marriage_type`
+--
+
+INSERT INTO `marriage_type` (`marriage_type_id`, `company_id`, `marriage_type_name`, `marriage_type_addedby`, `marriage_type_status`, `marriage_type_date`) VALUES
+(1, 3, 'Arranged Marriage', '3', 1, '2020-01-31 05:38:57');
 
 -- --------------------------------------------------------
 
@@ -875,7 +963,7 @@ CREATE TABLE `member` (
   `member_img` varchar(250) DEFAULT NULL,
   `member_img_num` int(11) NOT NULL DEFAULT 4,
   `onbehalf_id` int(11) DEFAULT NULL COMMENT 'Created By',
-  `marital_status` varchar(50) DEFAULT NULL,
+  `marital_status` int(11) DEFAULT NULL,
   `cast_id` int(11) DEFAULT NULL,
   `mamber_date` varchar(20) DEFAULT NULL,
   `member_status` varchar(50) NOT NULL DEFAULT 'free',
@@ -895,20 +983,27 @@ CREATE TABLE `member` (
   `income_id` int(11) DEFAULT NULL,
   `moonsign_id` int(11) DEFAULT NULL,
   `occupation_id` int(11) DEFAULT NULL,
-  `resident_status_id` int(11) DEFAULT NULL
+  `occupation_details` varchar(250) DEFAULT NULL,
+  `resident_status_id` int(11) DEFAULT NULL,
+  `marriage_type_id` int(11) NOT NULL COMMENT 'Interested In'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`member_id`, `member_user_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `member_age`, `language_id`, `religion_id`, `member_email`, `show_email`, `show_mobile`, `member_mobile`, `member_otp`, `is_otp_check`, `member_password`, `member_img`, `member_img_num`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `resident_status_id`) VALUES
-(2, 0, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', NULL, 3, 3, 'abc@gmail.com', 0, 0, '9876543211', NULL, 0, '123456', NULL, 4, 0, '0', 3, NULL, 'free', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 0, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', NULL, 3, 3, 'abc@gmail.com', 0, 0, '9876543212', '555666', 1, '123456', NULL, 4, 0, '0', 3, NULL, 'free', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 0, 3, 'demo', 'ttt', 101, 22, 6, 4, 0, 'ooo', 'Female', '01-02-1990', NULL, 3, 3, 'ddd@mmm.com', 1, 0, '9988556633', '222333', 1, '123456', 'profile_4_1580291558.png', 4, NULL, '1', 3, NULL, 'free', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 0, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', NULL, 3, 3, 'aaaa@gmail.com', 0, 0, '9955447788', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'free', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, 2),
-(6, 0, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', NULL, 2, 3, 'demo@qqq.com', 0, 0, '9966332255', NULL, 0, '123', NULL, 4, NULL, '1', 3, NULL, 'free', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 18, 0, 'Demo Add Lead', 'dfgdfg', 3, 5, 4, 2, 8, 'dsfg', 'Male', '15-06-1991', NULL, 3, 3, 'fgdf@sdf.com', 0, 0, '9673454383', '400367', 1, '123456', NULL, 4, NULL, '1', 3, '28-01-2020', 'free', '0', '2020-01-28 10:03:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `member` (`member_id`, `member_user_id`, `company_id`, `member_name`, `member_address`, `country_id`, `state_id`, `district_id`, `tahasil_id`, `city_id`, `member_area`, `member_gender`, `member_birth_date`, `member_age`, `language_id`, `religion_id`, `member_email`, `show_email`, `show_mobile`, `member_mobile`, `member_otp`, `is_otp_check`, `member_password`, `member_img`, `member_img_num`, `onbehalf_id`, `marital_status`, `cast_id`, `mamber_date`, `member_status`, `member_addedby`, `member_date2`, `sub_cast_id`, `blood_group_id`, `body_type_id`, `complexion_id`, `diet_id`, `education_id`, `family_status_id`, `family_type_id`, `family_value_id`, `gothram_id`, `height_id`, `income_id`, `moonsign_id`, `occupation_id`, `occupation_details`, `resident_status_id`, `marriage_type_id`) VALUES
+(2, 0, 3, 'Pravin Patil', 'Kolhapur ', 3, 5, 4, 2, 7, 'Rajarampuri', 'Male', '01-01-2000', 20, 3, 3, 'abc@gmail.com', 0, 0, '9876543211', NULL, 0, '123456', NULL, 4, 0, 0, 3, NULL, 'active', '3', '2020-01-14 10:44:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(3, 0, 3, 'Pruthvi kadam', 'a/p Kaneri  Math', 3, 5, 4, 2, 7, 'kaneri Math', 'Male', '01-01-1993', 27, 3, 3, 'abc@gmail.com', 0, 0, '9876543212', '555666', 1, '123456', NULL, 4, 0, 0, 3, NULL, 'active', '3', '2020-01-14 11:08:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(4, 0, 3, 'demo', 'ttt', 101, 22, 6, 4, 0, 'ooo', 'Female', '01-02-1990', 29, 3, 3, 'ddd@mmm.com', 1, 0, '9988556633', '222333', 1, '123456', 'profile_4_1580291558.png', 4, NULL, 1, 3, NULL, 'active', '3', '2020-01-22 06:32:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(5, 0, 3, 'Dhananjay ', 'Kagal', 3, 5, 4, 2, 7, 'area1', 'Male', '04-02-1989', 30, 3, 3, 'aaaa@gmail.com', 0, 0, '9955447788', NULL, 0, '123', NULL, 4, NULL, 1, 3, NULL, 'active', '0', '2020-01-22 06:32:12', 2, 2, 3, 1, 2, 3, 2, 1, 2, 2, 3, 2, 2, 3, NULL, 2, 0),
+(6, 0, 0, 'dfgdsfg', 'dsfg', 3, 5, 4, 3, 7, 'dfg', 'Male', '02-01-1992', 28, 2, 3, 'demo@qqq.com', 0, 0, '9966332255', NULL, 0, '123', NULL, 4, NULL, 1, 3, NULL, 'active', '0', '2020-01-22 06:31:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(15, 18, 0, 'Demo Add Lead', 'dfgdfghhhh', 101, 22, 6, 1, 9, 'dsfg', 'Male', '12-03-1993', 26, 3, 3, 'fgdf@sdf.com', 1, 0, '9673454383', '731424', 1, '111222', NULL, 4, NULL, 1, 5, '28-01-2020', 'free', '9', '2020-01-28 10:03:48', 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 1),
+(17, 23, 0, 'Asdf Asdf', 'asdfa asdf', 101, 22, 6, 4, 9, 'jjj', 'Male', '17-02-1994', 25, 3, 3, 'fff@mmm.com', 0, 0, '9988774455', '301265', 0, '123456', NULL, 4, NULL, 1, 3, '02-02-2020', 'free', '18', '2020-02-02 07:24:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(18, 24, 0, 'Datta Mane', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Female', '02-03-1995', 24, NULL, NULL, NULL, 0, 0, '8855870745', '935960', 1, '123456', NULL, 4, NULL, NULL, NULL, '04-02-2020', 'free', '0', '2020-02-04 06:53:43', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(19, 25, 0, 'Ghdfgh Dfghdfgh', '', 101, 22, 6, 2, 13, 'gdfg', 'Female', '02-02-1998', 22, NULL, 0, NULL, 0, 0, '8855870744', '885706', 1, '123456', NULL, 4, NULL, NULL, 0, '04-02-2020', 'active', '0', '2020-02-04 07:01:22', 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 'IT', 0, 0),
+(20, 26, 0, 'Sdfsdf Asdfasdf', 'asdfasdf asdfasdf', 101, 22, 9, 3, 14, 'qwe', 'Male', '31-12-1993', 26, 3, 3, 'ff@nn.com', 0, 0, '8855870743', '816568', 0, '123456', NULL, 4, NULL, 1, 6, '04-02-2020', 'free', '25', '2020-02-04 10:18:41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(21, 27, 0, 'Demo API', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Male', '03-02-1996', 24, NULL, NULL, NULL, 0, 0, '9876543210', '236288', 0, '123321', NULL, 4, NULL, NULL, NULL, '05-02-2020', 'free', '0', '2020-02-05 12:20:03', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -936,6 +1031,27 @@ INSERT INTO `member_image` (`member_image_id`, `member_id`, `member_image_name`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `member_payment`
+--
+
+CREATE TABLE `member_payment` (
+  `member_payment_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `member_payment_date` varchar(20) NOT NULL,
+  `member_payment_time` varchar(20) NOT NULL,
+  `member_payment_amt` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `member_payment`
+--
+
+INSERT INTO `member_payment` (`member_payment_id`, `member_id`, `member_payment_date`, `member_payment_time`, `member_payment_amt`) VALUES
+(1, 4, '04-02-2020', '09:00 pm', 1770);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `message`
 --
 
@@ -955,18 +1071,8 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`message_id`, `company_id`, `from_member_id`, `to_member_id`, `message_text`, `message_date`, `message_time`, `message_date2`) VALUES
-(1, 0, 5, 4, 'Hello', '24-01-2020', '10:01:28 AM', '2020-01-24 10:02:28'),
-(2, 0, 4, 6, 'hhhjjj', '24-01-2020', '11:01:03 AM', '2020-01-25 04:46:17'),
-(4, NULL, 4, 6, 'uuu', '25-01-2020', '06:01:21 AM', '2020-01-25 06:57:21'),
-(5, NULL, 4, 6, 'fghgh', '25-01-2020', '07:01:06 AM', '2020-01-25 07:08:06'),
-(6, NULL, 4, 6, 'dfgdfg', '25-01-2020', '07:01:41 AM', '2020-01-25 07:08:41'),
-(7, NULL, 4, 6, 'dfsdf', '25-01-2020', '07:01:59 AM', '2020-01-25 07:08:59'),
-(8, NULL, 4, 6, 'gvdg', '25-01-2020', '07:01:49 AM', '2020-01-25 07:09:49'),
-(9, NULL, 4, 6, 'kkk', '25-01-2020', '07:01:54 AM', '2020-01-25 07:09:54'),
-(10, NULL, 4, 6, 'uuy', '25-01-2020', '07:01:00 AM', '2020-01-25 07:10:00'),
-(11, NULL, 2, 5, 'fdgdfg', '25-01-2020', '07:01:46 AM', '2020-01-30 07:57:40'),
-(12, NULL, 6, 5, 'hii', '25-01-2020', '07:01:33 AM', '2020-01-30 07:57:10'),
-(13, NULL, 6, 5, 'ghj', '30-01-2020', '06:01:03 AM', '2020-01-30 07:46:00');
+(1, NULL, 15, 4, 'Hi', '31-01-2020', '10:01:35 AM', '2020-01-31 10:46:35'),
+(2, NULL, 21, 19, 'Hello', '05-02-2020', '12:02:57 PM', '2020-02-05 12:40:57');
 
 -- --------------------------------------------------------
 
@@ -1041,6 +1147,7 @@ INSERT INTO `onbehalf` (`onbehalf_id`, `company_id`, `user_id`, `onbehalf_name`,
 CREATE TABLE `package` (
   `package_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
+  `reach_id` int(11) NOT NULL,
   `package_name` varchar(250) NOT NULL,
   `package_amount` double NOT NULL,
   `package_int_cnt` int(11) NOT NULL,
@@ -1055,8 +1162,10 @@ CREATE TABLE `package` (
 -- Dumping data for table `package`
 --
 
-INSERT INTO `package` (`package_id`, `company_id`, `package_name`, `package_amount`, `package_int_cnt`, `package_photo_cnt`, `package_img`, `package_status`, `package_addedby`, `package_date`) VALUES
-(1, 3, 'www2', 1112, 22, 32, 'package_1_1579069485.jpg', 'deactivate', '3', '2020-01-15 06:25:45');
+INSERT INTO `package` (`package_id`, `company_id`, `reach_id`, `package_name`, `package_amount`, `package_int_cnt`, `package_photo_cnt`, `package_img`, `package_status`, `package_addedby`, `package_date`) VALUES
+(1, 3, 1, 'India', 3000, 0, 0, '', 'active', '3', '2020-02-01 09:07:44'),
+(2, 3, 2, 'State', 2000, 0, 0, '', 'active', '3', '2020-02-01 09:07:54'),
+(3, 3, 3, 'District', 1000, 0, 0, '', 'active', '3', '2020-02-01 09:11:14');
 
 -- --------------------------------------------------------
 
@@ -1179,7 +1288,7 @@ INSERT INTO `shortlist` (`shortlist_id`, `from_member_id`, `to_member_id`, `shor
 CREATE TABLE `staff` (
   `staff_id` bigint(20) NOT NULL,
   `company_id` bigint(20) NOT NULL,
-  `roll_id` int(11) NOT NULL DEFAULT 1,
+  `role_id` int(11) NOT NULL DEFAULT 1,
   `user_id` int(11) DEFAULT NULL,
   `staff_name` varchar(250) NOT NULL,
   `staff_city` varchar(150) NOT NULL,
@@ -1196,8 +1305,9 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_id`, `company_id`, `roll_id`, `user_id`, `staff_name`, `staff_city`, `staff_gender`, `staff_email`, `staff_mobile`, `staff_password`, `staff_status`, `staff_addedby`, `staff_date`) VALUES
-(3, 1, 2, 7, 'Emp Demo', 'kop', 'Male', 'ddd@ggg.com', '9988556622', '123', 'active', '3', '2020-01-18 05:51:32');
+INSERT INTO `staff` (`staff_id`, `company_id`, `role_id`, `user_id`, `staff_name`, `staff_city`, `staff_gender`, `staff_email`, `staff_mobile`, `staff_password`, `staff_status`, `staff_addedby`, `staff_date`) VALUES
+(3, 1, 2, 7, 'Emp Demo', 'kop', 'Male', 'ddd@ggg.com', '9988556622', '123', 'active', '3', '2020-01-18 05:51:32'),
+(4, 3, 3, 22, 'Tele Demo', 'Kolhapur', 'Male', 'tele@mail.com', '8855870746', '123456', 'active', '3', '2020-02-01 04:26:12');
 
 -- --------------------------------------------------------
 
@@ -1208,7 +1318,7 @@ INSERT INTO `staff` (`staff_id`, `company_id`, `roll_id`, `user_id`, `staff_name
 CREATE TABLE `state` (
   `state_id` bigint(20) NOT NULL,
   `company_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `state_code` bigint(20) NOT NULL,
   `country_id` bigint(20) NOT NULL,
   `state_name` varchar(100) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -1218,7 +1328,7 @@ CREATE TABLE `state` (
 -- Dumping data for table `state`
 --
 
-INSERT INTO `state` (`state_id`, `company_id`, `user_id`, `country_id`, `state_name`, `date`) VALUES
+INSERT INTO `state` (`state_id`, `company_id`, `state_code`, `country_id`, `state_name`, `date`) VALUES
 (1, 0, 0, 101, 'Andaman and Nicobar Islands', '2020-01-28 13:11:43'),
 (2, 0, 0, 101, 'Andhra Pradesh', '2020-01-28 13:11:43'),
 (3, 0, 0, 101, 'Arunachal Pradesh', '2020-01-28 13:11:43'),
@@ -2197,7 +2307,7 @@ INSERT INTO `state` (`state_id`, `company_id`, `user_id`, `country_id`, `state_n
 (976, 0, 0, 60, 'Saint Patrick', '2020-01-28 13:11:43'),
 (977, 0, 0, 60, 'Saint Paul', '2020-01-28 13:11:43'),
 (978, 0, 0, 60, 'Saint Peter', '2020-01-28 13:11:43');
-INSERT INTO `state` (`state_id`, `company_id`, `user_id`, `country_id`, `state_name`, `date`) VALUES
+INSERT INTO `state` (`state_id`, `company_id`, `state_code`, `country_id`, `state_name`, `date`) VALUES
 (979, 0, 0, 61, 'Azua', '2020-01-28 13:11:43'),
 (980, 0, 0, 61, 'Bahoruco', '2020-01-28 13:11:43'),
 (981, 0, 0, 61, 'Barahona', '2020-01-28 13:11:43'),
@@ -3145,7 +3255,7 @@ INSERT INTO `state` (`state_id`, `company_id`, `user_id`, `country_id`, `state_n
 (1923, 0, 0, 109, 'Fukui', '2020-01-28 13:11:43'),
 (1924, 0, 0, 109, 'Fukuoka', '2020-01-28 13:11:43'),
 (1925, 0, 0, 109, 'Fukushima', '2020-01-28 13:11:43');
-INSERT INTO `state` (`state_id`, `company_id`, `user_id`, `country_id`, `state_name`, `date`) VALUES
+INSERT INTO `state` (`state_id`, `company_id`, `state_code`, `country_id`, `state_name`, `date`) VALUES
 (1926, 0, 0, 109, 'Gifu', '2020-01-28 13:11:43'),
 (1927, 0, 0, 109, 'Gumma', '2020-01-28 13:11:43'),
 (1928, 0, 0, 109, 'Hiroshima', '2020-01-28 13:11:43'),
@@ -3423,7 +3533,8 @@ CREATE TABLE `sub_cast` (
 --
 
 INSERT INTO `sub_cast` (`sub_cast_id`, `company_id`, `user_id`, `religion_id`, `cast_id`, `sub_cast_name`, `date`) VALUES
-(2, 3, 3, 3, 3, 'Kunabi', '2019-12-28 04:25:14');
+(2, 3, 3, 3, 3, 'Kunabi', '2019-12-28 04:25:14'),
+(4, 0, 0, 3, 5, 'Pancham', '2020-01-31 06:59:13');
 
 -- --------------------------------------------------------
 
@@ -3447,7 +3558,9 @@ CREATE TABLE `tahasil` (
 --
 
 INSERT INTO `tahasil` (`tahasil_id`, `company_id`, `user_id`, `country_id`, `state_id`, `district_id`, `tahasil_name`, `date`) VALUES
-(4, 3, 3, 101, 22, 6, 'Gadhinglaj', '2020-01-29 11:26:55');
+(1, 0, 0, 101, 22, 6, 'Gadhinglaj', '2020-02-04 06:34:16'),
+(2, 0, 0, 101, 22, 6, 'Kagal', '2020-02-04 09:56:25'),
+(3, 0, 0, 101, 22, 9, 'Karad', '2020-02-04 10:18:41');
 
 -- --------------------------------------------------------
 
@@ -3475,11 +3588,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `company_id`, `role_id`, `user_name`, `user_city`, `user_email`, `user_mobile`, `user_password`, `user_status`, `user_addedby`, `user_date`, `is_admin`) VALUES
-(3, 3, 1, 'Admin', 'KOLHAPUR', 'demo@mail.com', '9876543210', '123456', 'active', 'Admin', '2019-12-26 06:07:57', 1),
+(3, 3, 1, 'Admin', 'KOLHAPUR', 'demo@mail.com', '9876543210', '123456', 'active', 'Admin', '2020-02-02 06:29:22', 1),
 (7, 3, 2, 'Emp Demo', 'kop', 'ddd@ggg.com', '9988556622', '123', 'active', '3', '2020-01-21 11:47:39', 0),
-(8, 3, 4, 'Demo Franc', '', 'demofranc@ooo.com', '9876543211', '123456', 'active', '7', '2020-01-21 11:48:41', 0),
+(8, 3, 4, 'Demo Franc', '', 'demofranc@ooo.com', '9876543211', '123456', 'active', '3', '2020-02-02 07:55:34', 0),
 (9, 3, 5, 'Demo Franc Local', '', 'ggg@jjj.com', '9876543212', '123456', 'active', '8', '2020-01-21 12:17:36', 0),
-(18, 0, 6, 'Demo Add Lead', '', '', '9673454383', '123456', 'deactivate', '0', '2020-01-30 08:15:45', 0);
+(18, 0, 6, 'Demo Add Lead', '', '', '9673454383', '123456', 'deactivate', '0', '2020-01-30 08:15:45', 0),
+(22, 3, 3, 'Tele Demo', 'Kolhapur', 'tele@mail.com', '8855870746', '123456', 'active', '3', '2020-02-01 04:26:12', 0),
+(23, 0, 6, 'Asdf Asdf', '', '', '9988774455', '123456', 'deactivate', '0', '2020-02-02 07:24:07', 0),
+(24, 0, 6, 'Datta Mane', '', '', '8855870745', '123456', 'deactivate', '0', '2020-02-04 06:53:43', 0),
+(25, 0, 6, 'Ghdfgh Dfghdfgh', '', '', '8855870744', '123456', 'deactivate', '0', '2020-02-04 07:01:22', 0),
+(26, 0, 6, 'Sdfsdf Asdfasdf', '', '', '8855870743', '123456', 'deactivate', '0', '2020-02-04 10:18:41', 0),
+(27, 0, 6, 'Demo API', '', '', '9876543210', '123321', 'deactivate', '0', '2020-02-05 12:33:30', 0);
 
 --
 -- Indexes for dumped tables
@@ -3504,6 +3623,12 @@ ALTER TABLE `advertisement_reach`
   ADD PRIMARY KEY (`reach_id`);
 
 --
+-- Indexes for table `adv_commission`
+--
+ALTER TABLE `adv_commission`
+  ADD PRIMARY KEY (`adv_commission_id`);
+
+--
 -- Indexes for table `blood_group`
 --
 ALTER TABLE `blood_group`
@@ -3526,6 +3651,12 @@ ALTER TABLE `cast`
 --
 ALTER TABLE `city`
   ADD PRIMARY KEY (`city_id`);
+
+--
+-- Indexes for table `commission`
+--
+ALTER TABLE `commission`
+  ADD PRIMARY KEY (`commission_id`);
 
 --
 -- Indexes for table `company`
@@ -3630,6 +3761,12 @@ ALTER TABLE `marital_status`
   ADD PRIMARY KEY (`marital_status_id`);
 
 --
+-- Indexes for table `marriage_type`
+--
+ALTER TABLE `marriage_type`
+  ADD PRIMARY KEY (`marriage_type_id`);
+
+--
 -- Indexes for table `member`
 --
 ALTER TABLE `member`
@@ -3640,6 +3777,12 @@ ALTER TABLE `member`
 --
 ALTER TABLE `member_image`
   ADD PRIMARY KEY (`member_image_id`);
+
+--
+-- Indexes for table `member_payment`
+--
+ALTER TABLE `member_payment`
+  ADD PRIMARY KEY (`member_payment_id`);
 
 --
 -- Indexes for table `message`
@@ -3745,13 +3888,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  MODIFY `adv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `adv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `advertisement_reach`
 --
 ALTER TABLE `advertisement_reach`
   MODIFY `reach_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `adv_commission`
+--
+ALTER TABLE `adv_commission`
+  MODIFY `adv_commission_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `blood_group`
@@ -3769,13 +3918,19 @@ ALTER TABLE `body_type`
 -- AUTO_INCREMENT for table `cast`
 --
 ALTER TABLE `cast`
-  MODIFY `cast_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cast_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
-  MODIFY `city_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `city_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `commission`
+--
+ALTER TABLE `commission`
+  MODIFY `commission_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `company`
@@ -3805,13 +3960,13 @@ ALTER TABLE `diet`
 -- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
-  MODIFY `district_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `district_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `education_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `education_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `family_status`
@@ -3865,7 +4020,7 @@ ALTER TABLE `income`
 -- AUTO_INCREMENT for table `interest`
 --
 ALTER TABLE `interest`
-  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `interest_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -3877,13 +4032,19 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `marital_status`
 --
 ALTER TABLE `marital_status`
-  MODIFY `marital_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `marital_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `marriage_type`
+--
+ALTER TABLE `marriage_type`
+  MODIFY `marriage_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `member_image`
@@ -3892,10 +4053,16 @@ ALTER TABLE `member_image`
   MODIFY `member_image_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `member_payment`
+--
+ALTER TABLE `member_payment`
+  MODIFY `member_payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `moonsign`
@@ -3919,7 +4086,7 @@ ALTER TABLE `onbehalf`
 -- AUTO_INCREMENT for table `package`
 --
 ALTER TABLE `package`
-  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reference_by`
@@ -3955,7 +4122,7 @@ ALTER TABLE `shortlist`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `staff_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `state`
@@ -3967,19 +4134,19 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT for table `sub_cast`
 --
 ALTER TABLE `sub_cast`
-  MODIFY `sub_cast_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sub_cast_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tahasil`
 --
 ALTER TABLE `tahasil`
-  MODIFY `tahasil_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `tahasil_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

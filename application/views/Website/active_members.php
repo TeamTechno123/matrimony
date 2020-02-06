@@ -1,6 +1,8 @@
 <?php
   include("header.php");
   $mat_member_id = $this->session->userdata('mat_member_id');
+  $mat_member_status = $this->session->userdata('mat_member_status');
+  $mat_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
 ?>
   <body>
     <section class="heading">
@@ -54,139 +56,191 @@
               //   $shortlist_sent = 'sent';
               // }
           ?>
+          <div class="tab-div">
+            <div class="row">
+              <div class="col-md-3 col-12">
+                <?php if($list->member_img == ''){  ?>
+                  <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" width="100%" alt="">
+                <?php } else{ ?>
+                  <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_img; ?>" width="100%" alt="">
+                <?php } ?>
+              </div>
+              <div class="col-md-9 col-12">
+                <div class="row">
+                  <div class=" col-md-6 col-12">
+                <h5 class="mb-1 text-danger text-bold f-18"> <?php echo $list->member_name; ?></h5>
+              </div>
+              <div class="col-12 d-block d-sm-none">
+                  <hr class="hr-web">
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Member ID</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-danger"><?php echo $list->member_id; ?></p>
+              </div>
 
-            <div class="tab-div">
-              <div class="row">
-                <div class="col-md-3 col-12">
-                  <?php if($list->member_img == ''){  ?>
-                    <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" width="100%" alt="">
-                  <?php } else{ ?>
-                    <img class="active-mem-img" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_img; ?>" width="100%" alt="">
-                  <?php } ?>
+              <div class="col-12">
+                  <hr class="hr-web">
+              </div>
 
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Age</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 "><?php echo $age; ?></p>
+              </div>
+              <div class="col-12 d-block d-sm-none">
+                  <hr class="hr-web">
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Marital Status</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 "><?php echo $list->marital_status; ?></p>
+              </div>
 
-                </div>
-                <div class="col-md-9 col-12">
-                  <div class="row">
-                    <div class=" col-md-6 col-12">
-                  <h5 class="mb-1 text-black text-bold f-18"> <?php echo $list->member_name; ?></h5>
-                </div>
-                <div class="col-12 d-block d-sm-none">
-                    <hr class="hr-web">
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Member ID</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-1 text-black"><?php echo $list->member_id; ?></p>
-                </div>
+              <div class="col-12">
+                  <hr class="hr-web">
+              </div>
 
-                <div class="col-12">
-                    <hr class="hr-web">
-                </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Religion</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 "><?php echo $list->religion_name; ?></p>
+              </div>
+              <div class="col-12 d-block d-sm-none">
+                  <hr class="hr-web">
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Caste</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 "><?php echo $list->cast_name; ?></p>
+              </div>
 
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Age</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2"><?php echo $age; ?></p>
-                </div>
-                <div class="col-12 d-block d-sm-none">
-                    <hr class="hr-web">
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Marital Status</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2"><?php echo $list->marital_status; ?></p>
-                </div>
+              <div class="col-12">
+                  <hr class="hr-web">
+              </div>
 
-                <div class="col-12">
-                    <hr class="hr-web">
-                </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Occupation</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 "><?php echo $list->occupation_name; ?></p>
+              </div>
+              <div class="col-12 d-block d-sm-none">
+                  <hr class="hr-web">
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 text-bold">Education</p>
+              </div>
+              <div class="col-md-3 col-6">
+                  <p class="mb-1 "><?php echo $list->education_name; ?></p>
+              </div>
+              <div class="col-12">
+                  <hr class="hr-web">
+              </div>
 
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Religion</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2"><?php echo $list->religion_name; ?></p>
-                </div>
-                <div class="col-12 d-block d-sm-none">
-                    <hr class="hr-web">
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Caste</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2"><?php echo $list->cast_name; ?></p>
-                </div>
-
-                <div class="col-12">
-                    <hr class="hr-web">
-                </div>
-
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Occupation</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2"><?php echo $list->occupation_name; ?></p>
-                </div>
-                <div class="col-12 d-block d-sm-none">
-                    <hr class="hr-web">
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2">Education</p>
-                </div>
-                <div class="col-md-3 col-6">
-                    <p class="mb-2"><?php echo $list->education_name; ?></p>
-                </div>
-                <div class="col-12">
-                    <hr class="hr-web">
-                </div>
-
-
-                <div class="col-12 mt-4 mb-2">
-                  <ul  class="inline" style="display: inline; list-style-type:none;">
-                    <li class="pt-2">
+              <div class="col-12 mt-3">
+                <ul class="inline p-0" style="display: inline; list-style-type:none;">
+                  <li class="pt-2">
+                    <?php if($mat_member_status == 'free'){
+                      if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
+                    ?>
+                      <button class="btn btn-success btn-sm act_btn btn_open_modal" data-toggle="modal" data-target="#profile_complete_Modal"><i class="fa fa-address-card" aria-hidden="true"></i>  Full Profile</button>
+                    <?php } else{ ?>
+                      <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Full Profile</a>
+                    <?php } }  else{ ?>
                       <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
-                    </li>
-                    <li>
-                      <?php
-                      //echo $interest_sent;
-                       if($get_interest){ ?>
-                         <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
-                      <?php } else{ ?>
-                     <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
-                      <?php } ?>
-                    </li>
-                    <li>
+                    <?php } ?>
+                  </li>
+                  <li>
+                    <?php if($get_interest){ ?>
+                       <button class="btn btn-success btn-sm act_btn btn_exp_interest" to_member_id="<?php echo $list->member_id; ?>"  type="submit" disabled><i class="fa fa-heart" aria-hidden="true"></i> Expressed Interest</button>
+                    <?php } else{ ?>
+                      <button class="btn btn-success btn-sm act_btn btn_exp_interest" id="btn_exp_interest_<?php echo $list->member_id; ?>" to_member_id="<?php echo $list->member_id; ?>"  data-toggle="modal" data-target="#exp_interest"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button>
+                    <?php } ?>
+                  </li>
+                  <li>
+                    <?php if($mat_member_status == 'free'){
+                    if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
+                   ?><button class="btn btn-success btn-sm act_btn btn_open_modal" data-toggle="modal" data-target="#profile_complete_Modal"><i class="fa fa-envelope" aria-hidden="true"></i>  Message</button>
+                 <?php } else{ ?>
+                      <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Message</a>
+                    <?php } }  else{ ?>
                       <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list->member_id; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
-                    </li>
-                    <!-- <li>
-                      <?php if($shortlist_sent == ''){ ?>
-                        <button class="btn btn-success btn-sm act_btn btn_shortlist" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Shorllist</button>
-                      <?php } else{ ?>
-                        <button class="btn btn-success btn-sm act_btn " type="submit" disabled><i class="fa fa-list" aria-hidden="true" disabled></i> Shorllisted</button>
-                      <?php } ?>
-                    </li> -->
-                  </ul>
-                </div>
+                    <?php } ?>
+                  </li>
+                  <!-- <li>
+                    <?php if($shortlist_sent == ''){ ?>
+                      <button class="btn btn-success btn-sm act_btn btn_shortlist" to_member_id="<?php echo $list->member_id; ?>"  type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Shorllist</button>
+                    <?php } else{ ?>
+                      <button class="btn btn-success btn-sm act_btn " type="submit" disabled><i class="fa fa-list" aria-hidden="true" disabled></i> Shorllisted</button>
+                    <?php } ?>
+                  </li> -->
+                </ul>
               </div>
             </div>
+          </div>
         </div>
       </div>
-    <?php  }
-    } ?>
+      <?php  } } ?>
   </div>
 
-  <div class="col-12 d-block d-sm-none">
-    <div class="adv pt-4">
-      <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
-      <br>
-    </div>
-  </div>
+          <div class="col-12 d-block d-sm-none">
+            <div class="adv pt-4">
+              <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+              <br>
+            </div>
+          </div>
 
             <br><br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="profile_complete_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Update Profile Information.
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+              <a href="<?php echo base_url(); ?>Member/profile" class="btn btn-secondary">Close</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exp_interest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Send Interest</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Do You Want to Send Interest.
+              <input type="hidden"  id="interest_to_member_id" name="interest_to_member_id">
+              <input type="hidden"  id="interest_to_btn_id" name="interest_to_btn_id">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button type="button" id="btn_int_send" data-dismiss="modal" class="btn btn-primary">Yes</button>
+            </div>
           </div>
         </div>
       </div>
@@ -214,8 +268,6 @@
           </div>
         </div>
       </div>
-
-
 
       <!-- Modal -->
       <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -295,16 +347,16 @@
                     </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="marital_status_id" id="marital_status_id" style="width:100% !important;">
-                      <option selected="selected" value="" > Marital Status </option>
+                    <select class="form-control select2 form-control-sm w-100" data-placeholder="Marital Status" name="marital_status_id" id="marital_status_id" style="width:100% !important;">
+                      <option selected="selected" value="" >Marital Status</option>
                       <?php foreach ($marital_status_list as $list) { ?>
                         <option value="<?php echo $list->marital_status_id ?>" <?php if(isset($marital_status) && $marital_status == $list->marital_status_id ){ echo 'selected'; } ?>><?php echo $list->marital_status_name; ?></option>
                       <?php  } ?>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id" style="width:100% !important;">
-                      <option selected="selected" value="" > Occupation </option>
+                    <select class="form-control select2 form-control-sm w-100" data-placeholder="Occupation" name="occupation_id" id="occupation_id" style="width:100% !important;">
+                      <option selected="selected" value="" >Occupation</option>
                       <?php foreach ($occupation_list as $list) { ?>
                         <option value="<?php echo $list->occupation_id ?>" <?php if(isset($occupation_id) && $occupation_id == $list->occupation_id ){ echo 'selected'; } ?>><?php echo $list->occupation_name; ?></option>
                       <?php  } ?>
@@ -364,27 +416,14 @@
                       <?php  } ?>
                     </select>
                   </div>
-
-                  <!-- <div class="form-group col-md-2">
-                    Weight :
-                  </div>
-                  <div class="form-group col-md-2">
-                    <select class="form-control select2 form-control-sm" name="min_weight" id="min_weight" style="width:100% !important;">
-                      <option selected="selected" value="" > Min </option>
-                      <?php foreach ($weight_list as $list) { ?>
-                        <option value="<?php echo $list->weight_id ?>" <?php if(isset($weight_id) && $weight_id == $list->weight_id ){ echo 'selected'; } ?>><?php echo $list->weight_name; ?></option>
+                  <div class="form-group col-md-6 drop-sm">
+                    <select class="form-control select2 form-control-sm w-100" name="marriage_type_id" id="marriage_type_id" title="Interested In" data-placeholder="Select Marriage Type" >
+                      <option selected="selected" value="" >Select Marriage Type</option>
+                      <?php foreach ($marriage_type_list as $list) { ?>
+                        <option value="<?php echo $list->marriage_type_id ?>" <?php if(isset($marriage_type_id) && $marriage_type_id == $list->marriage_type_id ){ echo 'selected'; } ?>><?php echo $list->marriage_type_name; ?></option>
                       <?php  } ?>
                     </select>
                   </div>
-                  <div class="form-group col-md-2">
-                    <select class="form-control select2 form-control-sm w-100" name="max_weight" id="max_weight" style="width:100% !important;">
-                      <option selected="selected" value="" > Max </option>
-                      <?php foreach ($weight_list as $list) { ?>
-                        <option value="<?php echo $list->weight_id ?>" <?php if(isset($weight_id) && $weight_id == $list->weight_id ){ echo 'selected'; } ?>><?php echo $list->weight_name; ?></option>
-                      <?php  } ?>
-                    </select>
-                  </div> -->
-
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -418,8 +457,18 @@
     <script type="text/javascript">
     // Send Interest...
     $('.btn_exp_interest').on('click',function(){
-      var from_member_id = <?php echo $mat_member_id; ?>;
       var to_member_id = $(this).attr('to_member_id');
+      var btn_exp_interest_id = $(this).attr('id');
+      $('#interest_to_member_id').val(to_member_id);
+      $('#interest_to_btn_id').val(btn_exp_interest_id);
+
+
+    });
+
+    $('#btn_int_send').on('click',function(){
+      var from_member_id = <?php echo $mat_member_id; ?>;
+      var to_member_id = $('#interest_to_member_id').val();
+      var interest_to_btn_id = $('#interest_to_btn_id').val();
 
       $.ajax({
         url:'<?php echo base_url(); ?>Member/add_interest',
@@ -430,14 +479,15 @@
         success:function(result){
           if(result == 'success'){
             toastr.success('Interest sent successfully');
-            $(this).html('<i class="fa fa-heart" aria-hidden="true" ></i> Expressed Interest');
-            $(this).attr('disabled','true');
+            $('#'+interest_to_btn_id).html('<i class="fa fa-heart" aria-hidden="true" ></i> Expressed Interest');
+            $('#'+interest_to_btn_id).attr('disabled','true');
           } else{
             toastr.error('Interest not sent');
           }
         }
       });
     });
+
 
 
     $('.btn_open_modal').on('click',function(){

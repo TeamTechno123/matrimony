@@ -1,4 +1,7 @@
-
+<?php
+$mat_member_id = $this->session->userdata('mat_member_id');
+$member_is_login = $this->session->userdata('member_is_login');
+?>
 <footer>
 <div class="container">
   <div class="row">

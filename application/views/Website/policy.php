@@ -111,7 +111,7 @@
     <p>Your Page, group or event cannot use information obtained from a person's interaction with your Page's call-to-action button for any purpose other than to provide the service associated with the call-to-action button. If you want to use this information for any other purpose, first obtain a person's explicit consent</p>
     <p>Page names must not include profanity, excessively incorrect grammar or punctuation, and must not consist solely of generic terms or locations</p>
     <p>Content posted to a Page is public and can be viewed by everyone who can see the Page. </p>
-    
+
       <p>Your Page's cover photo or profile picture must not include a verified checkmark, and also must not include third-party products, brands or sponsors. </p>
       <p>Pages must not promote the sale of prescription pharmaceuticals. Pages for online pharmacies may be permitted with BHARTIYA SHADI DOT COM's prior approval. </p>
       <p>When sharing a third-party link from your Page, you must not edit any elements of the post preview

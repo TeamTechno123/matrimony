@@ -10,6 +10,10 @@ class User extends CI_Controller{
 }
 
   public function index(){
+    $this->session->unset_userdata('user_id');
+    $this->session->unset_userdata('company_id');
+    $this->session->unset_userdata('role_id');
+
     $this->form_validation->set_rules('mobile', 'Mobile No.', 'trim|required');
     $this->form_validation->set_rules('password', 'Password', 'trim|required');
     if ($this->form_validation->run() == FALSE) {
@@ -43,24 +47,43 @@ class User extends CI_Controller{
     header('location:'.base_url().'User');
   }
 
+  public function change_password(){
+    $mat_user_id = $this->session->userdata('user_id');
+    $mat_company_id = $this->session->userdata('company_id');
+    $role_id = $this->session->userdata('role_id');
+    if($mat_user_id==null && $mat_company_id == null ){ header('location:'.base_url().'User'); }
+
+    $data['user_password'] = $this->input->post('new_password');
+    $this->User_Model->update_info('user_id', $mat_user_id, 'user', $data);
+    if($role_id == 4 || $role_id == 5){
+      $data2['franchise_password'] = $this->input->post('new_password');
+      $this->User_Model->update_info('user_id', $mat_user_id, 'franchise', $data2);
+    }
+
+    header('location:'.base_url().'User/dashboard');
+  }
+
   public function dashboard(){
     $mat_user_id = $this->session->userdata('user_id');
     $mat_company_id = $this->session->userdata('company_id');
     $role_id = $this->session->userdata('role_id');
     if($mat_user_id==null && $mat_company_id == null ){ header('location:'.base_url().'User'); }
     $company_id = '';
-    if($role_id == 1 || $role_id == 2){
-      $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
-      $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
+    if($role_id == 1 || $role_id == 2 || $role_id == 3){
+      $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','','','member');
+      $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','','','member');
       $data['dealer_cnt'] = $this->User_Model->get_count('franchise_id',$company_id,'','','franchise_status','active','franchise');
       $data['adv_cnt'] = $this->User_Model->get_count('adv_id',$company_id,'','','adv_status','active','advertisement');
     } else{
-      $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
-      $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'member_addedby',$mat_user_id,'member_status','free','member');
+      $data['all_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','','','member');
+      $data['member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'member_addedby',$mat_user_id,'','','member');
       $data['dealer_cnt'] = $this->User_Model->get_count('franchise_id',$company_id,'franchise_addedby',$mat_user_id,'franchise_status','active','franchise');
       $data['adv_cnt'] = $this->User_Model->get_count('adv_id',$company_id,'adv_addedby',$mat_user_id,'adv_status','active','advertisement');
     }
 
+    $data['franchise_type'] = $this->User_Model->get_list1('franchise_type_id','ASC','franchise_type');
+    $data['paid_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','active','member');
+    $data['free_member_cnt'] = $this->User_Model->get_count('member_id',$company_id,'','','member_status','free','member');
 
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
@@ -2856,82 +2879,160 @@ public function subcast_information_list(){
     header('location:'.base_url().'Login');
   }
 }
-//Save
-public function save_subcast(){
-  $user_id = $this->session->userdata('user_id');
-  $company_id = $this->session->userdata('company_id');
-  $role_id = $this->session->userdata('role_id');
-  if($company_id){
-    $data = array(
-      'company_id' => $company_id,
-      'user_id'=>$user_id,
-      'religion_id' => $this->input->post('religion_id'),
-      'cast_id' => $this->input->post('cast_id'),
-      'sub_cast_name' => $this->input->post('sub_cast_name'),
-    );
+  //Save
+  public function save_subcast(){
+    $user_id = $this->session->userdata('user_id');
+    $company_id = $this->session->userdata('company_id');
+    $role_id = $this->session->userdata('role_id');
+    if($company_id){
+      $data = array(
+        'company_id' => $company_id,
+        'user_id'=>$user_id,
+        'religion_id' => $this->input->post('religion_id'),
+        'cast_id' => $this->input->post('cast_id'),
+        'sub_cast_name' => $this->input->post('sub_cast_name'),
+      );
 
-    $this->User_Model->save_data('sub_cast', $data);
-    header('location:subcast_information_list');
-  } else{
-    header('location:'.base_url().'Login');
-  }
-}
-//edit
-public function edit_subcast($id){
-  $user_id = $this->session->userdata('user_id');
-  $company_id = $this->session->userdata('company_id');
-  $role_id = $this->session->userdata('role_id');
-  if($company_id){
-    $make_info = $this->User_Model->get_subcast_info($company_id,$id);
-    $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
-    $data['cast_list'] = $this->User_Model->get_list1('cast_id','ASC','cast');
-    if($make_info){
-      foreach($make_info as $info){
-        $data['update'] = 'update';
-        $data['sub_cast_id'] = $info->sub_cast_id;
-        $data['sub_cast_name'] = $info->sub_cast_name;
-        $data['religion_id'] = $info->religion_id;
-        $data['religion_name'] = $info->religion_name;
-        $data['cast_id'] = $info->cast_id;
-        $data['cast_name'] = $info->cast_name;
-      }
-      $this->load->view('Include/head',$data);
-      $this->load->view('Include/navbar',$data);
-      $this->load->view('User/subcast_information',$data);
-      $this->load->view('Include/footer',$data);
+      $this->User_Model->save_data('sub_cast', $data);
+      header('location:subcast_information_list');
+    } else{
+      header('location:'.base_url().'Login');
     }
-  } else{
-    header('location:'.base_url().'Login');
   }
-}
-// Update
-public function update_subcast(){
-  $user_id = $this->session->userdata('user_id');
-  $company_id = $this->session->userdata('company_id');
-  $role_id = $this->session->userdata('role_id');
-  if($company_id){
-    $sub_cast_id = $this->input->post('sub_cast_id');
-    $data = array(
-      'religion_id' => $this->input->post('religion_id'),
-      'cast_id' => $this->input->post('cast_id'),
-      'sub_cast_name' => $this->input->post('sub_cast_name'),
-    );
-    $this->User_Model->update_info('sub_cast_id', $sub_cast_id, 'sub_cast', $data);
-    header('location:subcast_information_list');
-  } else{
-    header('location:'.base_url().'Login');
+  //edit
+  public function edit_subcast($id){
+    $user_id = $this->session->userdata('user_id');
+    $company_id = $this->session->userdata('company_id');
+    $role_id = $this->session->userdata('role_id');
+    if($company_id){
+      $make_info = $this->User_Model->get_subcast_info($company_id,$id);
+      $data['religion_list'] = $this->User_Model->get_list1('religion_id','ASC','religion');
+      $data['cast_list'] = $this->User_Model->get_list1('cast_id','ASC','cast');
+      if($make_info){
+        foreach($make_info as $info){
+          $data['update'] = 'update';
+          $data['sub_cast_id'] = $info->sub_cast_id;
+          $data['sub_cast_name'] = $info->sub_cast_name;
+          $data['religion_id'] = $info->religion_id;
+          $data['religion_name'] = $info->religion_name;
+          $data['cast_id'] = $info->cast_id;
+          $data['cast_name'] = $info->cast_name;
+        }
+        $this->load->view('Include/head',$data);
+        $this->load->view('Include/navbar',$data);
+        $this->load->view('User/subcast_information',$data);
+        $this->load->view('Include/footer',$data);
+      }
+    } else{
+      header('location:'.base_url().'Login');
+    }
   }
-}
-// Delete
-public function delete_subcast($id){
-  $company_id = $this->session->userdata('company_id');
-  if($company_id){
-    $this->User_Model->delete_info('sub_cast_id', $id, 'sub_cast');
-    header('location:../subcast_information_list');
-  } else{
-    header('location:'.base_url().'Login');
+  // Update
+  public function update_subcast(){
+    $user_id = $this->session->userdata('user_id');
+    $company_id = $this->session->userdata('company_id');
+    $role_id = $this->session->userdata('role_id');
+    if($company_id){
+      $sub_cast_id = $this->input->post('sub_cast_id');
+      $data = array(
+        'religion_id' => $this->input->post('religion_id'),
+        'cast_id' => $this->input->post('cast_id'),
+        'sub_cast_name' => $this->input->post('sub_cast_name'),
+      );
+      $this->User_Model->update_info('sub_cast_id', $sub_cast_id, 'sub_cast', $data);
+      header('location:subcast_information_list');
+    } else{
+      header('location:'.base_url().'Login');
+    }
   }
-}
+  // Delete
+  public function delete_subcast($id){
+    $company_id = $this->session->userdata('company_id');
+    if($company_id){
+      $this->User_Model->delete_info('sub_cast_id', $id, 'sub_cast');
+      header('location:../subcast_information_list');
+    } else{
+      header('location:'.base_url().'Login');
+    }
+  }
+
+/****************************** Marriage Type *****************************/
+  public function marriage_type_list(){
+    $mat_user_id = $this->session->userdata('user_id');
+    $mat_company_id = $this->session->userdata('company_id');
+    $mat_role_id = $this->session->userdata('role_id');
+    if($mat_company_id == '' && $mat_user_id == ''){ header('location:'.base_url().'Login'); }
+
+    $data['marriage_type_list'] = $this->User_Model->get_list1('marriage_type_id','ASC','marriage_type');
+
+    $this->load->view('Include/head',$data);
+    $this->load->view('Include/navbar',$data);
+    $this->load->view('User/marriage_type_list',$data);
+    $this->load->view('Include/footer',$data);
+  }
+
+  public function marriage_type(){
+    $mat_user_id = $this->session->userdata('user_id');
+    $mat_company_id = $this->session->userdata('company_id');
+    $mat_role_id = $this->session->userdata('role_id');
+
+    if($mat_company_id == '' && $mat_user_id == ''){ header('location:'.base_url().'Login'); }
+    $this->form_validation->set_rules('marriage_type_name','Name','trim|required');
+    if($this->form_validation->run() != FALSE){
+      $data = array(
+        'company_id' => $mat_company_id,
+        'marriage_type_name' => $this->input->post('marriage_type_name'),
+        'marriage_type_addedby' => $mat_user_id,
+      );
+
+      $this->User_Model->save_data('marriage_type', $data);
+      header('location:'.base_url().'User/marriage_type_list');
+    }
+    $this->load->view('Include/head');
+    $this->load->view('Include/navbar');
+    $this->load->view('User/marriage_type');
+    $this->load->view('Include/footer');
+  }
+
+  public function edit_marriage_type($marriage_type_id){
+    $mat_user_id = $this->session->userdata('user_id');
+    $mat_company_id = $this->session->userdata('company_id');
+    $mat_role_id = $this->session->userdata('role_id');
+    if($mat_company_id == '' && $mat_user_id == ''){ header('location:'.base_url().'Login'); }
+
+    $this->form_validation->set_rules('marriage_type_name','Name','trim|required');
+    if($this->form_validation->run() != FALSE){
+      $update_data = array(
+        'marriage_type_name' => $this->input->post('marriage_type_name'),
+        'marriage_type_addedby' => $mat_user_id,
+      );
+
+      $this->User_Model->update_info('marriage_type_id', $marriage_type_id, 'marriage_type', $update_data);
+      header('location:'.base_url().'User/marriage_type_list');
+    }
+
+    $marriage_type_info = $this->User_Model->get_info_array('marriage_type_id', $marriage_type_id, 'marriage_type');
+    if(!$marriage_type_info){ header('location:'.base_url().'User/marriage_types_list'); }
+    $data['update'] = 'update';
+    $data['marriage_type_name'] = $marriage_type_info[0]['marriage_type_name'];
+
+    $this->load->view('Include/head', $data);
+    $this->load->view('Include/navbar', $data);
+    $this->load->view('User/marriage_type', $data);
+    $this->load->view('Include/footer', $data);
+  }
+
+  public function delete_marriage_type($marriage_type_id){
+    $mat_user_id = $this->session->userdata('user_id');
+    $mat_company_id = $this->session->userdata('company_id');
+    $mat_role_id = $this->session->userdata('role_id');
+    if($mat_company_id == '' && $mat_user_id == ''){ header('location:'.base_url().'Login'); }
+    $this->User_Model->delete_info('marriage_type_id', $marriage_type_id, 'marriage_type');
+    header('location:'.base_url().'User/marriage_type_list');
+  }
+
+
+
 
 /***************************** Advertise Information *************************/
 
@@ -2959,7 +3060,7 @@ public function delete_subcast($id){
     if($company_id){
 
       if($mat_role_id == 1 || $mat_role_id == 2 || $mat_role_id == 3 ){
-        $data['advertise_list'] = $this->User_Model->get_list1('adv_id','ASC','advertisement');
+        $data['advertise_list'] = $this->User_Model->get_list1('adv_id','DESC','advertisement');
       } else{
         $data['advertise_list'] = $this->User_Model->get_adv_list_by_user($company_id,$mat_user_id);
       }
@@ -2980,7 +3081,7 @@ public function delete_subcast($id){
     $data['select_reach_list'] = $this->User_Model->get_list1('reach_id','ASC','advertisement_reach');
     if($company_id){
       $adv_status = $this->input->post('adv_status');
-      if(!isset($adv_status)){ $adv_status = 'active'; }
+      if(!isset($adv_status)){ $adv_status = 'inactive'; }
       $data = array(
         'company_id' => $company_id,
         'adv_page'=>$this->input->post('adv_page'),
@@ -3050,6 +3151,7 @@ public function delete_subcast($id){
           $data['adv_amount'] = $info->adv_amount;
           $data['adv_image'] = $info->adv_image;
           $data['adv_status'] = $info->adv_status;
+          $data['is_paid'] = $info->is_paid;
         }
         $data['country_list'] = $this->User_Model->get_list1('country_id','ASC','country');
     		$data['state_list'] = $this->User_Model->get_list1('state_id','ASC','state');
@@ -3071,20 +3173,20 @@ public function delete_subcast($id){
     $role_id = $this->session->userdata('role_id');
     if($company_id){
       $adv_status = $this->input->post('adv_status');
-      if(!isset($adv_status)){ $adv_status = 'active'; }
+      if(!isset($adv_status)){ $adv_status = 'inactive'; }
       $adv_id = $this->input->post('adv_id');
+      $reach_id = $this->input->post('reach_id');
+      if($reach_id){ $data['reach_id'] = $reach_id; }
       $data = array(
         'adv_page'=>$this->input->post('adv_page'),
         'adv_from_date'=>$this->input->post('adv_from_date'),
         'adv_to_date'=>$this->input->post('adv_to_date'),
         'adv_name' => $this->input->post('adv_name'),
-        'reach_id' => $this->input->post('reach_id'),
         'country_id'=>$this->input->post('country_id'),
         'state_id'=>$this->input->post('state_id'),
         'district_id'=>$this->input->post('district_id'),
         'adv_amount' => $this->input->post('adv_amount'),
         'adv_status' => $adv_status,
-        'adv_addedby' => $user_id,
       );
       $this->User_Model->update_info('adv_id', $adv_id, 'advertisement', $data);
       $img_old = $this->input->post('img_old');
@@ -3127,6 +3229,30 @@ public function delete_subcast($id){
     }
   }
 
+
+
+  public function advertise_package($adv_id){
+    $user_id = $this->session->userdata('user_id');
+    $company_id = $this->session->userdata('company_id');
+    $role_id = $this->session->userdata('role_id');
+    if($user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
+    $adv_info = $this->User_Model->get_info_array('adv_id', $adv_id, 'advertisement');
+    if(!$adv_info){ header('location:../advertise_information_list'); }
+    $data['reach_id'] = $adv_info[0]['reach_id'];
+
+    $adv_info = $this->User_Model->get_info_array('reach_id', $data['reach_id'], 'package');
+    $reach_info = $this->User_Model->get_info_array('reach_id', $data['reach_id'], 'advertisement_reach');
+    $data['package_name'] = $adv_info[0]['package_name'];
+    $data['package_amount'] = $adv_info[0]['package_amount'];
+    $data['reach_name'] = $reach_info[0]['reach_name'];
+    $data['adv_id'] = $adv_id;
+
+    $this->load->view('Include/head',$data);
+    $this->load->view('Include/navbar',$data);
+    $this->load->view('User/advertise_package',$data);
+    $this->load->view('Include/footer',$data);
+  }
+
 /****************************** Membership Package Information *************************/
   // Membership List...
   public function package_list(){
@@ -3152,10 +3278,11 @@ public function delete_subcast($id){
       if(!isset($package_status)){ $package_status = 'active'; }
       $save_data = array(
         'company_id' => $company_id,
+        'reach_id' => $this->input->post('reach_id'),
         'package_name' => $this->input->post('package_name'),
         'package_amount' => $this->input->post('package_amount'),
-        'package_int_cnt' => $this->input->post('package_int_cnt'),
-        'package_photo_cnt' => $this->input->post('package_photo_cnt'),
+        // 'package_int_cnt' => $this->input->post('package_int_cnt'),
+        // 'package_photo_cnt' => $this->input->post('package_photo_cnt'),
         'package_status' => $package_status,
         'package_addedby' => $user_id,
       );
@@ -3187,10 +3314,12 @@ public function delete_subcast($id){
       }
       header('location:'.base_url().'User/package_list');
     }
-    $this->load->view('Include/head');
-    $this->load->view('Include/navbar');
-    $this->load->view('User/package_information');
-    $this->load->view('Include/footer');
+
+    $data['select_reach_list'] = $this->User_Model->get_list1('reach_id','ASC','advertisement_reach');
+    $this->load->view('Include/head',$data);
+    $this->load->view('Include/navbar',$data);
+    $this->load->view('User/package_information',$data);
+    $this->load->view('Include/footer',$data);
   }
 
   public function edit_package($package_id){
@@ -3203,10 +3332,11 @@ public function delete_subcast($id){
       $package_status = $this->input->post('package_status');
       if(!isset($package_status)){ $package_status = 'active'; }
       $update_data = array(
+        'reach_id' => $this->input->post('reach_id'),
         'package_name' => $this->input->post('package_name'),
         'package_amount' => $this->input->post('package_amount'),
-        'package_int_cnt' => $this->input->post('package_int_cnt'),
-        'package_photo_cnt' => $this->input->post('package_photo_cnt'),
+        // 'package_int_cnt' => $this->input->post('package_int_cnt'),
+        // 'package_photo_cnt' => $this->input->post('package_photo_cnt'),
         'package_status' => $package_status,
         'package_addedby' => $user_id,
       );
@@ -3243,13 +3373,15 @@ public function delete_subcast($id){
     $package_info = $this->User_Model->get_info_array('package_id', $package_id, 'package');
     if(!$package_info){ header('location:'.base_url().'User/package_list'); }
     $data['update'] = 'update';
+    $data['reach_id'] = $package_info[0]['reach_id'];
     $data['package_name'] = $package_info[0]['package_name'];
     $data['package_amount'] = $package_info[0]['package_amount'];
-    $data['package_int_cnt'] = $package_info[0]['package_int_cnt'];
-    $data['package_photo_cnt'] = $package_info[0]['package_photo_cnt'];
+    // $data['package_int_cnt'] = $package_info[0]['package_int_cnt'];
+    // $data['package_photo_cnt'] = $package_info[0]['package_photo_cnt'];
     $data['package_img'] = $package_info[0]['package_img'];
     $data['package_status'] = $package_info[0]['package_status'];
 
+    $data['select_reach_list'] = $this->User_Model->get_list1('reach_id','ASC','advertisement_reach');
     $this->load->view('Include/head', $data);
     $this->load->view('Include/navbar', $data);
     $this->load->view('User/package_information', $data);
@@ -3415,7 +3547,6 @@ public function delete_subcast($id){
       $data['franchise_list'] = $this->User_Model->get_list1('franchise_id','DESC','franchise');
     }
 
-
     $this->load->view('Include/head',$data);
     $this->load->view('Include/navbar',$data);
     $this->load->view('User/franchise_list',$data);
@@ -3445,6 +3576,10 @@ public function delete_subcast($id){
         'franchise_email' => $this->input->post('franchise_email'),
         'franchise_mobile' => $this->input->post('franchise_mobile'),
         'franchise_password' => $this->input->post('franchise_password'),
+        'franchise_bank' => $this->input->post('franchise_bank'),
+        'franchise_branch' => $this->input->post('franchise_branch'),
+        'franchise_ifsc' => $this->input->post('franchise_ifsc'),
+        'franchise_acc_no' => $this->input->post('franchise_acc_no'),
         'franchise_status' => $franchise_status,
         'franchise_addedby' => $user_id,
       );
@@ -3506,8 +3641,11 @@ public function delete_subcast($id){
         'franchise_email' => $this->input->post('franchise_email'),
         'franchise_mobile' => $this->input->post('franchise_mobile'),
         'franchise_password' => $this->input->post('franchise_password'),
+        'franchise_bank' => $this->input->post('franchise_bank'),
+        'franchise_branch' => $this->input->post('franchise_branch'),
+        'franchise_ifsc' => $this->input->post('franchise_ifsc'),
+        'franchise_acc_no' => $this->input->post('franchise_acc_no'),
         'franchise_status' => $franchise_status,
-        'franchise_addedby' => $user_id,
       );
       $this->User_Model->update_info('franchise_id', $franchise_id, 'franchise', $update_data);
       $franchise_info = $this->User_Model->get_info_array('franchise_id', $franchise_id, 'franchise');
@@ -3546,6 +3684,10 @@ public function delete_subcast($id){
     $data['franchise_email'] = $franchise_info[0]['franchise_email'];
     $data['franchise_mobile'] = $franchise_info[0]['franchise_mobile'];
     $data['franchise_password'] = $franchise_info[0]['franchise_password'];
+    $data['franchise_bank'] = $franchise_info[0]['franchise_bank'];
+    $data['franchise_branch'] = $franchise_info[0]['franchise_branch'];
+    $data['franchise_ifsc'] = $franchise_info[0]['franchise_ifsc'];
+    $data['franchise_acc_no'] = $franchise_info[0]['franchise_acc_no'];
     $data['franchise_status'] = $franchise_info[0]['franchise_status'];
 
 
@@ -3611,6 +3753,8 @@ public function delete_subcast($id){
       );
       $member_user_id = $this->User_Model->save_data('user', $save_user_data);
 
+      $birthdate = $this->input->post('member_birth_date');
+      $age =  date_diff(date_create($birthdate), date_create($today))->y;
       $save_data = array(
         'company_id' => $company_id,
         'member_user_id' => $member_user_id,
@@ -3624,6 +3768,7 @@ public function delete_subcast($id){
         'member_area' => $this->input->post('member_area'),
         'member_gender' => $this->input->post('member_gender'),
         'member_birth_date' => $this->input->post('member_birth_date'),
+        'member_age' => $age,
         'language_id' => $this->input->post('language_id'),
         'religion_id' => $this->input->post('religion_id'),
         'member_email' => $this->input->post('member_email'),
@@ -3662,6 +3807,33 @@ public function delete_subcast($id){
     $this->load->view('Include/footer',$data);
   }
 
+
+  public function members_profile($member_id){
+    $user_id = $this->session->userdata('user_id');
+    $company_id = $this->session->userdata('company_id');
+    $role_id = $this->session->userdata('role_id');
+    if($user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
+
+    $member_info = $this->Member_Model->get_member_info($member_id);
+    if(!$member_info){
+      header('location:'.base_url().'User/members_list');
+    }
+    $data['member_img'] = $member_info[0]['member_img'];
+    $data['member_info'] = $member_info;
+    $today = date('d-m-Y');
+    $birthdate = $data['member_info'][0]['member_birth_date'];
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
+    $data['age'] = $age;
+
+    $data['member_image_list'] = $this->Member_Model->member_image_list($member_id);
+
+    $this->load->view('Include/head',$data);
+    $this->load->view('Include/navbar',$data);
+    $this->load->view('User/members_profile',$data);
+    $this->load->view('Include/footer',$data);
+  }
+
+
 public function edit_members($member_id){
   $user_id = $this->session->userdata('user_id');
   $company_id = $this->session->userdata('company_id');
@@ -3670,6 +3842,8 @@ public function edit_members($member_id){
 
   $this->form_validation->set_rules('member_name','Member Name','trim|required');
   if($this->form_validation->run() != FALSE){
+    $birthdate = $this->input->post('member_birth_date');
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $today = date('d-m-Y');
     $update_data = array(
       'member_name' => $this->input->post('member_name'),
@@ -3682,6 +3856,7 @@ public function edit_members($member_id){
       'member_area' => $this->input->post('member_area'),
       'member_gender' => $this->input->post('member_gender'),
       'member_birth_date' => $this->input->post('member_birth_date'),
+      'member_age' => $age,
       'language_id' => $this->input->post('language_id'),
       'religion_id' => $this->input->post('religion_id'),
       'member_email' => $this->input->post('member_email'),
@@ -3744,6 +3919,29 @@ public function delete_members($member_id){
   header('location:'.base_url().'User/members_list');
 }
 
+/******************************** Commission **************************************/
+
+public function commission(){
+  $mat_user_id = $this->session->userdata('user_id');
+  $company_id = $this->session->userdata('company_id');
+  $mat_role_id = $this->session->userdata('role_id');
+  if($mat_user_id==null && $company_id == null ){ header('location:'.base_url().'User'); }
+
+  $data['tot_mem_commission'] = $this->User_Model->tot_commission('commission_amount',$mat_user_id);
+  $data['tot_mem_tds'] = $this->User_Model->tot_commission('tds_amount',$mat_user_id);
+  $data['tot_mem_amt'] = $this->User_Model->tot_commission('final_commission_amount',$mat_user_id);
+
+  $data['tot_adv_commission'] = $this->User_Model->tot_adv_commission('adv_commission_amt',$mat_user_id);
+  $data['tot_adv_tdsn'] = $this->User_Model->tot_adv_commission('adv_tds_amt',$mat_user_id);
+  $data['tot_adv_amt'] = $this->User_Model->tot_adv_commission('adv_final_amt',$mat_user_id);
+
+
+  $this->load->view('Include/head',$data);
+  $this->load->view('Include/navbar',$data);
+  $this->load->view('User/commission',$data);
+  $this->load->view('Include/footer',$data);
+}
+
 /****************************************************************************************************/
   // Check Duplication
   public function check_duplication(){
@@ -3763,6 +3961,7 @@ public function delete_members($member_id){
     foreach ($state_list as $list) {
       echo "<option value='".$list->state_id."'> ".$list->state_name." </option>";
     }
+
   }
 
   // Get District List By State....
@@ -3773,6 +3972,7 @@ public function delete_members($member_id){
     foreach ($district_list as $list) {
       echo "<option value='".$list->district_id."'> ".$list->district_name." </option>";
     }
+    echo "<option value='-1'>Other</option>";
   }
 
   // Get Tahsil List By District....
@@ -3783,6 +3983,7 @@ public function delete_members($member_id){
     foreach ($tahasil_list as $list) {
       echo "<option value='".$list->tahasil_id."'> ".$list->tahasil_name." </option>";
     }
+    echo "<option value='-1'>Other</option>";
   }
 
   // Get Tahsil List By District....
@@ -3793,6 +3994,7 @@ public function delete_members($member_id){
     foreach ($city_list as $list) {
       echo "<option value='".$list->city_id."'> ".$list->city_name." </option>";
     }
+    echo "<option value='-1'>Other</option>";
   }
 
   // Get Tahsil List By District....
@@ -3803,6 +4005,28 @@ public function delete_members($member_id){
     foreach ($cast_list as $list) {
       echo "<option value='".$list->cast_id."'> ".$list->cast_name." </option>";
     }
+    echo "<option value='-1'>Other</option>";
+  }
+
+  // Get Tahsil List By District....
+  public function get_subcast_by_cast(){
+    $cast_id = $this->input->post('cast_id');
+    $sub_cast_list = $this->User_Model->get_list_by_id('*','cast_id',$cast_id,'sub_cast');
+    echo "<option value='' selected >Select Sub Caste</option>";
+    foreach ($sub_cast_list as $list) {
+      echo "<option value='".$list->sub_cast_id."'> ".$list->sub_cast_name." </option>";
+    }
+    echo "<option value='-1'>Other</option>";
+  }
+
+  // Get Tahsil List By District....
+  public function get_amount_by_reach(){
+    $reach_id = $this->input->post('reach_id');
+    $package_list = $this->User_Model->get_list_by_id('*','reach_id',$reach_id,'package');
+    foreach ($package_list as $list) {
+      $package_amount = $list->package_amount;
+    }
+    echo $package_amount;
   }
 }
 ?>

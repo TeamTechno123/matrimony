@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-
+<?php
+  $user_id = $this->session->userdata('user_id');
+  $company_id = $this->session->userdata('company_id');
+  $role_id = $this->session->userdata('role_id');
+?>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -75,10 +76,88 @@
           </div>
         </div>
         <hr>
-
       </div><!-- /.container-fluid -->
+
+      <div class="container-fluid">
+        <!-- <h4 class="mb-3">Master Summary</h4> -->
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Franchise</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Franchise Type</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $i = 0;
+                    foreach ($franchise_type as $franchise_type_list) {
+                    $i++;
+                    $franchise_type_id = $franchise_type_list->franchise_type_id;
+                    $franchise_count = $this->User_Model->get_franchise_count_by_type($franchise_type_id); ?>
+                      <tr>
+                        <td><?php echo $i; ?>.</td>
+                        <td><?php echo $franchise_type_list->franchise_type_name; ?> Level</td>
+                        <td> <a href="<?php echo base_url(); ?>Report/franchise_list/<?php echo $franchise_type_id; ?>"><?php echo $franchise_count; ?></a> </td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Member</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Type</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>All Member</td>
+                      <td><?php echo $all_member_cnt; ?></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>Paid Member</td>
+                      <td><?php echo $paid_member_cnt; ?></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>Free Member</td>
+                      <td><?php echo $free_member_cnt; ?></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+
     </section>
   </div>
-
 </body>
 </html>

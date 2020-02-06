@@ -3,13 +3,13 @@ class Member_Model extends CI_Model{
   public function send_sms($mobile_no,$message){
     $url = "http://sms.amplusys.com/SecureApi.aspx?usr=dipak&key=236616E2-B077-4BD5-81FE-06D32AF5153A&smstype=TextSMS&to=".$mobile_no."&msg=".$message."&rout=Transactional&from=BSHADI";
     //Curl Start
-    $ch  =  curl_init();
-    $timeout  =  30;
-    curl_setopt ($ch,CURLOPT_URL, $url) ;
-    curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
-    $response = curl_exec($ch) ;
-    curl_close($ch) ;
+    // $ch  =  curl_init();
+    // $timeout  =  30;
+    // curl_setopt ($ch,CURLOPT_URL, $url) ;
+    // curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
+    // curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
+    // $response = curl_exec($ch) ;
+    // curl_close($ch) ;
     //Write out the response
     // die($response);
     // return $url;
@@ -37,8 +37,30 @@ class Member_Model extends CI_Model{
     return $result;
   }
 
+  /************************************ Forgot Password *********************************/
+  public function check_mobile($member_mobile){
+    $this->db->select('member_mobile,member_id');
+    $this->db->from('member');
+    $this->db->where('member_mobile',$member_mobile);
+    $query = $this->db->get();
+    $result = $query->result_array();
+    return $result;
+  }
+
+  public function verify_otp_password($member_mobile,$member_otp){
+    $this->db->select('member_mobile,member_id,member_otp');
+    $this->db->from('member');
+    $this->db->where('member_mobile',$member_mobile);
+    $this->db->where('member_otp',$member_otp);
+    $query = $this->db->get();
+    $result = $query->result_array();
+    return $result;
+  }
+
+  /**************************************************************************************/
+
   public function get_member_info($member_id){
-    $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*');
+    $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*,marriage_type.*');
     $this->db->from('member');
     $this->db->where('member.member_id',$member_id);
     $this->db->join('country','country.country_id = member.country_id','LEFT');
@@ -67,6 +89,7 @@ class Member_Model extends CI_Model{
     $this->db->join('moonsign','moonsign.moonsign_id = member.moonsign_id','LEFT');
     $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
     $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
+    $this->db->join('marriage_type','marriage_type.marriage_type_id = member.marriage_type_id','LEFT');
 
     $query = $this->db->get();
     $result = $query->result_array();
@@ -76,7 +99,7 @@ class Member_Model extends CI_Model{
   }
 
   public function active_members_list($gender,$status){
-    $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*');
+    $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*,marriage_type.*');
     $this->db->from('member');
 
     if($gender != ''){
@@ -112,6 +135,7 @@ class Member_Model extends CI_Model{
     $this->db->join('moonsign','moonsign.moonsign_id = member.moonsign_id','LEFT');
     $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
     $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
+    $this->db->join('marriage_type','marriage_type.marriage_type_id = member.marriage_type_id','LEFT');
 
     $query = $this->db->get();
     $result = $query->result();
@@ -163,7 +187,7 @@ class Member_Model extends CI_Model{
 
   // Used In 1. Member/active_full_profile,
   public function get_interest_member_list($from_member_id,$to_member_id){
-    $this->db->select('interest.*,member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*');
+    $this->db->select('interest.*,member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*,marriage_type.*');
     $this->db->from('interest');
 
     if($from_member_id != ''){
@@ -207,6 +231,7 @@ class Member_Model extends CI_Model{
     $this->db->join('moonsign','moonsign.moonsign_id = member.moonsign_id','LEFT');
     $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
     $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
+    $this->db->join('marriage_type','marriage_type.marriage_type_id = member.marriage_type_id','LEFT');
     $query = $this->db->get();
     $result = $query->result();
     $q = $this->db->last_query();
@@ -264,6 +289,15 @@ class Member_Model extends CI_Model{
     // return $q;
   }
 
+// Not Used // De
+  public function masseges_member_list2($member_id){
+    $sql = "SELECT DISTINCT from_member_id as msg_member_id from message where to_member_id = ".$member_id." UNION SELECT DISTINCT to_member_id as msg_member_id from message where from_member_id = ".$member_id."";
+    $query = $this->db->query($sql);
+    $result = $query->result();
+    return $result;
+  }
+
+
   public function masseges_list($from_member_id,$to_member_id){
     $sql = "select * from message where (from_member_id = ".$from_member_id." AND to_member_id = ".$to_member_id.") OR (from_member_id = ".$to_member_id." AND to_member_id = ".$from_member_id.")";
     $query = $this->db->query($sql);
@@ -272,15 +306,19 @@ class Member_Model extends CI_Model{
   }
 
   /***************************************** Search Member ********************************/
-  public function search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id,$state_id,$district_id,$education_id,$diet_id){
-    $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*');
+  public function search_member_list($gender,$min_age,$max_age,$min_height,$max_height,$marital_status_id,$occupation_id,$city_id,$language_id,$religion_id,$cast_id,$state_id,$district_id,$education_id,$diet_id,$marriage_type_id){
+    $this->db->select('member.*,country.*,state.*,district.*,tahasil.*,city.*,language.*,religion.*,onbehalf.*,cast.*,marital_status.*,sub_cast.*,blood_group.*,body_type.*,complexion.*,diet.*,education.*,family_status.*,family_type.*,family_value.*,gothram.*,height.*,income.*,income.*,moonsign.*,occupation.*,resident_status.*,marriage_type.*');
     $this->db->from('member');
 
     if($gender != ''){
       $this->db->where('member.member_gender !=',$gender);
     }
-    if($marital_status_id != ''){
-      $this->db->where('member.member_status','active');
+
+    if($min_age != ''){
+      $this->db->where('member.member_age >=',$min_age);
+    }
+    if($max_age != ''){
+      $this->db->where('member.member_age <=',$min_age);
     }
     if($marital_status_id != ''){
       $this->db->where('member.marital_status',$marital_status_id);
@@ -312,6 +350,10 @@ class Member_Model extends CI_Model{
     if($diet_id != ''){
       $this->db->where('member.diet_id',$diet_id);
     }
+    if($marriage_type_id != ''){
+      $this->db->where('member.marriage_type_id',$marriage_type_id);
+    }
+
 
     $this->db->join('country','country.country_id = member.country_id','LEFT');
     $this->db->join('state','state.state_id = member.state_id','LEFT');
@@ -339,6 +381,7 @@ class Member_Model extends CI_Model{
     $this->db->join('moonsign','moonsign.moonsign_id = member.moonsign_id','LEFT');
     $this->db->join('occupation','occupation.occupation_id = member.occupation_id','LEFT');
     $this->db->join('resident_status','resident_status.resident_status_id = member.resident_status_id','LEFT');
+    $this->db->join('marriage_type','marriage_type.marriage_type_id = member.marriage_type_id','LEFT');
 
     $query = $this->db->get();
     $result = $query->result();
@@ -380,6 +423,8 @@ class Member_Model extends CI_Model{
 
     // $this->db->where("str_to_date('$today','%d-%m-%Y') BETWEEN str_to_date('$from_date','%d-%m-%Y') AND str_to_date('$to_date','%d-%m-%Y')");
     $this->db->where('adv_page',$page);
+    $this->db->where('adv_status','active');
+    // $this->db->where('is_paid',1);
     $this->db->order_by('adv_id', 'RANDOM');
     $this->db->limit(1);
     $query = $this->db->get();

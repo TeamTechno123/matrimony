@@ -37,25 +37,46 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Sr. No.</th>
-                  <th>Package Name</th>
-                  <th>Amount</th>
-                  <th>Action</th>
+                  <th class="sr_no">Sr. No.</th>
+                  <th>Name</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th class="sr_no">Amount</th>
+                  <th class="sr_no">Status</th>
+                  <th class="sr_no">Action</th>
+                  <th class="sr_no">Payment</th>
                 </tr>
                 </thead>
                 <tbody>
                   <?php
                   $i=0;
                   foreach ($advertise_list as $advertise_list1) {
+                    $adv_status = $advertise_list1->adv_status;
                   $i++;
                 ?>
                     <tr>
-                      <td><?php echo $i; ?></td>
+                      <td class="sr_no"><?php echo $i; ?></td>
                       <td><?php echo $advertise_list1->adv_name; ?></td>
-                      <td><?php echo $advertise_list1->adv_amount; ?></td>
-                      <td>
+                      <td><?php echo $advertise_list1->adv_from_date; ?></td>
+                      <td><?php echo $advertise_list1->adv_to_date; ?></td>
+                      <td class="sr_no"><?php echo $advertise_list1->adv_amount; ?></td>
+                      <td class="sr_no text-bold">
+                        <?php if($adv_status == 'inactive'){ ?>
+                          <span class="text-danger"><?php echo $adv_status; ?></span>
+                        <?php } else{ ?>
+                          <span class="text-success"><?php echo $adv_status; ?></span>
+                        <?php } ?>
+                      </td>
+                      <td class="sr_no">
                         <a href="edit_advertisement/<?php echo $advertise_list1->adv_id; ?>"> <i class="fa fa-edit"></i> </a>
                         <a class="ml-4" href="delete_advertisement/<?php echo $advertise_list1->adv_id; ?>" onclick="return confirm('Delete Confirm');"> <i class="fa fa-trash"></i> </a>
+                      </td>
+                      <td class="sr_no text-bold">
+                        <?php if($advertise_list1->is_paid == 0){ ?>
+                          <a class="btn btn-primary btn-sm" href="advertise_package/<?php echo $advertise_list1->adv_id; ?>">Payment</a>
+                        <?php } else{ ?>
+                          <span class="text-success">Paid</span>
+                        <?php } ?>
                       </td>
                     </tr>
                       <?php  }  ?>

@@ -8,8 +8,13 @@ body{
   margin: 0px!important;
 }
 
+/* Table CSS */
+.sr_no{
+  width:50px !important;
+}
+
 .head-nav .nav-link{
-  font-size: 17px;
+  font-size: 16px;
   color: #fff!important;
 }
 
@@ -81,7 +86,7 @@ body{
 }
 
 .login-section {
-  height:100vh;
+  min-height:calc(100vh - 60px);
   padding-top: 20px;
   padding-bottom: 30px;
   background-color: #DFE3EE;
@@ -493,7 +498,8 @@ text-align: center;
 }
 
 .act_btn{
-  width:150px !important;
+  width:auto !important;
+  font-size: 13px !important;
 }
 
 
@@ -516,6 +522,10 @@ text-align: center;
 } */
 
 .navbar-collapse .nav-item:hover{
+  background-color: #0062cc;
+}
+
+.navbar-collapse .active{
   background-color: #0062cc;
 }
 

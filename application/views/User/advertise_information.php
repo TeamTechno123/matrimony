@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-
+<?php
+  $user_id = $this->session->userdata('user_id');
+  $company_id = $this->session->userdata('company_id');
+  $role_id = $this->session->userdata('role_id');
+?>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
@@ -37,7 +41,7 @@
 
                 <div class="card-body row">
                   <div class="form-group col-md-12 drop-lg">
-                    <select class="form-control select2" name="reach_id" id="reach_id" title="Select Reach" data-placeholder="Select Reach" style="width: 100%;" required>
+                    <select class="form-control select2" name="reach_id" id="reach_id" title="Select Reach" data-placeholder="Select Reach" style="width: 100%;" required <?php if(isset($is_paid) && $is_paid == 1){ echo 'disabled'; } ?>>
                       <option selected="selected" value="" >Select Reach </option>
                       <?php foreach ($select_reach_list as $select_reach_list1) { ?>
                         <option value="<?php echo $select_reach_list1->reach_id; ?>" <?php if(isset($reach_id)){ if($select_reach_list1->reach_id == $reach_id){ echo "selected"; } }  ?>><?php echo $select_reach_list1->reach_name; ?></option>
@@ -85,19 +89,19 @@
                     </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control required title-case text" name="adv_from_date" value="<?php if(isset($adv_from_date)){ echo $adv_from_date; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker"  title="From Date" placeholder="From Date" required>
+                    <input type="text" class="form-control" name="adv_from_date" value="<?php if(isset($adv_from_date)){ echo $adv_from_date; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker"  title="From Date" placeholder="From Date" <?php if($role_id == 4 || $role_id == 5 ){ echo 'readonly'; } else{ echo 'required'; } ?>>
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control required title-case text" name="adv_to_date" value="<?php if(isset($adv_to_date)){ echo $adv_to_date; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker"  title="To Date" placeholder="To Date" required>
+                    <input type="text" class="form-control" name="adv_to_date" value="<?php if(isset($adv_to_date)){ echo $adv_to_date; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker"  title="To Date" placeholder="To Date" <?php if($role_id == 4 || $role_id == 5 ){ echo 'readonly'; } else{ echo 'required'; } ?>>
                   </div>
                   <div class="form-group col-md-12">
                     <input type="text" class="form-control required title-case text" name="adv_name" id="adv_name" value="<?php if(isset($adv_name)){ echo $adv_name; } ?>" title="Enter Advertisement Name" placeholder="Enter Advertisement Name" required>
                   </div>
                   <div class="form-group col-md-12">
-                    <input type="text" class="form-control required title-case text" name="adv_amount" id="adv_amount" value="<?php if(isset($adv_amount)){ echo $adv_amount; } ?>" title="Enter Amount" placeholder="Enter Amount" required>
+                    <input type="text" class="form-control" name="adv_amount" id="adv_amount" value="<?php if(isset($adv_amount)){ echo $adv_amount; } ?>" title="Enter Amount" placeholder="Enter Amount" readonly required>
                   </div>
                   <div class="form-group col-md-12">
-                    <input class="form-control" type="file" name="adv_image" id="adv_image">
+                    <input class="form-control" type="file" name="adv_image" id="adv_image" required>
                   </div>
                   <?php if(isset($adv_image)){ ?>
                   <div class="form-group col-md-12">
@@ -107,8 +111,8 @@
                   <?php } ?>
                   <div class="form-group col-md-6 pl-4">
                     <div class="form-check">
-                      <input type="checkbox" name="adv_status" <?php if(isset($adv_status) && $adv_status == 'deactivate') { echo 'checked'; } ?> value="deactivate" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label text-bold"  for="exampleCheck1">Disable This Advertise</label>
+                      <input type="checkbox" name="adv_status" <?php if(isset($adv_status) && $adv_status == 'active') { echo 'checked'; } ?> value="active" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label text-bold"  for="exampleCheck1">Active This Advertise</label>
                     </div>
                 </div>
                 </div>
@@ -130,6 +134,34 @@
   </div>
 
   <script type="text/javascript">
+    $("#reach_id").on("change", function(){
+      var reach_id =  $('#reach_id').find("option:selected").val();
+      $.ajax({
+        url:'<?php echo base_url(); ?>User/get_amount_by_reach',
+        type: 'POST',
+        data: {"reach_id":reach_id},
+        context: this,
+        success: function(result){
+          $('#adv_amount').val(result);
+          if(reach_id == 1){
+            $('#country_id').attr('required',true);
+            $('#state_id').attr('required',false);
+            $('#district_id').attr('required',false);
+          }
+          if(reach_id == 2){
+            $('#country_id').attr('required',true);
+            $('#state_id').attr('required',true);
+            $('#district_id').attr('required',false);
+          }
+          if(reach_id == 3){
+            $('#country_id').attr('required',true);
+            $('#state_id').attr('required',true);
+            $('#district_id').attr('required',true);
+          }
+        }
+      });
+    });
+
     $("#country_id").on("change", function(){
       var country_id =  $('#country_id').find("option:selected").val();
       $.ajax({
