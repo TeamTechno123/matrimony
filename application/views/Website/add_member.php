@@ -32,6 +32,13 @@
           </div>
         </div>
 
+        <div class="col-12 d-block d-sm-none">
+          <div class="adv pt-1">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="60%" alt="">
+            <br>
+          </div>
+        </div>
+
         <div class="col-md-9">
           <div class="row">
             <div class="card card-red" style="width: 100%;">
@@ -233,6 +240,13 @@
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <div class="col-12 d-block d-sm-none">
+          <div class="adv pt-4">
+            <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image3; ?>" width="100%" height="60%" alt="">
+            <br>
           </div>
         </div>
       </div>
