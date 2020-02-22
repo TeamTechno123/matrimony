@@ -124,6 +124,75 @@ class API extends CI_Controller{
 		echo str_replace('\\/','/',$json_response);
   }
 
+  // Profile...
+  public function my_profile(){
+    $member_id = $_REQUEST['member_id'];
+    $member_info = $this->Member_Model->get_member_info($member_id);
+
+    $response["status"] = TRUE;
+    $response["active_members_profile"] = $member_info;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+  	echo str_replace('\\/','/',$json_response);
+  }
+
+  // Update Profile...
+  public function update_profile(){
+
+    $member_id = $_REQUEST['member_id'];
+    $birthdate = $_REQUEST['member_birth_date'];
+    $today = date('d-m-Y');
+    $age =  date_diff(date_create($birthdate), date_create($today))->y;
+
+    $update_data['member_name'] = $_REQUEST['member_name'];
+    $update_data['member_gender'] = $_REQUEST['member_gender'];
+    $update_data['member_birth_date'] = $birthdate;
+    $update_data['member_age'] = $age;
+    $update_data['language_id'] = $_REQUEST['language_id'];
+    $update_data['member_email'] = $_REQUEST['member_email'];
+    $update_data['member_mobile'] = $_REQUEST['member_mobile'];
+    $update_data['show_email'] = $_REQUEST['show_email'];
+    $update_data['show_mobile'] = $_REQUEST['show_mobile'];
+    $update_data['marital_status'] = $_REQUEST['marital_status'];
+    $update_data['marriage_type_id'] = $_REQUEST['marriage_type_id'];
+    $update_data['onbehalf_id'] = $_REQUEST['onbehalf_id'];
+    $update_data['member_address'] = $_REQUEST['member_address'];
+    $update_data['country_id'] = $_REQUEST['country_id'];
+    $update_data['state_id'] = $_REQUEST['state_id'];
+    $update_data['district_id'] = $_REQUEST['district_id'];
+    $update_data['tahasil_id'] = $_REQUEST['tahasil_id'];
+    $update_data['city_id'] = $_REQUEST['city_id'];
+    $update_data['member_area'] = $_REQUEST['member_area'];
+    $update_data['religion_id'] = $_REQUEST['religion_id'];
+    $update_data['cast_id'] = $_REQUEST['cast_id'];
+    $update_data['sub_cast_id'] = $_REQUEST['sub_cast_id'];
+    $update_data['complexion_id'] = $_REQUEST['complexion_id'];
+    $update_data['blood_group_id'] = $_REQUEST['blood_group_id'];
+    $update_data['body_type_id'] = $_REQUEST['body_type_id'];
+    $update_data['diet_id'] = $_REQUEST['diet_id'];
+    $update_data['education_id'] = $_REQUEST['education_id'];
+    $update_data['family_status_id'] = $_REQUEST['family_status_id'];
+    $update_data['family_type_id'] = $_REQUEST['family_type_id'];
+    $update_data['family_value_id'] = $_REQUEST['family_value_id'];
+    $update_data['gothram_id'] = $_REQUEST['gothram_id'];
+    $update_data['height_id'] = $_REQUEST['height_id'];
+    $update_data['income_id'] = $_REQUEST['income_id'];
+    $update_data['moonsign_id'] = $_REQUEST['moonsign_id'];
+    $update_data['occupation_id'] = $_REQUEST['occupation_id'];
+    $update_data['occupation_details'] = $_REQUEST['occupation_details'];
+    $update_data['resident_status_id'] = $_REQUEST['resident_status_id'];
+
+    $this->User_Model->update_info('member_id', $member_id, 'member', $update_data);
+
+    $response["status"] = TRUE;
+    $response["msg"] = 'Information Updated Successfully';
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+
+
 // Active Members list..
   public function active_members_list(){
     $member_gender = $_REQUEST['member_gender'];
@@ -138,7 +207,7 @@ class API extends CI_Controller{
 
 // Active Members Profile..
   public function active_members_profile(){
-    $member_id = $_REQUEST['member_id'];
+    $member_id = $_REQUEST['active_member_id'];
     $member_info = $this->Member_Model->get_member_info($member_id);
 
     $response["status"] = TRUE;
@@ -147,6 +216,8 @@ class API extends CI_Controller{
     $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		echo str_replace('\\/','/',$json_response);
   }
+
+/****************************       Interest      *****************************/
 
 // Send Interest...
   public function send_interest(){
@@ -177,6 +248,54 @@ class API extends CI_Controller{
 		echo str_replace('\\/','/',$json_response);
   }
 
+  // Sent Interest List...
+  public function sent_interest_list(){
+    $member_id = $_REQUEST['member_id'];
+    $sent_interest_list = $this->Member_Model->get_interest_member_list($member_id,'');
+
+    $response["status"] = TRUE;
+    $response["sent_interest_list"] = $sent_interest_list;
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+  // Received Interest List...
+  public function received_interest_list(){
+    $member_id = $_REQUEST['member_id'];
+    $received_interest_list = $this->Member_Model->get_interest_member_list('',$member_id);
+
+    $response["status"] = TRUE;
+    $response["received_interest_list"] = $received_interest_list;
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+  // Accept / Reject Interest...
+  public function accept_regect_interest(){
+    $from_member_id = $_REQUEST['from_member_id'];
+    $to_member_id = $_REQUEST['to_member_id'];
+    $interest = $_REQUEST['interest_status'];
+
+    $to_member_info = $this->User_Model->get_info_array('member_id', $to_member_id, 'member');
+    $from_member_info = $this->User_Model->get_info_array('member_id', $from_member_id, 'member');
+    $mobile_no = $to_member_info[0]['member_mobile'];
+    $from_name = $from_member_info[0]['member_name'];
+    if($interest == 1){ $int = 'accepted'; }
+    else{ $int = 'rejected'; }
+    $message2 = "".$from_name." ".$int." your interest request on \nbhartiyshadi.com";
+    $message = urlencode($message2);
+    $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
+
+    $this->Member_Model->accept_interest($from_member_id,$to_member_id,$interest);
+
+    $response["status"] = TRUE;
+    $response["msg"] = $message2;
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+/****************************       Message      *****************************/
+
 // Send Message...
   public function send_message(){
     $data['from_member_id'] = $_REQUEST['from_member_id'];
@@ -194,6 +313,37 @@ class API extends CI_Controller{
       $response["msg"] = 'Message Not Sent';
     }
 
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+// Message Members List...
+  public function messages_member_list(){
+    $member_id = $_REQUEST['member_id'];
+    $messages_member_list = $this->Member_Model->masseges_member_list2($member_id);
+
+    foreach ($messages_member_list as $list) {
+      $msg_member_id = $list->msg_member_id;
+      $member_info = $this->Member_Model->get_member_info($msg_member_id);
+      foreach ($member_info as $member_info) {  }
+      $data[] = $member_info;
+    }
+
+    $response["status"] = TRUE;
+    $response["messages_member_list"] = $data;
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+// Message Details List...
+  public function message_details(){
+    $from_member_id = $_REQUEST['member_id'];
+    $to_member_id = $_REQUEST['to_member_id'];
+
+    $message_details = $this->Member_Model->masseges_list($from_member_id,$to_member_id);
+
+    $response["status"] = TRUE;
+    $response["message_details"] = $message_details;
     $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		echo str_replace('\\/','/',$json_response);
   }
@@ -239,6 +389,244 @@ class API extends CI_Controller{
 
     $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		echo str_replace('\\/','/',$json_response);
+  }
+
+/**************************************************************************************************/
+/*                                            Master Data                                         */
+/**************************************************************************************************/
+
+
+// Country list
+  public function country_list(){
+    $country_list = $this->User_Model->get_list1('country_id','ASC','country');
+    $response["status"] = TRUE;
+    $response["country_list"] = $country_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+// State list
+  public function state_list(){
+    $state_list = $this->User_Model->get_list1('state_id','ASC','state');
+    $response["status"] = TRUE;
+    $response["state_list"] = $state_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+// District list
+  public function district_list(){
+    $district_list = $this->User_Model->get_list1('district_id','ASC','district');
+    $response["status"] = TRUE;
+    $response["district_list"] = $district_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+
+  public function tahasil_list(){
+    $tahasil_list = $this->User_Model->get_list1('tahasil_id','ASC','tahasil');
+    $response["status"] = TRUE;
+    $response["tahasil_list"] = $tahasil_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+
+  public function city_list(){
+    $city_list = $this->User_Model->get_list1('city_id','ASC','city');
+    $response["status"] = TRUE;
+    $response["city_list"] = $city_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+
+  public function language_list(){
+    $language_list = $this->User_Model->get_list1('language_id','ASC','language');
+    $response["status"] = TRUE;
+    $response["language_list"] = $language_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+
+  public function onbehalf_list(){
+    $onbehalf_list = $this->User_Model->get_list1('onbehalf_id','ASC','onbehalf');
+    $response["status"] = TRUE;
+    $response["onbehalf_list"] = $onbehalf_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+
+  public function cast_list(){
+    $cast_list = $this->User_Model->get_list1('cast_id','ASC','cast');
+    $response["status"] = TRUE;
+    $response["cast_list"] = $cast_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+		echo str_replace('\\/','/',$json_response);
+  }
+
+  public function marital_status_list(){
+    $marital_status_list = $this->User_Model->get_list1('marital_status_id','ASC','marital_status');
+    $response["status"] = TRUE;
+    $response["marital_status_list"] = $marital_status_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function sub_cast_list(){
+    $sub_cast_list = $this->User_Model->get_list1('sub_cast_id','ASC','sub_cast');
+    $response["status"] = TRUE;
+    $response["sub_cast_list"] = $sub_cast_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function blood_group_list(){
+    $blood_group_list = $this->User_Model->get_list1('blood_group_id','ASC','blood_group');
+    $response["status"] = TRUE;
+    $response["blood_group_list"] = $blood_group_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function body_type_list(){
+    $body_type_list = $this->User_Model->get_list1('body_type_id','ASC','body_type');
+    $response["status"] = TRUE;
+    $response["body_type_list"] = $body_type_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function complexion_list(){
+    $complexion_list = $this->User_Model->get_list1('complexion_id','ASC','complexion');
+    $response["status"] = TRUE;
+    $response["complexion_list"] = $complexion_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function diet_list(){
+    $diet_list = $this->User_Model->get_list1('diet_id','ASC','diet');
+    $response["status"] = TRUE;
+    $response["diet_list"] = $diet_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function education_list(){
+    $education_list = $this->User_Model->get_list1('education_id','ASC','education');
+    $response["status"] = TRUE;
+    $response["education_list"] = $education_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function family_status_list(){
+    $family_status_list = $this->User_Model->get_list1('family_status_id','ASC','family_status');
+    $response["status"] = TRUE;
+    $response["family_status_list"] = $family_status_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function family_type_list(){
+    $family_type_list = $this->User_Model->get_list1('family_type_id','ASC','family_type');
+    $response["status"] = TRUE;
+    $response["family_type_list"] = $family_type_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function family_value_list(){
+    $family_value_list = $this->User_Model->get_list1('family_value_id','ASC','family_value');
+    $response["status"] = TRUE;
+    $response["family_value_list"] = $family_value_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function gothram_list(){
+    $gothram_list = $this->User_Model->get_list1('gothram_id','ASC','gothram');
+    $response["status"] = TRUE;
+    $response["gothram_list"] = $gothram_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function height_list(){
+    $height_list = $this->User_Model->get_list1('height_id','ASC','height');
+    $response["status"] = TRUE;
+    $response["height_list"] = $height_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function income_list(){
+    $income_list = $this->User_Model->get_list1('income_id','ASC','income');
+    $response["status"] = TRUE;
+    $response["income_list"] = $income_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function moonsign_list(){
+    $moonsign_list = $this->User_Model->get_list1('moonsign_id','ASC','moonsign');
+    $response["status"] = TRUE;
+    $response["moonsign_list"] = $moonsign_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function occupation_list(){
+    $occupation_list = $this->User_Model->get_list1('occupation_id','ASC','occupation');
+    $response["status"] = TRUE;
+    $response["occupation_list"] = $occupation_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function resident_status_list(){
+    $resident_status_list = $this->User_Model->get_list1('resident_status_id','ASC','resident_status');
+    $response["status"] = TRUE;
+    $response["resident_status_list"] = $resident_status_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
+  }
+
+  public function marriage_type_list(){
+    $marriage_type_list = $this->User_Model->get_list1('marriage_type_id','ASC','marriage_type');
+    $response["status"] = TRUE;
+    $response["marriage_type_list"] = $marriage_type_list;
+
+    $json_response = json_encode($response,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo str_replace('\\/','/',$json_response);
   }
 
 

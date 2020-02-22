@@ -54,7 +54,7 @@ class Member extends CI_Controller{
     $password = $this->input->post('member_password');
     $mobile_no = $this->input->post('member_mobile');
 
-    $message2 = "You are registered on \nbhartiyshadi.com \nusername: ".$mobile_no." \npassword: ".$password." \nOTP:".$member_otp."" ;
+    $message2 = "You are registered on \nbhartiyashadi.com \nusername: ".$mobile_no." \npassword: ".$password." \nOTP:".$member_otp."" ;
     $message = urlencode($message2);
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
 
@@ -108,7 +108,7 @@ class Member extends CI_Controller{
       $update_data['member_otp'] = $member_otp;
       $this->User_Model->update_info('member_mobile', $member_mobile, 'member', $update_data);
       $mobile_no = $check[0]['member_mobile'];
-      $message2 = "bhartiyshadi.com \nOTP:".$member_otp."" ;
+      $message2 = "bhartiyashadi.com \nOTP:".$member_otp."" ;
       $message = urlencode($message2);
       $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
       // $this->session->set_flashdata('otp_sent','otp_sent');
@@ -300,6 +300,7 @@ class Member extends CI_Controller{
     $member_is_login = $this->session->userdata('member_is_login');
     if($mat_member_id==null && $member_is_login == null ){ header('location:'.base_url().'Website'); }
     $birthdate = $this->input->post('member_birth_date');
+    $today = date('d-m-Y');
     $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $update_data = array(
       'member_name' => $this->input->post('member_name'),
@@ -511,7 +512,7 @@ class Member extends CI_Controller{
     $age =  date_diff(date_create($birthdate), date_create($today))->y;
     $data['age'] = $age;
 
-    $data['member_image_list'] = $this->Member_Model->member_image_list($mat_member_id);
+    $data['member_image_list'] = $this->Member_Model->member_image_list($member_id);
 
     $page = 'User Profile';
     $today = date('d-m-Y');
@@ -549,7 +550,7 @@ class Member extends CI_Controller{
       $from_member_info = $this->User_Model->get_info_array('member_id', $data['from_member_id'], 'member');
       $mobile_no = $to_member_info[0]['member_mobile'];
       $from_name = $from_member_info[0]['member_name'];
-      $message2 = "".$from_name." sent you interest on \nbhartiyshadi.com";
+      $message2 = "".$from_name." sent you interest on \nbhartiyashadi.com";
       $message = urlencode($message2);
       $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
       echo 'success';
@@ -662,7 +663,7 @@ class Member extends CI_Controller{
     $from_name = $from_member_info[0]['member_name'];
     if($interest == 1){ $int = 'accepted'; }
     else{ $int = 'rejected'; }
-    $message2 = "".$from_name." ".$int." your interest request on \nbhartiyshadi.com";
+    $message2 = "".$from_name." ".$int." your interest request on \nbhartiyashadi.com";
     $message = urlencode($message2);
     $send_sms = $this->Member_Model->send_sms($mobile_no,$message);
 

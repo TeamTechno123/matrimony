@@ -1,4 +1,8 @@
-<?php include("header.php"); ?>
+<?php include("header.php");
+  $mat_member_id = $this->session->userdata('mat_member_id');
+  $member_is_login = $this->session->userdata('member_is_login');
+  $mat_member_status = $this->session->userdata('mat_member_status');
+?>
 <style media="screen">
   label{
     font-size: 14px;
@@ -61,17 +65,44 @@
                         </div>
                       </div>
                       <hr class="white">
-                        <!-- <button class="btn btn-primary btn-profile w-100" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Express Interest</button> -->
                         <div class="row">
+                          <?php if($mat_member_status == 'free'){
+                            if($member_info[0]['country_id'] == '' || $member_info[0]['state_id'] == '' || $member_info[0]['district_id'] == '' || $member_info[0]['tahasil_id'] == ''){
+                          ?>
                           <div class="col-12 mb-1">
-                            <a href="<?php echo base_url(); ?>Member/sent_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
+                            <a href="" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
                           </div>
                           <div class="col-12 mb-1">
-                            <a href="<?php echo base_url(); ?>Member/received_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></a>
+                            <a href="" class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></a>
                           </div>
                           <div class="col-12 mb-1">
-                            <a href="<?php echo base_url(); ?>Member/messages_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</a>
+                            <a href="" class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</a>
                           </div>
+                          <?php  } else{ ?>
+                            <div class="col-12 mb-1">
+                              <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
+                            </div>
+                            <div class="col-12 mb-1">
+                              <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></a>
+                            </div>
+                            <div class="col-12 mb-1">
+                              <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</a>
+                            </div>
+                          <?php  } } else{ ?>
+                            <div class="col-12 mb-1">
+                              <a href="<?php echo base_url(); ?>Member/sent_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
+                            </div>
+                            <div class="col-12 mb-1">
+                              <a href="<?php echo base_url(); ?>Member/received_interest_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Received Interest - <?php echo $rec_interect_cnt; ?></a>
+                            </div>
+                            <div class="col-12 mb-1">
+                              <a href="<?php echo base_url(); ?>Member/messages_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Messages</a>
+                            </div>
+                          <?php } ?>
+
+
+
+
                           <div class="col-12 mb-1">
                             <a href="<?php echo base_url(); ?>Member/profile_gallery" class="btn btn-sm btn-success w-100  pl-1" type="submit">Photo Gallery</a>
                           </div>
@@ -699,7 +730,7 @@
                 <label>City</label>
               </div>
               <div class="form-group col-md-4 ">
-                <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id2" title="Select City" data-placeholder="Select City" required>
+                <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id2" title="Select City" data-placeholder="Select City">
                   <option selected="selected" value="" >Select City </option>
                   <?php foreach ($city_list as $list) { ?>
                     <option value="<?php echo $list->city_id ?>" <?php if(isset($city_id) && $city_id == $list->city_id ){ echo 'selected'; } ?>><?php echo $list->city_name; ?></option>
@@ -801,10 +832,10 @@
               <div class="form-group col-md-4 drop-sm">
                 <select class="form-control select2 form-control-sm w-100" name="education_id" id="education_id2" title="Select Education" data-placeholder="Select Education" >
                   <option selected="selected" value="" >Select Education</option>
+                  <option value="-1">Other</option>
                   <?php foreach ($education_list as $list) { ?>
                     <option value="<?php echo $list->education_id ?>" <?php if(isset($education_id) && $education_id == $list->education_id ){ echo 'selected'; } ?>><?php echo $list->education_name; ?></option>
                   <?php  } ?>
-                  <option value="-1">Other</option>
                 </select>
                 <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_education_name" id="other_education_name" placeholder="Enter Education">
               </div>

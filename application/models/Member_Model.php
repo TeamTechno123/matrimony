@@ -3,13 +3,13 @@ class Member_Model extends CI_Model{
   public function send_sms($mobile_no,$message){
     $url = "http://sms.amplusys.com/SecureApi.aspx?usr=dipak&key=236616E2-B077-4BD5-81FE-06D32AF5153A&smstype=TextSMS&to=".$mobile_no."&msg=".$message."&rout=Transactional&from=BSHADI";
     //Curl Start
-    // $ch  =  curl_init();
-    // $timeout  =  30;
-    // curl_setopt ($ch,CURLOPT_URL, $url) ;
-    // curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
-    // $response = curl_exec($ch) ;
-    // curl_close($ch) ;
+    $ch  =  curl_init();
+    $timeout  =  30;
+    curl_setopt ($ch,CURLOPT_URL, $url) ;
+    curl_setopt ($ch,CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT, $timeout) ;
+    $response = curl_exec($ch);
+    curl_close($ch);
     //Write out the response
     // die($response);
     // return $url;
@@ -284,9 +284,7 @@ class Member_Model extends CI_Model{
 
     $query = $this->db->get();
     $result = $query->result();
-    // $q = $this->db->last_query();
     return $result;
-    // return $q;
   }
 
 // Not Used // De

@@ -127,15 +127,15 @@ class Payment extends CI_Controller{
 
     $advertisement = $this->Member_Model->get_advertisement($page,$today,'country',$country_id);
     if($advertisement){ $data['adv_image1'] = $advertisement[0]['adv_image']; }
-    else{ $data['adv_image1'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image1'] = 'demo_adv1.png'; }
 
     $advertisement2 = $this->Member_Model->get_advertisement($page,$today,'state',$state_id);
     if($advertisement2){ $data['adv_image2'] = $advertisement2[0]['adv_image']; }
-    else{ $data['adv_image2'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image2'] = 'demo_adv2.png'; }
 
     $advertisement3 = $this->Member_Model->get_advertisement($page,$today,'district',$district_id);
     if($advertisement3){ $data['adv_image3'] = $advertisement3[0]['adv_image']; }
-    else{ $data['adv_image3'] = 'demo_adv.jpg'; }
+    else{ $data['adv_image3'] = 'demo_adv3.png'; }
 
     $this->load->view('Website/member_payment',$data);
   }
@@ -174,6 +174,9 @@ class Payment extends CI_Controller{
   	if($order_status==="Success"){
       $payment_data = array(
         'member_id' => $mat_member_id,
+        'member_basic_amt' => 1500,
+        'member_gst_amt' => 270,
+        'member_payment_amt' => 1770,
         'member_payment_date' => date('d-m-Y'),
         'member_payment_time' => date('h:i:s a'),
       );
@@ -184,6 +187,7 @@ class Payment extends CI_Controller{
 
   		header('location:'.base_url().'Payment/commission');
   	}
+
   	else if($order_status==="Aborted"){
   		echo "<br>Thank you for shopping with us. We will keep you posted regarding the status of your order through e-mail";
   	}
@@ -207,6 +211,7 @@ class Payment extends CI_Controller{
   	echo "</table><br>";
   	echo "</center>";
   }
+
   public function commission(){
     $mat_member_id = $this->session->userdata('mat_member_id');
     $mat_member_status = $this->session->userdata('mat_member_status');
@@ -219,9 +224,6 @@ class Payment extends CI_Controller{
       $user_info = $this->User_Model->get_info_array('user_id', $member_addedby, 'user');
       $roll_id = $user_info[0]['role_id'];
       $user_id = $member_addedby;
-
-      // echo 'Added By : '.$member_addedby.'<br><br>';
-      // echo 'Roll Id : '.$roll_id.'<br><br>';
 
       if($roll_id == 4 || $roll_id == 5){
         $franchise_info = $this->User_Model->get_info_array('user_id', $member_addedby, 'franchise');

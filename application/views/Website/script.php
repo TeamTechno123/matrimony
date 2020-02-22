@@ -43,14 +43,18 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    // alert();
     var url = window.location.href;
+    // alert(url);
     var activePage = url;
     $('.nav-link').removeClass('active');
     $('.nav-link').each(function () {
       var linkPage = this.href;
       if (activePage == linkPage) {
+        if(activePage == 'http://localhost/matrimony/Payment/member_payment' || activePage == 'http://bhartiyashadi.com/Payment/member_payment'){
+
+        } else{
           $(this).closest(".nav-link").addClass("active");
+        }
       }
     });
   });

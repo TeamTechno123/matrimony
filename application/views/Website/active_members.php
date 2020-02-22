@@ -97,7 +97,7 @@
                   <p class="mb-1 text-bold">Marital Status</p>
               </div>
               <div class="col-md-3 col-6">
-                  <p class="mb-1 "><?php echo $list->marital_status; ?></p>
+                  <p class="mb-1 "><?php echo $list->marital_status_name; ?></p>
               </div>
 
               <div class="col-12">

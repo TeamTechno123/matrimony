@@ -94,7 +94,7 @@
                                 <p class="mb-1 text-bold">Marital Status</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list['marital_status']; ?></p>
+                                <p class="mb-1 "><?php echo $list['marital_status_name']; ?></p>
                             </div>
 
                             <div class="col-12">
@@ -150,7 +150,7 @@
                                   <?php } else{ ?>
                                     <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Full Profile</a>
                                   <?php } }  else{ ?>
-                                    <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
+                                    <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list['member_id']; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
                                   <?php } ?>
                                 </li>
                                 <li>
@@ -160,7 +160,7 @@
                                <?php } else{ ?>
                                     <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Message</a>
                                   <?php } }  else{ ?>
-                                    <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list->member_id; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+                                    <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list['member_id']; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
                                   <?php } ?>
                                 </li>
                               </ul>

@@ -29,9 +29,6 @@ body{
 }
 .navbar-brand{
   color: #fff!important;
-  width: 450px!important;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 .top-label{
   font-size: 14px;
@@ -584,10 +581,6 @@ text-align: center;
   .nav-item{
     text-align: center;
   }
-
-    .login-section{
-      height:auto;
-    }
 
   .login-section h2{
   font-size: 26px;
