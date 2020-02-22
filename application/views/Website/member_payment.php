@@ -29,7 +29,7 @@
           </div>
           <div class="col-12 d-block d-sm-none">
             <div class="adv">
-              <img src="<?php echo base_url(); ?>assets/images/advertising.jpg" width="100%" height="60%" alt="">
+              <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image1; ?>" width="100%" height="60%" alt="">
               <br>
             </div>
           </div>
@@ -64,13 +64,26 @@
                   <div class="form-group col-md-4">
                     <input class="form-control form-control-sm" type="text" name="billing_email" value="<?php echo $member_info[0]['member_email'] ?>" readonly>
                   </div>
-
                   <div class="form-group col-md-2 offset-md-3">
-                    Amount :
+                    Basic Amount :
                   </div>
                   <div class="form-group col-md-4">
-                    <span class="text-success text-bold">&#8377; 1</span>
-                    <input class="form-control form-control-sm" type="hidden" name="amount" value="1">
+                    <span class="text-success text-bold">&#8377; 150</span>
+                    <input class="form-control form-control-sm" type="hidden" name="member_basic_amt" value="1">
+                  </div>
+                  <div class="form-group col-md-2 offset-md-3">
+                    GST :
+                  </div>
+                  <div class="form-group col-md-4">
+                    <span class="text-success text-bold">&#8377; 27 (18%)</span>
+                  </div>
+
+                  <div class="form-group col-md-2 offset-md-3">
+                    Final Amount :
+                  </div>
+                  <div class="form-group col-md-4">
+                    <span class="text-danger text-bold">&#8377; 177</span>
+                    <input class="form-control form-control-sm" type="hidden" name="amount" value="177">
                   </div>
 
                   <input type="hidden" name="tid" id="tid" readonly />

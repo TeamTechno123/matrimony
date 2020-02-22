@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+  $mat_member_id = $this->session->userdata('mat_member_id');
+?>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -39,45 +42,82 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/admin_css.css">
       <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/website.css">
   <script src="<?php echo base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
-
+  <style media="screen">
+  .form-group {
+    margin-bottom: .5rem !important;
+  }
+  label {
+    display: inline-block;
+    margin-bottom: .2rem !important;
+  }
+  </style>
     <title>BHARTIYA SHADI</title>
   </head>
   <body>
-    <section class="head-nav">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light bg-facebook">
-        <a class="navbar-brand" style="width:350px !important;" href="<?php echo base_url(); ?>Member/active_members">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt=""> </a>
-      </nav>
+    <section class="navbar-top">
+       <div class="container">
+         <div class="row">
+           <div class="col-md-5">
+            <img class="logo-img m-0" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt="">
+           </div>
+         </div>
+       </div>
     </section>
 
     <section class="login-section">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <h2>WELCOME TO BHARTIYA SHADI.COM</h2>
-            <h2>YOUR ACCOUNT IS CREATED SUCESSFULLY</h2>
+          <div class="col-md-8 offset-md-2">
+            <h4 class="text-center">Upload Your Photos</h4>
             <div class="mt-4">
-              <div class="login-box mx-auto">
-                <?php if($this->session->flashdata('invalid_otp')){ ?>
-                <div class="alert alert-danger invalid_otp" role="alert">
-                  Invalide OTP.
-                </div>
-              <?php } ?>
+              <div class="mx-auto">
                 <div class="card">
                   <div class="card-body login-card-body">
-                    <p class="login-box-msg text-bold">OTP is sent to Your Mobile Number</p>
-                    <form action="<?php echo base_url(); ?>Member/verify_otp" method="post">
-                      <div class="input-group my-4">
-                        <input name="member_otp" type="number" maxlength="6" min="100000" class="form-control" placeholder="Enter OTP" required>
-                        <div class="input-group-append">
-                          <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                          </div>
-                        </div>
-                      </div>
+                    <form class="" action="<?php echo base_url(); ?>Member/update_profile_gallery" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="upload_page" value="upload_photo_page">
                       <div class="row">
+                        <div class="col-md-2 text-center my-2">
+                          <?php if($member_img == ''){ ?>
+                            <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
+                          <?php } else{?>
+                            <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
+                          <?php } ?>
+                        </div>
+                        <div class="col-md-10 my-auto" style="">
+                          <input type="file" name="member_img">
+                          <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
+                        </div>
+
+                        <?php
+                        $cnt = 0;
+                        if($member_image_list){
+                          foreach ($member_image_list as $list) {
+                            $cnt++;
+                        ?>
+                        <div class="col-md-2 text-center my-2">
+                          <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" alt="">
+                        </div>
+                        <div class="col-md-10 my-auto">
+                          <input class="mt-1 w-100" type="file" name="member_image_name[]" >
+                          <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
+                        </div>
+                        <?php  } }
+                          $img_cnt = 4 - $cnt;
+                          for ($i=0; $i < $img_cnt; $i++) {
+                        ?>
+                        <div class="col-md-2 text-center my-2">
+                          <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
+                        </div>
+                        <div class="col-md-10 my-auto">
+                          <input class="mt-1 w-100" type="file" name="member_image_name[]">
+                          <input type="hidden" name="member_image_id[]" value="">
+                        </div>
+                        <?php } ?>
                       </div>
-                      <div class="social-auth-links text-center mb-3">
-                        <button href="#" class="btn btn-block btn-primary"> Verify </button>
+                      <hr>
+                      <div class=" text-center">
+                        <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                        <a href="<?php echo base_url(); ?>Member/active_members" class="btn btn-secondary"  name="button">Skip</a>
                       </div>
                     </form>
                   </div>
@@ -85,25 +125,16 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-md-6">
-          <?php if($this->session->flashdata('reg_success')){ ?>
-            <div class="alert alert-success mt-3 reg_success" role="alert">
-              <b>Registered Successfully. Verify OTP.</b>
-            </div>
-          <?php } ?>
-          </div> -->
         </div>
       </div>
     </section>
 
-
 <?php //include("footer.php"); ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
     <script src="<?php echo base_url(); ?>assets/plugins/select2/js/select2.full.min.js"></script>
     <!-- daterangepicker -->
     <script src="<?php echo base_url(); ?>assets/plugins/moment/moment.min.js"></script>
@@ -111,25 +142,8 @@
     <script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-
     <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
-
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('.invalid_otp').show().delay(5000).fadeOut();
-      });
-    </script>
-
-    <?php if($this->session->flashdata('invalid_otp')){ ?>
-      <script type="text/javascript">
-        $(document).ready(function(){
-          // alert();
-          toastr.error('Invalid OTP');
-        });
-      </script>
-    <?php } ?>
-
     <script type="text/javascript">
       $('#date1').datetimepicker({
         format: 'DD-MM-Y'
@@ -147,20 +161,14 @@
         format: 'DD-MM-Y'
       })
     </script>
-
     <script>
       $(function () {
-        // Initialize Select2 Elements
         $('.select2bs4').select2({
           theme: 'bootstrap4'
         });
-        //Initialize Select2 Elements
         $('.select2').select2();
-        //Bootstrap Duallistbox
-        // $('.duallistbox').bootstrapDualListbox();
       })
     </script>
-
     <script src="<?php echo base_url(); ?>assets/js/validation.js"></script>
   </body>
 </html>

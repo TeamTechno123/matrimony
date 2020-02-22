@@ -33,6 +33,52 @@
                 <div class="card card-red" style="width: 100%;">
                   <div class="card-body">
                     <form class="" action="<?php echo base_url(); ?>Member/update_profile_gallery" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="upload_page" value="profile_gallery_page">
+                      <div class="row">
+                        <div class="col-md-2 text-center my-2">
+                          <?php if($member_img == ''){ ?>
+                            <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
+                          <?php } else{?>
+                            <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
+                          <?php } ?>
+                        </div>
+                        <div class="col-md-10 my-auto" style="">
+                          <input type="file" name="member_img">
+                          <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
+                        </div>
+
+                        <?php
+                        $cnt = 0;
+                        if($member_image_list){
+                          foreach ($member_image_list as $list) {
+                            $cnt++;
+                        ?>
+                        <div class="col-md-2 text-center my-2">
+                          <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" alt="">
+                        </div>
+                        <div class="col-md-10 my-auto">
+                          <input class="mt-1 w-100" type="file" name="member_image_name[]" >
+                          <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
+                        </div>
+                        <?php  } }
+                          $img_cnt = 4 - $cnt;
+                          for ($i=0; $i < $img_cnt; $i++) {
+                        ?>
+                        <div class="col-md-2 text-center my-2">
+                          <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
+                        </div>
+                        <div class="col-md-10 my-auto">
+                          <input class="mt-1 w-100" type="file" name="member_image_name[]">
+                          <input type="hidden" name="member_image_id[]" value="">
+                        </div>
+                        <?php } ?>
+                      </div>
+                      <hr>
+                      <div class=" text-center">
+                        <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                      </div>
+                    </form>
+                    <!-- <form class="" action="<?php echo base_url(); ?>Member/update_profile_gallery" method="post" enctype="multipart/form-data">
                       <div class="row">
                         <div class="col-md-4 text-center">
                           <p class="w-100 text-center">Profile Image</p>
@@ -75,30 +121,12 @@
                             <?php
                               }
                             ?>
-
-
-                            <!-- <div class="col-md-6 text-center my-2">
-                              <img style="width: 120px; height: 180px;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
-                              <input class="mt-1" type="file" name="" >
-                            </div>
-                            <div class="col-md-12">
-                              <hr>
-                            </div>
-                            <div class="col-md-6 text-center my-2">
-                              <img style="width: 120px; height: 180px;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
-                              <input class="mt-1" type="file" name="" >
-                            </div>
-                            <div class="col-md-6 text-center my-2">
-                              <img style="width: 120px; height: 180px;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
-                              <input class="mt-1" type="file" name="" >
-                            </div> -->
-
                           </div>
                         </div>
                       </div>
                       <hr>
                       <button type="submit" class="btn btn-success"  name="button"> Upload </button>
-                    </form>
+                    </form> -->
                   </div>
                 </div>
 

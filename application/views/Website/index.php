@@ -43,46 +43,62 @@
     <title>BHARTIYA SHADI</title>
   </head>
   <body>
-    <section class="navbar-top d-none d-sm-block">
+    <!-- Desktop -->
+    <!-- <section class="navbar-top d-none d-sm-block">
        <div class="container">
          <div class="row">
            <div class="col-md-5">
-            <img class="logo-img mt-2" src="<?php echo base_url(); ?>assets/images/logo.png"  alt="">
+            <img class="logo-img m-0" src="<?php echo base_url(); ?>assets/images/logo.png"  alt="">
            </div>
            <div class="col-md-7">
-             <div class="row">
-               <div class="col-md-3 offset-md-4 ">
-                <label class="top-label" for="mobile">Mobile No.</label>
-               </div>
-               <div class="col-md-3">
-                <label class="top-label" for="mobile">Password</label>
-               </div>
-               <div class="col-md-2">
-               </div>
-             </div>
-            <form class="" action="<?php echo base_url(); ?>Member/check_login" method="post" >
+            <form class="" style="height:31px; margin-top:12px;" action="<?php echo base_url(); ?>Member/check_login" method="post" >
               <div class="row">
                 <div class="col-md-3 offset-md-4">
-                   <input class="form-control form-control-sm mobile only_number required " name="mobile_no" type="text" maxlength="10" min="6000000000" class="form-control top-input" required>
+                   <input class="form-control form-control-sm mobile only_number required login_input" name="mobile_no" type="text" maxlength="10" min="6000000000" placeholder="Mobile Number" required>
                 </div>
                 <div class="col-md-3">
-                  <input class="form-control form-control-sm" name="password" type="password" class="form-control top-input" required>
+                  <input class="form-control form-control-sm login_input" name="password" type="password" placeholder="Password" required>
+                  <label class="top-label font-12 mb-0" for="mobile"> <a class="text-white" href="#" data-toggle="modal" data-target="#exampleModal">Fogot Password</a></label>
                 </div>
                 <div class="col-md-2">
-                  <button type="submit" class="btn btn-outline-light btn-web">Log In</button>
+                  <button type="submit" class="btn btn-outline-light btn-web login_input">Log In</button>
                 </div>
               </div>
             </form>
-            <div class="row">
-              <div class="col-md-2 offset-md-10 text-left">
-                 <label class="top-label font-12" for="mobile"> <a class="text-white" href="#" data-toggle="modal" data-target="#exampleModal">Fogot Password</a></label>
-              </div>
-            </div>
            </div>
          </div>
        </div>
+    </section> -->
+    <!-- / Desktop -->
+
+    <section class="head-nav d-none d-sm-block">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light bg-facebook">
+        <a class="navbar-brand" style="width:350px !important;" href="<?php echo base_url(); ?>Member/active_members">  <img class="" src="<?php echo base_url(); ?>assets/images/logo.png" width="100%" alt=""> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            <form class="" style="height:29px;margin-top:-13px;" action="<?php echo base_url(); ?>Member/check_login" method="post" >
+              <div class="row">
+                <div class="col-md-4">
+                   <input class="form-control form-control-sm mobile only_number required login_input" name="mobile_no" type="text" maxlength="10" min="6000000000" placeholder="Mobile Number" required>
+                </div>
+                <div class="col-md-4">
+                  <input class="form-control form-control-sm login_input" name="password" type="password" placeholder="Password" required>
+                  <label class="top-label font-12 mb-0" for="mobile"> <a class="text-white" href="#" data-toggle="modal" data-target="#exampleModal">Fogot Password</a></label>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="btn btn-outline-light btn-web login_input">Log In</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
     </section>
 
+    <!-- Mobile -->
     <section class="navbar-top d-block d-sm-none" >
       <div class="container">
         <div class="row">
@@ -107,15 +123,16 @@
               <div class="col-12">
                 <button type="submit" class="btn btn-outline-light btn-web margin-8 w-100">Log In</button>
               </div>
-              <!-- <div class="col-12">
-                 <label class="top-label font-12" for="mobile">Fogot Password ?</label>
-              </div> -->
-            </div>
+              <div class="col-12">
+                <label class="top-label font-12 mb-0" for="mobile"> <a class="text-white" href="#" data-toggle="modal" data-target="#exampleModal">Fogot Password</a></label>
+              </div>
+
            </form>
           </div>
         </div>
       </div>
     </section>
+    <!-- / Mobile -->
 
     <section class="login-section" >
       <div class="container">

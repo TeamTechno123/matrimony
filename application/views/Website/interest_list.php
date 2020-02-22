@@ -107,7 +107,7 @@
                                 <p class="mb-1 text-bold">Marital Status</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list->marital_status; ?></p>
+                                <p class="mb-1 "><?php echo $list->marital_status_name; ?></p>
                             </div>
 
                             <div class="col-12">
@@ -290,6 +290,36 @@
       }
     });
   });
+  
+  // Send Message...
+  $('.btn_open_modal').on('click',function(){
+    var to_member_id = $(this).attr('to_member_id');
+    $('#to_member_id').val(to_member_id);
+  });
+  $('#btn_msg_send').on('click',function(){
+    var to_member_id = $('#to_member_id').val();
+    var from_member_id = <?php echo $mat_member_id; ?>;
+    var message_text = $('#message_text').val();
+    if(message_text == ''){
+      toastr.error('Message field is empty');
+    } else{
+      $('#message_text').val('');
+      $.ajax({
+        url:'<?php echo base_url(); ?>Member/add_message',
+        method:'post',
+        data:{'from_member_id':from_member_id,
+              'to_member_id':to_member_id,
+              'message_text':message_text},
+        success:function(result){
+          if(result == 'success'){
+            toastr.success('Message Sent successfully');
+          } else{
+            toastr.error('Message Not Sent');
+          }
+        }
+      });
+    }
+  });
 
   $('.owl-carousel').owlCarousel({
     loop:true,
@@ -310,5 +340,5 @@
           items:1
       }
   }
-  })
+});
   </script>

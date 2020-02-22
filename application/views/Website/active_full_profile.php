@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9" style="height:1000px; overflow-y: auto;">
           <div class="profile-div">
             <div class="profile-div-left">
               <div class="row">
@@ -92,352 +92,274 @@
                 <div class="col-md-8">
                   <div class="frist">
                     <div class="row">
-                      <div class="col-md-12">
-                        <h5 class="mb-3">Quick Information : </h5>
+                      <div class="col-md-6"><h5 class="mb-3 text-danger">Personal Information : </h5></div>
+                      <div class="col-md-6 text-right">
+                        <!-- <h5><a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".modal_personal_info"> <i class="fa fa-edit"></i> </a></h5> -->
                       </div>
                     </div>
-
+                    <hr class="hr-web">
                     <div class="row">
                       <div class="col-md-12 py-1">
                         <h5  class="mb-1 text-danger text-bold f-18"><?php echo $member_info[0]['member_name']; ?></h5>
                       </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-6 col-6 py-1">
-                        <p class="mb-1 text-bold ">Member Id : </p>
-                      </div>
-                      <div class="col-md-6 col-6 py-1">
-                       <p class="mb-1 text-danger"><?php echo $member_info[0]['member_id']; ?></p>
-                      </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold ">Member Id : <span class="mb-1 text-danger"></span></p></div>
                       <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Gender : </p>
+                       <p class="mb-1 text-danger text-bold"><?php echo $member_info[0]['member_id']; ?></p>
                       </div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Gender (लिंग) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['member_gender']; ?></p>
                       </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Date of birth (जन्म तारीख) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_birth_date'];; ?></p>
                       </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Age : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $age; ?></p>
-                      </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Marital Status : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Marital Status (वैवाहिक स्थिति) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['marital_status_name']; ?></p>
                       </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">City : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
-                      </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Area : </p>
-                      </div>
-
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">On Behalf : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Profile Created by(On Behalf) (प्रोफ़ाइल किसी ओर से बनाई गई) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></p>
                       </div>
-                      <div class="col-12">
-                        <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Interested In : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Interested In (इसमें दिलचस्पी है) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['marriage_type_name']; ?></p>
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Religion (धर्म) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['religion_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Cast (जाति) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['cast_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Sub Cast (उप-जाति)  : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['sub_cast_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Mother tongue (मातृ भाषा) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['language_name']; ?></p>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="col-12 d-block d-sm-none">
-                    <div class="adv pt-4">
-                      <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%"  alt="">
-                      <br>
-                    </div>
-                  </div>
-
-                  <div class="third">
+                  <div class="frist">
                     <div class="row">
-                      <div class="col-md-6 py-1">
-                        <h5 class="mb-3">Basic Information : </h5>
+                      <div class="col-md-6"><h5 class="mb-3 text-danger">Address Information : </h5></div>
+                      <div class="col-md-6 text-right">
+                        <!-- <h5><a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".modal_address_info"> <i class="fa fa-edit"></i> </a></h5> -->
                       </div>
                     </div>
+                    <hr class="hr-web">
                     <div class="row">
-                      <div class="col-md-6 col-6 py-1">
-                        <p class="mb-1 text-bold">  Address : </p>
+                      <div class="col-md-12 col-12 py-1">
+                        <p class="mb-1"> <span class=" text-bold"> Address :</span> <?php echo $member_info[0]['member_address']; ?> </p>
                       </div>
-                      <div class="col-md-6 col-6 py-1">
-                       <p class="mb-1"><?php echo $member_info[0]['member_address']; ?> </p>
-                      </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Mobile : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php if($member_info[0]['show_mobile'] == 1){ echo $member_info[0]['member_mobile']; }  ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Email : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php if($member_info[0]['show_email'] == 1){ echo $member_info[0]['member_email']; } ?></p>
-                      </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Area : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">City : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
-                      </div>
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Tahasil : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['tahasil_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">District : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['district_name']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">State : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['state_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Country : </p>
-                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Country (देश) : </p></div>
                       <div class="col-md-3 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['country_name']; ?></p>
                       </div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">State (राज्य) : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['state_name']; ?></p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">District (जिला) : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['district_name']; ?></p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Tehsil (तहसील) : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['tahasil_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">City (शहर) : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Area (इलाका) : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Mobile : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_mobile']; ?></p>
+                      </div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Email : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_email']; ?></p>
+                      </div>
+                    </div>
+                  </div>
 
-                      <div class="col-12">
-                          <hr class="hr-web">
+                  <div class="frist">
+                    <div class="row">
+                      <div class="col-md-6"><h5 class="mb-3 text-danger">Education Information : </h5></div>
+                      <div class="col-md-6 text-right">
+                        <!-- <h5><a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".modal_education_info"> <i class="fa fa-edit"></i> </a></h5> -->
                       </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Blood Group : </p>
+                    </div>
+                    <hr class="hr-web">
+                    <div class="row">
+                      <div class="col-md-12 col-12 py-1">
+                        <p class="mb-1"> <span class=" text-bold"> Education (शिक्षा) :</span> <?php echo $member_info[0]['education_name']; ?> </p>
                       </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['blood_group_name']; ?></p>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-12 col-12 py-1">
+                        <p class="mb-1"> <span class=" text-bold"> Education Details :</span> <?php echo $member_info[0]['education_details']; ?> </p>
                       </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Body type : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['body_type_name']; ?></p>
-                      </div>
+                    </div>
+                  </div>
 
-                      <div class="col-12">
-                          <hr class="hr-web">
+                  <div class="frist">
+                    <div class="row">
+                      <div class="col-md-6"><h5 class="mb-3 text-danger">Career Information : </h5></div>
+                      <div class="col-md-6 text-right">
+                        <!-- <h5><a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".modal_career_info"> <i class="fa fa-edit"></i> </a></h5> -->
                       </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Religion : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['religion_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Cast : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['cast_name']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Sub Cast  : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['sub_cast_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Complexion : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['complexion_name']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Diet  : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['diet_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Education : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['education_name']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Family Status  : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['family_status_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Family Type : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['family_type_name']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Family Value  : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['family_value_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Gothram : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['gothram_name']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Height : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['height_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Income : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['min_income'].'-'.$member_info[0]['max_income']; ?></p>
-                      </div>
-
-                      <div class="col-12">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Moonsign : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1"><?php echo $member_info[0]['moonsign_name']; ?></p>
-                      </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Occupation : </p>
-                      </div>
-                      <div class="col-md-3 col-6 py-1">
+                    </div>
+                    <hr class="hr-web">
+                    <div class="row">
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Profession (व्यवसाय) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['occupation_name']; ?></p>
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Details  : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['occupation_details']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Annual Income (वार्षिक आमदनी) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['min_income']; ?> - <?php echo $member_info[0]['max_income']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Name of Company (कंपनी का नाम) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['occ_company_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Company Address (कंपनी का पता) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['occ_company_addr']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Company Contact No (कंपनी संपर्क नं)  : </p></div>
+                      <div class="col-md-3 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['occ_company_con_no']; ?></p>
+                      </div>
+                    </div>
+                  </div>
 
-                      <div class="col-12">
-                          <hr class="hr-web">
+                  <div class="frist">
+                    <div class="row">
+                      <div class="col-md-6"><h5 class="mb-3 text-danger">Family Details : </h5></div>
+                      <div class="col-md-6 text-right">
+                        <!-- <h5><a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".modal_family_details"> <i class="fa fa-edit"></i> </a></h5> -->
                       </div>
-                      <div class="col-md-3 col-6 py-1">
-                        <p class="mb-1 text-bold">Resident Status  : </p>
+                    </div>
+      			          <hr class="hr-web">
+                    <div class="row">
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Family Status (पारिवारिक स्थिति) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['family_status_name']; ?></p>
                       </div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Family Values (पारिवारिक मान्यता) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['family_value_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Family Type (परिवार का प्रकार) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['family_type_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Resident Status (निवासी की स्थिति) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['resident_status_name']; ?></p>
                       </div>
-                      <div class="col-12 d-block d-sm-none">
-                          <hr class="hr-web">
+                    </div>
+                  </div>
+
+
+                  <div class="col-12 d-block d-sm-none">
+                    <div class="adv ">
+                      <img src="<?php echo base_url(); ?>assets/images/adv/<?php echo $adv_image2; ?>" width="100%" height="100%" alt="">
+                    </div>
+                  </div>
+
+                  <div class="frist">
+                    <div class="row">
+                      <div class="col-md-6"><h5 class="mb-3 text-danger">Social Information : </h5></div>
+                      <div class="col-md-6 text-right">
+                        <!-- <h5><a href="" class="m-0 txt-pink" data-toggle="modal" data-target=".modal_social_info"> <i class="fa fa-edit"></i> </a></h5> -->
+                      </div>
+                    </div>
+                    <hr class="hr-web">
+                    <div class="row">
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Diet (आहार) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['diet_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Height (ऊंचाई) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['height_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Body type (शरीर प्रकार) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['body_type_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Skin Complexion (त्वचा का रंग) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['complexion_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Blood Group (रक्त वर्ग) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['blood_group_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Smoker (धूम्रपान) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_smoker']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Drink (शराब) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_drink']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Moonsign (राशि) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['moonsign_name']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Manglik (मांगलिक) : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['member_mangalik']; ?></p>
+                      </div>
+                      <div class="col-12"><hr class="hr-web"></div>
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Gothram : </p></div>
+                      <div class="col-md-6 col-6 py-1">
+                        <p class="mb-1"><?php echo $member_info[0]['gothram_name']; ?></p>
                       </div>
                     </div>
                   </div>

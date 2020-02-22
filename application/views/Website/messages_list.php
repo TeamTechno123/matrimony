@@ -94,7 +94,7 @@
                                 <p class="mb-1 text-bold">Marital Status</p>
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $list['marital_status']; ?></p>
+                                <p class="mb-1 "><?php echo $list['marital_status_name']; ?></p>
                             </div>
 
                             <div class="col-12">
@@ -143,24 +143,17 @@
                             <div class="col-12 mt-3">
                               <ul  class="inline" style="display: inline; list-style-type:none;">
                                 <li class="pt-2">
-                                  <?php if($mat_member_status == 'free'){
-                                    if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
-                                  ?>
-                                    <button class="btn btn-success btn-sm act_btn btn_open_modal" data-toggle="modal" data-target="#profile_complete_Modal"><i class="fa fa-address-card" aria-hidden="true"></i>  Full Profile</button>
-                                  <?php } else{ ?>
+                                  <?php if($mat_member_status == 'free'){?>
                                     <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Full Profile</a>
-                                  <?php } }  else{ ?>
-                                    <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list->member_id; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
+                                  <?php  }  else{ ?>
+                                    <a href="<?php echo base_url(); ?>Member/active_full_profile/<?php echo $list['member_id']; ?>" class="btn btn-success btn-sm act_btn" type="submit"><i class="fa fa-address-card" aria-hidden="true"></i> Full Profile</a>
                                   <?php } ?>
                                 </li>
                                 <li>
-                                  <?php if($mat_member_status == 'free'){
-                                  if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
-                                 ?><button class="btn btn-success btn-sm act_btn btn_open_modal" data-toggle="modal" data-target="#profile_complete_Modal"><i class="fa fa-envelope" aria-hidden="true"></i>  Message</button>
-                               <?php } else{ ?>
-                                    <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> Message</a>
-                                  <?php } }  else{ ?>
-                                    <button class="btn btn-success btn-sm act_btn btn_open_modal" to_member_id="<?php echo $list->member_id; ?>" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+                                  <?php if($mat_member_status == 'free'){ ?>
+                                    <a href="<?php echo base_url(); ?>Payment/member_payment" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> View Messages</a>
+                                  <?php }  else{ ?>
+                                    <a href="<?php echo base_url(); ?>Member/messages/<?php echo $list['member_id']; ?>" class="btn btn-success btn-sm act_btn " ><i class="fa fa-envelope" aria-hidden="true"></i> View Messages</a>
                                   <?php } ?>
                                 </li>
                               </ul>

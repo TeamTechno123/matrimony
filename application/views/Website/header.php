@@ -2,6 +2,7 @@
 <?php
   $mat_member_id = $this->session->userdata('mat_member_id');
   $member_is_login = $this->session->userdata('member_is_login');
+  $mat_member_status = $this->session->userdata('mat_member_status');
 ?>
 <html lang="en">
   <head>
@@ -87,12 +88,22 @@
                   }
               }
             ?>
-            <?php if($mat_member_id){ ?>
+            <?php if($mat_member_id){
+              $mat_member_info = $this->User_Model->get_info_array('member_id', $mat_member_id, 'member');
+            ?>
             <a class="nav-item nav-link text-white pt-2" id="filter" href="#" style="display:none;" data-toggle="modal" data-target="#searchModal"> Filter <i class="fa fa-search pl-1"></i>  </a>
-
-            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/received_interest_list">Interest (<?php echo $rec_interect_cnt; ?>)</a>
-            <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/messages_list">Message (<?php echo $rec_msg_cnt; ?>)</a>
-
+            <?php if($mat_member_status == 'free'){
+              if($mat_member_info[0]['country_id'] == '' || $mat_member_info[0]['state_id'] == '' || $mat_member_info[0]['district_id'] == '' || $mat_member_info[0]['tahasil_id'] == ''){
+            ?>
+              <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/profile">Interest (<?php echo $rec_interect_cnt; ?>)</a>
+              <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/profile">Message (<?php echo $rec_msg_cnt; ?>)</a>
+            <?php  } else{ ?>
+              <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Payment/member_payment">Interest (<?php echo $rec_interect_cnt; ?>)</a>
+              <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Payment/member_payment">Message (<?php echo $rec_msg_cnt; ?>)</a>
+            <?php  } } else{ ?>
+              <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/received_interest_list">Interest (<?php echo $rec_interect_cnt; ?>)</a>
+              <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/messages_list">Message (<?php echo $rec_msg_cnt; ?>)</a>
+            <?php } ?>
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/active_members">Active Members</a>
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/profile">My Profile</a>
             <a class="nav-item nav-link pt-2" href="<?php echo base_url(); ?>Member/logout">Logout</a>

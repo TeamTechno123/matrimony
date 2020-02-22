@@ -29,9 +29,6 @@ body{
 }
 .navbar-brand{
   color: #fff!important;
-  width: 450px!important;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 .top-label{
   font-size: 14px;
@@ -59,6 +56,9 @@ body{
       margin: 0 auto;
 }
 
+.login_input{
+  height: 25px !important;
+}
 
 .form-control{
   /* padding: 2px 3px!important; */
@@ -69,7 +69,7 @@ body{
 }
 
 .btn-web{
-  padding: 2px 5px!important;
+  padding: 0px 5px!important;
 }
 
 .logo-img{
@@ -584,10 +584,6 @@ text-align: center;
   .nav-item{
     text-align: center;
   }
-
-    .login-section{
-      height:auto;
-    }
 
   .login-section h2{
   font-size: 26px;
