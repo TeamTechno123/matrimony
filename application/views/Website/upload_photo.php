@@ -83,9 +83,12 @@
                             <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
                           <?php } ?>
                         </div>
-                        <div class="col-md-10 my-auto" style="">
+                        <div class="col-md-8 my-auto" style="">
                           <input type="file" name="member_img">
                           <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
+                        </div>
+                        <div class="col-md-2 my-auto" style="">
+                          <button type="submit" class="btn btn-success"  name="button"> Upload </button>
                         </div>
 
                         <?php
@@ -101,6 +104,9 @@
                           <input class="mt-1 w-100" type="file" name="member_image_name[]" >
                           <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
                         </div>
+                        <div class="col-md-2 my-auto" style="">
+                          <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                        </div>
                         <?php  } }
                           $img_cnt = 4 - $cnt;
                           for ($i=0; $i < $img_cnt; $i++) {
@@ -112,11 +118,14 @@
                           <input class="mt-1 w-100" type="file" name="member_image_name[]">
                           <input type="hidden" name="member_image_id[]" value="">
                         </div>
+                        <div class="col-md-2 my-auto" style="">
+                          <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                        </div>
                         <?php } ?>
                       </div>
                       <hr>
                       <div class=" text-center">
-                        <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                        <!-- <button type="submit" class="btn btn-success"  name="button"> Upload </button> -->
                         <a href="<?php echo base_url(); ?>Member/active_members" class="btn btn-secondary"  name="button">Skip</a>
                       </div>
                     </form>
