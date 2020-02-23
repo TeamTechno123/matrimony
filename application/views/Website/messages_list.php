@@ -91,7 +91,7 @@
                                 <hr class="hr-web">
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 text-bold">Marital Status</p>
+                                <p class="mb-1 text-bold">Marital Status ( वैवाहिक स्थिति )</p>
                             </div>
                             <div class="col-md-3 col-6">
                                 <p class="mb-1 "><?php echo $list['marital_status_name']; ?></p>
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 text-bold">Religion</p>
+                                <p class="mb-1 text-bold">Religion ( धर्म )</p>
                             </div>
                             <div class="col-md-3 col-6">
                                 <p class="mb-1 "><?php echo $list['religion_name']; ?></p>
@@ -111,7 +111,7 @@
                                 <hr class="hr-web">
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 text-bold">Caste</p>
+                                <p class="mb-1 text-bold">Cast ( जाति )</p>
                             </div>
                             <div class="col-md-3 col-6">
                                 <p class="mb-1 "><?php echo $list['cast_name']; ?></p>
@@ -122,7 +122,7 @@
                             </div>
 
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 text-bold">Occupation</p>
+                                <p class="mb-1 text-bold">Occupation ( व्यवसाय)</p>
                             </div>
                             <div class="col-md-3 col-6">
                                 <p class="mb-1 "><?php echo $list['occupation_name']; ?></p>
@@ -131,7 +131,7 @@
                                 <hr class="hr-web">
                             </div>
                             <div class="col-md-3 col-6">
-                                <p class="mb-1 text-bold">Education</p>
+                                <p class="mb-1 text-bold">Education ( शिक्षा )</p>
                             </div>
                             <div class="col-md-3 col-6">
                                 <p class="mb-1 "><?php echo $list['education_name']; ?></p>

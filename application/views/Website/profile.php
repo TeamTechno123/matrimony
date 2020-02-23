@@ -65,9 +65,14 @@
                       </div>
                       <hr class="white">
                         <div class="row">
+                          <div class="col-12 mb-1">
+                            <a href="<?php echo base_url(); ?>Member/profile_gallery" class="btn btn-sm btn-success w-100  pl-1" type="submit">Upload Photo</a>
+                          </div>
                           <?php if($mat_member_status == 'free'){
                             if($member_info[0]['country_id'] == '' || $member_info[0]['state_id'] == '' || $member_info[0]['district_id'] == '' || $member_info[0]['tahasil_id'] == ''){
                           ?>
+
+
                           <div class="col-12 mb-1">
                             <a href="" class="btn btn-sm btn-success w-100  pl-1" type="submit">Sent Interest - <?php echo $sent_interest_cnt; ?></a>
                           </div>
@@ -99,9 +104,7 @@
                             </div>
                           <?php } ?>
 
-                          <div class="col-12 mb-1">
-                            <a href="<?php echo base_url(); ?>Member/profile_gallery" class="btn btn-sm btn-success w-100  pl-1" type="submit">Upload Photo</a>
-                          </div>
+
                           <div class="col-12 mb-1">
                             <a href="<?php echo base_url(); ?>Member/lead_list" class="btn btn-sm btn-success w-100  pl-1" type="submit">Add New Lead</a>
                           </div>
@@ -230,8 +233,11 @@
                 <div class="col-md-3 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_mobile']; ?></p>
                 </div>
+                <div class="col-md-6">
+
+                </div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Email : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_email']; ?></p>
                 </div>
               </div>
@@ -458,11 +464,11 @@
       <div class="modal-body">
         <form class="" action="<?php echo base_url(); ?>Member/update_personal_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
-          <div class="form-group col-md-2 pr-0"><label>Name</label></div>
+          <div class="form-group col-md-2 pr-0"><label>Name ( नाम )</label></div>
           <div class="form-group col-md-10">
             <input type="text" class="form-control form-control-sm w-100 required title-case text" name="member_name" id="member_name" value="<?php if(isset($member_name)){ echo $member_name; } ?>"  placeholder="Enter Full Name" required>
           </div>
-          <div class="form-group col-md-2 mb-0"><label>Gender</label></div>
+          <div class="form-group col-md-2 mb-0"><label>Gender ( लिंग )</label></div>
           <div class="form-group col-md-2 mb-0">
             <div class="form-check">
               <input class="form-check-input" value="Male" type="radio" name="member_gender" <?php if(isset($member_gender) && $member_gender == 'Male'){ echo 'checked'; } else{ echo 'checked'; } ?>>
@@ -475,12 +481,12 @@
               Female
             </div>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Birthdate</label></div>
+          <div class="form-group col-md-2 pr-0"><label>Date of birth ( जन्म तारीख )</label></div>
           <div class="form-group col-md-4">
             <input type="text" class="form-control form-control-sm" name="member_birth_date" value="<?php if(isset($member_birth_date)){ echo $member_birth_date; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" title="Enter Birth date" placeholder="Enter Birth date" required>
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Marital Status</label>
+            <label>Marital Status ( वैवाहिक स्थिति )</label>
           </div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="marital_status" id="marital_status" title="Select Marital Status" data-placeholder="Select Marital Status" >
@@ -500,7 +506,7 @@
             </select>
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Interesred In</label>
+            <label>Interesred In ( इसमें दिलचस्पी है )</label>
           </div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="marriage_type_id" id="marriage_type_id" title="Interested In" data-placeholder="Select Marriage Type" >
@@ -511,7 +517,7 @@
             </select>
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Religion</label>
+            <label>Religion ( धर्म )</label>
           </div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="religion_id" id="religion_id2" title="Select Religion" data-placeholder="Select Religion" >
@@ -522,7 +528,7 @@
             </select>
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Caste</label>
+            <label>Cast ( जाति )</label>
           </div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id2" title="Select Caste" data-placeholder="Select Caste" >
@@ -535,7 +541,7 @@
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_cast_name" id="other_cast_name" title="Enter Caste"  placeholder="Enter Caste">
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Sub Caste</label>
+            <label>Sub Cast ( उप-जाति )</label>
           </div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="sub_cast_id" id="sub_cast_id2" title="Select Sub Caste" data-placeholder="Select Sub Caste" >
@@ -547,7 +553,7 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_subcast_name" id="other_subcast_name" title="Enter Sub Caste"  placeholder="Enter Sub Caste">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Mother Tongue</label></div>
+          <div class="form-group col-md-2 pr-0"><label>Mother tongue (मातृ भाषा )</label></div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="language_id" id="language_id" title="Select Mother tongue" data-placeholder="Select Mother tongue" >
               <option selected="selected" value="" >Select Mother Tongue </option>
@@ -588,7 +594,7 @@
             <textarea name="member_address" id="member_address" class="form-control form-control-sm" rows="2" cols="80" placeholder="Enter Address"><?php if(isset($member_address)){ echo $member_address; } ?></textarea>
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Country</label>
+            <label>Country ( देश )</label>
           </div>
           <div class="form-group col-md-4 ">
             <select class="form-control select2 form-control-sm" name="country_id" id="country_id2" data-placeholder="Select Country" required>
@@ -598,7 +604,7 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>State</label></div>
+          <div class="form-group col-md-2 pr-0"><label>State ( राज्य )</label></div>
           <div class="form-group col-md-4 ">
             <select class="form-control select2 form-control-sm w-100" name="state_id" id="state_id2"  title="Select State" data-placeholder="Select State" required>
               <option selected="selected" value="" >Select State </option>
@@ -607,7 +613,7 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>District</label></div>
+          <div class="form-group col-md-2 pr-0"><label>District (जिला )</label></div>
           <div class="form-group col-md-4 ">
             <select class="form-control select2 form-control-sm w-100" name="district_id" id="district_id2"  title="Select District" data-placeholder="Select District" required>
               <option selected="selected" value="" >Select District </option>
@@ -618,7 +624,7 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_district_name" id="other_district_name" placeholder="Enter District Name">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Tahsil</label></div>
+          <div class="form-group col-md-2 pr-0"><label>Tehsil (तहसील)</label></div>
           <div class="form-group col-md-4 ">
             <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id2"  title="Select Tahsil" data-placeholder="Select Tahsil" required>
               <option selected="selected" value="" >Select Tahsil </option>
@@ -629,7 +635,7 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_tahasil_name" id="other_tahasil_name" title="Enter Tahsil Name"  placeholder="Enter Tahsil Name">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>City</label></div>
+          <div class="form-group col-md-2 pr-0"><label>City ( शहर )</label></div>
           <div class="form-group col-md-4 ">
             <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id2" title="Select City" data-placeholder="Select City">
               <option selected="selected" value="" >Select City </option>
@@ -640,7 +646,7 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_city_name" id="other_city_name" title="Enter City Name"  placeholder="Enter City Name">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Area</label></div>
+          <div class="form-group col-md-2 pr-0"><label>Area ( इलाका )</label></div>
           <div class="form-group col-md-4">
             <input type="text" class="form-control form-control-sm" name="member_area" id="member_area2" value="<?php if(isset($member_area)){ echo $member_area; } ?>"  title="Enter Area"  placeholder="Enter Area" required>
           </div>
@@ -705,7 +711,7 @@
         <form class="" action="<?php echo base_url(); ?>Member/update_education_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
           <div class="form-group col-md-2 pr-0">
-            <label>Education</label>
+            <label>Education ( शिक्षा )</label>
           </div>
           <div class="form-group col-md-4 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="education_id" id="education_id2" title="Select Education" data-placeholder="Select Education" >
@@ -718,7 +724,7 @@
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_education_name" id="other_education_name" placeholder="Enter Education">
           </div>
           <div class="form-group col-md-2 pr-0">
-            <label>Education Details</label>
+            <label>Education Details ( शिक्षा )</label>
           </div>
           <div class="form-group col-md-4">
             <input type="text" class="form-control form-control-sm" name="education_details" id="education_details" value="<?php if(isset($education_details)){ echo $education_details; } ?>" placeholder="Enter Education Details">
@@ -748,7 +754,7 @@
         <form class="" action="<?php echo base_url(); ?>Member/update_career_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
           <div class="form-group col-md-3 pr-0">
-            <label>Profession</label>
+            <label>Profession ( व्यवसाय) </label>
           </div>
           <div class="form-group col-md-9 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id2" title="Select Occupation" data-placeholder="Select Occupation" >
@@ -759,13 +765,13 @@
             </select>
           </div>
           <div class="form-group col-md-3 pr-0">
-            <label>Profession Details</label>
+            <label>Profession Details ( व्यवसाय )</label>
           </div>
           <div class="form-group col-md-9">
             <input type="text" class="form-control form-control-sm" name="occupation_details" id="occupation_details2" value="<?php if(isset($occupation_details)){ echo $occupation_details; } ?>"  title="Profession Details"  placeholder="Profession Details" required>
           </div>
           <div class="form-group col-md-3 pr-0">
-            <label>Income</label>
+            <label>Annual Income ( वार्षिक आमदनी)</label>
           </div>
           <div class="form-group col-md-9 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="income_id" id="income_id2" title="Select Income" placeholder="Select Income" data-placeholder="Select Income" >
@@ -776,19 +782,19 @@
             </select>
           </div>
           <div class="form-group col-md-3 pr-0">
-            <label>Company Name</label>
+            <label>Name of Company ( कंपनी का नाम )</label>
           </div>
           <div class="form-group col-md-9">
             <input type="text" class="form-control form-control-sm" name="occ_company_name" id="occ_company_name" value="<?php if(isset($occ_company_name)){ echo $occ_company_name; } ?>"  title="Company Name"  placeholder="Company Name" required>
           </div>
           <div class="form-group col-md-3 pr-0">
-            <label>Company Address</label>
+            <label>Company Address  (कंपनी का पता )</label>
           </div>
           <div class="form-group col-md-9">
             <input type="text" class="form-control form-control-sm" name="occ_company_addr" id="occ_company_addr" value="<?php if(isset($occ_company_addr)){ echo $occ_company_addr; } ?>"  title="Company Address"  placeholder="Company Address" required>
           </div>
           <div class="form-group col-md-3 pr-0">
-            <label>Company Contact No.</label>
+            <label>Company Contact No (कंपनी संपर्क नं)</label>
           </div>
           <div class="form-group col-md-9">
             <input type="text" class="form-control form-control-sm" name="occ_company_con_no" id="occ_company_con_no" value="<?php if(isset($occ_company_con_no)){ echo $occ_company_con_no; } ?>"  title="Company Contact No."  placeholder="Company Contact No." required>
@@ -818,7 +824,7 @@
         <form class="" action="<?php echo base_url(); ?>Member/update_family_details/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
           <div class="form-group col-md-4 pr-0">
-            <label>Family Status</label>
+            <label>Family Status  (पारिवारिक स्थिति)</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="family_status_id" id="family_status_id2" title="Select Family Status" data-placeholder="Select Family Status" >
@@ -829,7 +835,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Family Value</label>
+            <label>Family Values (पारिवारिक मान्यता )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="family_value_id" id="family_value_id2" title="Select Family Value" data-placeholder="Select Family Value" >
@@ -840,7 +846,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Family Type</label>
+            <label>Family Type (परिवार का प्रकार )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="family_type_id" id="family_type_id2" title="Select Family Type" data-placeholder="Select Family Type" >
@@ -851,7 +857,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Resident Status</label>
+            <label>Resident Status (निवासी की स्थिति )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="resident_status_id" id="resident_status_id2" title="Select Resident Status" data-placeholder="Select Resident Status" >
@@ -886,7 +892,7 @@
         <form class="" action="<?php echo base_url(); ?>Member/update_social_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
           <div class="form-group col-md-4 pr-0">
-            <label>Diet</label>
+            <label>Diet  (आहार )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="diet_id" id="diet_id2" title="Select Diet" data-placeholder="Select Diet" >
@@ -897,7 +903,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Height</label>
+            <label>Height (ऊंचाई )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="height_id" id="height_id2" title="Select Height" data-placeholder="Select Height" >
@@ -908,7 +914,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Body Type</label>
+            <label>Body type (शरीर प्रकार)</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="body_type_id" id="body_type_id2" title="Select Body Type" data-placeholder="Select Body Type" >
@@ -919,7 +925,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Skin Complexion</label>
+            <label>Skin Complexion (त्वचा का रंग)</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="complexion_id" id="complexion_id2" title="Select Skin Complexion" data-placeholder="Select Skin Complexion" >
@@ -930,7 +936,7 @@
             </select>
           </div>
           <div class="form-group col-md-4 pr-0">
-            <label>Blood Group</label>
+            <label>Blood Group (रक्त वर्ग )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="blood_group_id" id="blood_group_id2" title="Select Blood Group" data-placeholder="Select Blood Group" >
@@ -973,7 +979,7 @@
           </div>
           <div class="form-group col-md-4 pr-0"></div>
           <div class="form-group col-md-4 pr-0">
-            <label>Moonsign</label>
+            <label>Moonsign (राशि )</label>
           </div>
           <div class="form-group col-md-8 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="moonsign_id" id="moonsign_id2" title="Select Moonsign" data-placeholder="Select Moonsign" >
