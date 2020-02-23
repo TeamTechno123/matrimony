@@ -47,7 +47,7 @@
                           <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
                         </div>
                         <div class="col-md-2 my-auto" style="">
-                          <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                          <button type="submit" class="btn btn-success"  name="button"> Save </button>
                         </div>
 
                         <?php
@@ -64,7 +64,7 @@
                           <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
                         </div>
                         <div class="col-md-2 my-auto" style="">
-                          <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                          <button type="submit" class="btn btn-success"  name="button"> Save </button>
                         </div>
                         <?php  } }
                           $img_cnt = 4 - $cnt;
@@ -78,7 +78,7 @@
                           <input type="hidden" name="member_image_id[]" value="">
                         </div>
                         <div class="col-md-2 my-auto" style="">
-                          <button type="submit" class="btn btn-success"  name="button"> Upload </button>
+                          <button type="submit" class="btn btn-success"  name="button"> Save </button>
                         </div>
                         <?php } ?>
                       </div>

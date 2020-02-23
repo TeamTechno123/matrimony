@@ -629,9 +629,6 @@ class API extends CI_Controller{
     echo str_replace('\\/','/',$json_response);
   }
 
-
-
-
 }
 
 ?>
