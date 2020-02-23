@@ -198,8 +198,11 @@
                       <div class="col-md-3 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['member_mobile']; ?></p>
                       </div>
+                      <div class="col-md-6">
+
+                      </div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Email : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['member_email']; ?></p>
                       </div>
                     </div>

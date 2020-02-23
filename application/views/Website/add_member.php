@@ -47,19 +47,19 @@
                   <input type="hidden" name="member_addedby" value="<?php echo $mat_member_user_id; ?>">
                   <div class="row">
                     <div class="form-group col-md-2 pr-0">
-                      <label>Full Name</label>
+                      <label>Full Name  ( नाम )</label>
                     </div>
                     <div class="form-group col-md-10">
                       <input type="text" class="form-control form-control-sm w-100 required title-case text" name="member_name" id="member_name"  placeholder="Enter Full Name" required>
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>Address</label>
+                      <label>Address ( पता )  </label>
                     </div>
                     <div class="form-group col-md-10">
                       <textarea name="member_address" id="member_address" class="form-control form-control-sm" rows="2" cols="80" placeholder="Enter Address"></textarea>
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>Country</label>
+                      <label>Country ( देश )</label>
                     </div>
                     <div class="form-group col-md-4 ">
                       <select class="form-control select2 form-control-sm w-100" name="country_id" id="country_id" title="Select Country" data-placeholder="Select Country" required>
@@ -70,7 +70,7 @@
                       </select>
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>State</label>
+                      <label>State ( राज्य )</label>
                     </div>
                     <div class="form-group col-md-4 ">
                       <select class="form-control select2 form-control-sm w-100" name="state_id" id="state_id"  title="Select State" data-placeholder="Select State" required>
@@ -81,7 +81,7 @@
                       </select>
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>District</label>
+                      <label>District ( जिला )</label>
                     </div>
                     <div class="form-group col-md-4 ">
                       <select class="form-control select2 form-control-sm w-100" name="district_id" id="district_id"  title="Select District" data-placeholder="Select District" required>
@@ -94,7 +94,7 @@
                       <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_district_name" id="other_district_name" placeholder="Enter District Name">
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>Tahsil</label>
+                      <label>Tehsil ( तहसील )</label>
                     </div>
                     <div class="form-group col-md-4 ">
                       <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id"  title="Select Tahsil" data-placeholder="Select Tahsil" required>
@@ -107,7 +107,7 @@
                       <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_tahasil_name" id="other_tahasil_name" title="Enter Tahsil Name"  placeholder="Enter Tahsil Name">
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>City</label>
+                      <label>City ( शहर )</label>
                     </div>
                     <div class="form-group col-md-4 ">
                       <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id" title="Select City" data-placeholder="Select City" required>
@@ -120,14 +120,14 @@
                       <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_city_name" id="other_city_name" title="Enter City Name"  placeholder="Enter City Name">
                     </div>
                     <div class="form-group col-md-2 pr-0">
-                      <label>Area</label>
+                      <label>Area ( इलाका )</label>
                     </div>
                     <div class="form-group col-md-4">
                       <input type="text" class="form-control form-control-sm" name="member_area" id="member_area"  title="Enter Area"  placeholder="Enter Area" required>
                     </div>
 
                     <div class="form-group col-md-2  col-4">
-                      <label for="">Gender</label>
+                      <label for="">Gender ( लिंग )</label>
                     </div>
                     <div class="form-group col-md-2 col-4">
                       <div class="form-check">
@@ -144,13 +144,13 @@
                     <div class="form-group col-md-6"></div>
 
                   <div class="form-group col-md-2 pr-0">
-                    <label>Birthdate</label>
+                    <label>Date of birth ( जन्म तारीख )</label>
                   </div>
                   <div class="form-group col-md-4">
                     <input type="text" class="form-control form-control-sm" name="member_birth_date" id="date1" data-target="#date1" data-toggle="datetimepicker" title="Enter Birth date" placeholder="Enter Birth date" required>
                   </div>
                   <div class="form-group col-md-2 pr-0">
-                    <label>Mother Tongue</label>
+                    <label>Mother tongue (मातृ भाषा )</label>
                   </div>
                   <div class="form-group col-md-4 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="language_id" id="language_id" title="Select Mother Tongue" data-placeholder="Select Mother Tongue" >
@@ -196,7 +196,7 @@
                     </select>
                   </div>
                   <div class="form-group col-md-2 pr-0">
-                    <label>Marital Status</label>
+                    <label>Marital Status ( वैवाहिक स्थिति )</label>
                   </div>
                   <div class="form-group col-md-4 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="marital_status" id="marital_status" title="Select Marital Status" data-placeholder="Select Marital Status" >
@@ -207,7 +207,7 @@
                     </select>
                   </div>
                   <div class="form-group col-md-2 pr-0">
-                    <label>Religion</label>
+                    <label>Religion ( धर्म )</label>
                   </div>
                   <div class="form-group col-md-4 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="religion_id" id="religion_id" title="Select Religion" data-placeholder="Select Religion" >
@@ -218,7 +218,7 @@
                     </select>
                   </div>
                   <div class="form-group col-md-2 pr-0">
-                    <label>Caste</label>
+                    <label>Cast ( जाति )</label>
                   </div>
                   <div class="form-group col-md-4 drop-sm">
                     <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id" title="Select Caste" data-placeholder="Select Caste" >
