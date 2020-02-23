@@ -42,11 +42,11 @@
                             <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $member_img; ?>" alt="">
                           <?php } ?>
                         </div>
-                        <div class="col-md-8 my-auto" style="">
+                        <div class="col-md-6 my-auto" style="">
                           <input type="file" name="member_img">
                           <input type="hidden" name="old_member_img" value="<?php echo $member_img; ?>">
                         </div>
-                        <div class="col-md-2 my-auto" style="">
+                        <div class="col-md-4 my-auto" style="">
                           <button type="submit" class="btn btn-success"  name="button"> Save </button>
                         </div>
 
@@ -59,11 +59,11 @@
                         <div class="col-md-2 text-center my-2">
                           <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $list->member_image_name; ?>" alt="">
                         </div>
-                        <div class="col-md-8 my-auto">
+                        <div class="col-md-6 my-auto">
                           <input class="mt-1 w-100" type="file" name="member_image_name[]" >
                           <input type="hidden" name="member_image_id[]" value="<?php echo $list->member_image_id ?>">
                         </div>
-                        <div class="col-md-2 my-auto" style="">
+                        <div class="col-md-4 my-auto" style="">
                           <button type="submit" class="btn btn-success"  name="button"> Save </button>
                         </div>
                         <?php  } }
@@ -73,11 +73,11 @@
                         <div class="col-md-2 text-center my-2">
                           <img style="width: 60%;" src="<?php echo base_url(); ?>assets/images/profile/default_profile.png" alt="">
                         </div>
-                        <div class="col-md-8 my-auto">
+                        <div class="col-md-6 my-auto">
                           <input class="mt-1 w-100" type="file" name="member_image_name[]">
                           <input type="hidden" name="member_image_id[]" value="">
                         </div>
-                        <div class="col-md-2 my-auto" style="">
+                        <div class="col-md-4 my-auto" style="">
                           <button type="submit" class="btn btn-success"  name="button"> Save </button>
                         </div>
                         <?php } ?>
