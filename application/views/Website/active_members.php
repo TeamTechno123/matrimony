@@ -73,12 +73,7 @@
               <div class="col-12 d-block d-sm-none">
                   <hr class="hr-web">
               </div>
-              <div class="col-md-3 col-6">
-                  <p class="mb-1 text-bold">Member ID</p>
-              </div>
-              <div class="col-md-3 col-6">
-                  <p class="mb-1 text-danger"><?php echo $list->member_id; ?></p>
-              </div>
+
 
               <div class="col-12">
                   <hr class="hr-web">
@@ -94,9 +89,21 @@
                   <hr class="hr-web">
               </div>
               <div class="col-md-3 col-6">
-                  <p class="mb-1 text-bold">Marital Status ( वैवाहिक स्थिति )</p>
+                  <p class="mb-1 text-bold">Member ID</p>
               </div>
               <div class="col-md-3 col-6">
+                  <p class="mb-1 text-danger"><?php echo $list->member_id; ?></p>
+              </div>
+              <div class="col-12">
+                  <hr class="hr-web">
+              </div>
+              <div class="col-12 d-block d-sm-none">
+                  <hr class="hr-web">
+              </div>
+              <div class="col-md-6 col-6">
+                  <p class="mb-1 text-bold">Marital Status ( वैवाहिक स्थिति )</p>
+              </div>
+              <div class="col-md-6 col-6">
                   <p class="mb-1 "><?php echo $list->marital_status_name; ?></p>
               </div>
 

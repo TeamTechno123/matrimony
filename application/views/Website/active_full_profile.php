@@ -201,6 +201,7 @@
                       <div class="col-md-6">
 
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Email : </p></div>
                       <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['member_email']; ?></p>
@@ -261,8 +262,8 @@
                         <p class="mb-1"><?php echo $member_info[0]['occ_company_addr']; ?></p>
                       </div>
                       <div class="col-12"><hr class="hr-web"></div>
-                      <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Company Contact No (कंपनी संपर्क नं)  : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Company Contact No (कंपनी संपर्क नं)  : </p></div>
+                      <div class="col-md-6 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['occ_company_con_no']; ?></p>
                       </div>
                     </div>

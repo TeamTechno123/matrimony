@@ -43,7 +43,7 @@
           <div class="profile-div">
             <div class="profile-div-left">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 p-0">
                   <!-- <div class="card card-red" style="width: 100%;"> -->
 
                       <?php if($interest_list){
@@ -77,8 +77,19 @@
                             </div>
                             <div class="col-md-9 col-12">
                               <div class="row">
-                                <div class=" col-md-6 col-12">
+                                <div class=" col-md-12 col-12">
                               <h5 class="mb-1 text-danger text-bold f-18"> <?php echo $list->member_name; ?></h5>
+                            </div>
+                            <div class="col-12 d-block d-sm-none">
+                                <hr class="hr-web">
+                            </div>
+
+
+                            <div class="col-md-3 col-6">
+                                <p class="mb-1 text-bold">Age</p>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <p class="mb-1 "><?php echo $age; ?></p>
                             </div>
                             <div class="col-12 d-block d-sm-none">
                                 <hr class="hr-web">
@@ -93,20 +104,10 @@
                             <div class="col-12">
                                 <hr class="hr-web">
                             </div>
-
-                            <div class="col-md-3 col-6">
-                                <p class="mb-1 text-bold">Age</p>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <p class="mb-1 "><?php echo $age; ?></p>
-                            </div>
-                            <div class="col-12 d-block d-sm-none">
-                                <hr class="hr-web">
-                            </div>
-                            <div class="col-md-3 col-6">
+                            <div class="col-md-6 col-6">
                                 <p class="mb-1 text-bold">Marital Status ( वैवाहिक स्थिति )</p>
                             </div>
-                            <div class="col-md-3 col-6">
+                            <div class="col-md-6 col-6">
                                 <p class="mb-1 "><?php echo $list->marital_status_name; ?></p>
                             </div>
 

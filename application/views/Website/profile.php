@@ -236,6 +236,7 @@
                 <div class="col-md-6">
 
                 </div>
+                <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Email : </p></div>
                 <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_email']; ?></p>
@@ -753,10 +754,10 @@
       <div class="modal-body">
         <form class="" action="<?php echo base_url(); ?>Member/update_career_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
-          <div class="form-group col-md-3 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Profession ( व्यवसाय) </label>
           </div>
-          <div class="form-group col-md-9 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id2" title="Select Occupation" data-placeholder="Select Occupation" >
               <option selected="selected" value="" >Select Profession</option>
               <?php foreach ($occupation_list as $list) { ?>
@@ -764,16 +765,16 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-3 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Profession Details ( व्यवसाय )</label>
           </div>
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm" name="occupation_details" id="occupation_details2" value="<?php if(isset($occupation_details)){ echo $occupation_details; } ?>"  title="Profession Details"  placeholder="Profession Details" required>
           </div>
-          <div class="form-group col-md-3 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Annual Income ( वार्षिक आमदनी)</label>
           </div>
-          <div class="form-group col-md-9 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="income_id" id="income_id2" title="Select Income" placeholder="Select Income" data-placeholder="Select Income" >
               <option selected="selected" value="" >Select Income</option>
               <?php foreach ($income_list as $list) { ?>
@@ -781,22 +782,22 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-3 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Name of Company ( कंपनी का नाम )</label>
           </div>
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm" name="occ_company_name" id="occ_company_name" value="<?php if(isset($occ_company_name)){ echo $occ_company_name; } ?>"  title="Company Name"  placeholder="Company Name" required>
           </div>
-          <div class="form-group col-md-3 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Company Address  (कंपनी का पता )</label>
           </div>
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm" name="occ_company_addr" id="occ_company_addr" value="<?php if(isset($occ_company_addr)){ echo $occ_company_addr; } ?>"  title="Company Address"  placeholder="Company Address" required>
           </div>
-          <div class="form-group col-md-3 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Company Contact No (कंपनी संपर्क नं)</label>
           </div>
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm" name="occ_company_con_no" id="occ_company_con_no" value="<?php if(isset($occ_company_con_no)){ echo $occ_company_con_no; } ?>"  title="Company Contact No."  placeholder="Company Contact No." required>
           </div>
         </div>
