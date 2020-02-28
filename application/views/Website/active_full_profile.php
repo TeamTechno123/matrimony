@@ -169,37 +169,38 @@
                       </div>
                       <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Country (देश) : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['country_name']; ?></p>
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">State (राज्य) : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['state_name']; ?></p>
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">District (जिला) : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['district_name']; ?></p>
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Tehsil (तहसील) : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['tahasil_name']; ?></p>
                       </div>
                       <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">City (शहर) : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
                       </div>
+                      <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Area (इलाका) : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
                       </div>
                       <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Mobile : </p></div>
-                      <div class="col-md-3 col-6 py-1">
+                      <div class="col-md-9 col-6 py-1">
                         <p class="mb-1"><?php echo $member_info[0]['member_mobile']; ?></p>
-                      </div>
-                      <div class="col-md-6">
-
                       </div>
                       <div class="col-12"><hr class="hr-web"></div>
                       <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Email : </p></div>

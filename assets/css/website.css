@@ -1,6 +1,15 @@
 body{
   padding: 0px;
   margin: 0px;
+  font-family: 'Roboto'!important;
+}
+
+h1, h4, h5, h6{
+  font-family: 'Roboto';
+}
+
+p{
+  font-family: 'Roboto'!important;
 }
 
 .hr-web{

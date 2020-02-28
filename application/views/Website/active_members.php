@@ -67,19 +67,20 @@
               </div>
               <div class="col-md-9 col-12">
                 <div class="row">
-                  <div class=" col-md-6 col-12">
+                  <div class="col-md-4 col-12">
                 <h5 class="mb-1 text-danger text-bold f-18"> <?php echo $list->member_name; ?></h5>
               </div>
-              <div class="col-12 d-block d-sm-none">
-                  <hr class="hr-web">
+              <div class="col-md-4 col-12">
+               <p class="mb-1"> <span class="text-bold">Age </span>  : <?php echo $age; ?> </p>
               </div>
-
-
+              <div class="col-md-4 col-12">
+               <p class="mb-1"> <span class="text-bold"> Member ID</span> : <?php echo $list->member_id; ?></p>
+              </div>
               <div class="col-12">
                   <hr class="hr-web">
               </div>
 
-              <div class="col-md-3 col-6">
+              <!-- <div class="col-md-3 col-6">
                   <p class="mb-1 text-bold">Age</p>
               </div>
               <div class="col-md-3 col-6">
@@ -96,14 +97,14 @@
               </div>
               <div class="col-12">
                   <hr class="hr-web">
-              </div>
+              </div> -->
               <div class="col-12 d-block d-sm-none">
                   <hr class="hr-web">
               </div>
-              <div class="col-md-6 col-6">
+              <div class="col-md-5 col-6">
                   <p class="mb-1 text-bold">Marital Status ( वैवाहिक स्थिति )</p>
               </div>
-              <div class="col-md-6 col-6">
+              <div class="col-md-7 col-6">
                   <p class="mb-1 "><?php echo $list->marital_status_name; ?></p>
               </div>
 
@@ -111,19 +112,19 @@
                   <hr class="hr-web">
               </div>
 
-              <div class="col-md-3 col-6">
+              <div class="col-md-5 col-6">
                   <p class="mb-1 text-bold">Religion ( धर्म )</p>
               </div>
-              <div class="col-md-3 col-6">
+              <div class="col-md-7 col-6">
                   <p class="mb-1 "><?php echo $list->religion_name; ?></p>
               </div>
-              <div class="col-12 d-block d-sm-none">
+              <div class="col-12">
                   <hr class="hr-web">
               </div>
-              <div class="col-md-3 col-6">
+              <div class="col-md-5 col-6">
                   <p class="mb-1 text-bold">Cast ( जाति )</p>
               </div>
-              <div class="col-md-3 col-6">
+              <div class="col-md-7 col-6">
                   <p class="mb-1 "><?php echo $list->cast_name; ?></p>
               </div>
 
@@ -131,19 +132,19 @@
                   <hr class="hr-web">
               </div>
 
-              <div class="col-md-3 col-6">
+              <div class="col-md-5 col-6">
                   <p class="mb-1 text-bold">Occupation ( व्यवसाय) </p>
               </div>
-              <div class="col-md-3 col-6">
+              <div class="col-md-7 col-6">
                   <p class="mb-1 "><?php echo $list->occupation_name; ?></p>
               </div>
-              <div class="col-12 d-block d-sm-none">
+              <div class="col-12">
                   <hr class="hr-web">
               </div>
-              <div class="col-md-3 col-6">
+              <div class="col-md-5 col-6">
                   <p class="mb-1 text-bold">Education ( शिक्षा )</p>
               </div>
-              <div class="col-md-3 col-6">
+              <div class="col-md-7 col-6">
                   <p class="mb-1 "><?php echo $list->education_name; ?></p>
               </div>
               <div class="col-12">

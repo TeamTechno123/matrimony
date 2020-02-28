@@ -79,8 +79,10 @@
                     <!-- <p class="login-box-msg text-bold">OTP is sent to Your Mobile Number</p> -->
                     <form class="" action="<?php echo base_url(); ?>Member/update_complete_profile/<?php echo $member_id; ?>" method="post" autocomplete="off">
                       <div class="row">
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Country</label>
+                        <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Country ( देश )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 pr-0">
                           <select class="form-control select2 form-control-sm" name="country_id" id="country_id2" data-placeholder="Select Country" required>
                             <option selected="selected" value="" >Select Country </option>
                             <?php foreach ($country_list as $list) { ?>
@@ -88,8 +90,10 @@
                             <?php  } ?>
                           </select>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>State</label>
+                          <div class="form-group col-md-4 col-6 pr-0">
+                          <label>State ( राज्य )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="state_id" id="state_id2"  title="Select State" data-placeholder="Select State" required>
                             <option selected="selected" value="" >Select State </option>
                             <?php foreach ($state_list as $list) { ?>
@@ -97,8 +101,10 @@
                             <?php  } ?>
                           </select>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>District</label>
+                          <div class="form-group col-md-4 col-6 pr-0">
+                          <label>District ( जिला )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="district_id" id="district_id2"  title="Select District" data-placeholder="Select District" required>
                             <option selected="selected" value="" >Select District </option>
                             <?php foreach ($district_list as $list) { ?>
@@ -108,8 +114,10 @@
                           </select>
                           <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_district_name" id="other_district_name" placeholder="Enter District Name">
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Tahsil</label>
+                          <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Tehsil ( तहसील )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id2"  title="Select Tahsil" data-placeholder="Select Tahsil" required>
                             <option selected="selected" value="" >Select Tahsil </option>
                             <?php foreach ($tahasil_list as $list) { ?>
@@ -119,8 +127,10 @@
                           </select>
                           <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_tahasil_name" id="other_tahasil_name" title="Enter Tahsil Name"  placeholder="Enter Tahsil Name">
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Religion</label>
+                        <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Religion ( धर्म )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="religion_id" id="religion_id2" title="Select Religion" data-placeholder="Select Religion"  required>
                             <option selected="selected" value="" >Select Religion</option>
                             <?php foreach ($religion_list as $list) { ?>
@@ -128,8 +138,10 @@
                             <?php  } ?>
                           </select>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Caste</label>
+                        <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Cast ( जाति )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id2" title="Select Caste" data-placeholder="Select Caste"  required>
                             <option selected="selected" value="" >Select Caste</option>
                             <?php foreach ($cast_list as $list) { ?>
@@ -139,8 +151,10 @@
                           </select>
                           <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_cast_name" id="other_cast_name" title="Enter Caste"  placeholder="Enter Caste">
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Education</label>
+                    <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Education ( शिक्षा )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="education_id" id="education_id2" title="Select Education" data-placeholder="Select Education"  required>
                             <option selected="selected" value="" >Select Education</option>
                             <option value="-1">Other</option>
@@ -150,10 +164,11 @@
                           </select>
                           <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_education_name" id="other_education_name" placeholder="Enter Education">
                         </div>
-                        <div class="col-md-6">
+
+                    <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Occupation  ( व्यवसाय )</label>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Occupation</label>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="occupation_id" id="occupation_id2" title="Select Occupation" data-placeholder="Select Occupation"  required>
                             <option selected="selected" value="" >Select Occupation</option>
                             <?php foreach ($occupation_list as $list) { ?>
@@ -161,12 +176,16 @@
                             <?php  } ?>
                           </select>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Occupation Details</label>
-                          <input type="text" class="form-control form-control-sm" name="occupation_details" id="occupation_details2" value="<?php if(isset($occupation_details)){ echo $occupation_details; } ?>"  title="Name of Company and Details"  placeholder="Name of Company and Details" required>
+                    <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Occupation Details  ( व्यवसाय )</label>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Marital Status</label>
+                        <div class="form-group col-md-8 col-6 ">
+                          <input type="text" class="form-control form-control-sm" name="occupation_details" id="occupation_details2" value="<?php if(isset($occupation_details)){ echo $occupation_details; } ?>"  title="Occupation Details"  placeholder="Occupation Details" required>
+                        </div>
+                    <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Marital Status ( वैवाहिक स्थिति )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="marital_status" id="marital_status" title="Select Marital Status" data-placeholder="Select Marital Status" required>
                             <option selected="selected" value="" >Select Marital Status</option>
                             <?php foreach ($marital_status_list as $list) { ?>
@@ -174,8 +193,10 @@
                             <?php  } ?>
                           </select>
                         </div>
-                        <div class="form-group col-md-6 pr-0">
-                          <label>Interesred In</label>
+                    <div class="form-group col-md-4 col-6 pr-0">
+                          <label>Interested In ( इसमें दिलचस्पी है )</label>
+                        </div>
+                        <div class="form-group col-md-8 col-6 ">
                           <select class="form-control select2 form-control-sm w-100" name="marriage_type_id" id="marriage_type_id" title="Interested In" data-placeholder="Select Marriage Type" required>
                             <option selected="selected" value="" >Select Marriage Type</option>
                             <?php foreach ($marriage_type_list as $list) { ?>

@@ -158,8 +158,8 @@
                   <p class="mb-1"><?php echo $member_info[0]['marital_status_name']; ?></p>
                 </div>
                 <div class="col-12"><hr class="hr-web"></div>
-                <div class="col-md-6 col-6 py-1"><p class="mb-1 text-bold">Profile Created by(On Behalf) (प्रोफ़ाइल किसी ओर से बनाई गई) : </p></div>
-                <div class="col-md-6 col-6 py-1">
+                <div class="col-md-7 col-6 py-1"><p class="mb-1 text-bold">Profile Created by(प्रोफ़ाइल किससे बनाई गई) : </p></div>
+                <div class="col-md-5 col-6 py-1">
                   <p class="mb-1"><?php if($member_info[0]['onbehalf_name'] == ''){ echo 'Self'; } else{ echo $member_info[0]['onbehalf_name']; } ?></p>
                 </div>
                 <div class="col-12"><hr class="hr-web"></div>
@@ -204,33 +204,37 @@
                 </div>
                 <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Country (देश) : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['country_name']; ?></p>
                 </div>
+                <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">State (राज्य) : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['state_name']; ?></p>
                 </div>
+                <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">District (जिला) : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['district_name']; ?></p>
                 </div>
+                <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Tehsil (तहसील) : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['tahasil_name']; ?></p>
                 </div>
                 <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">City (शहर) : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['city_name']; ?></p>
                 </div>
+                <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Area (इलाका) : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_area']; ?></p>
                 </div>
                 <div class="col-12"><hr class="hr-web"></div>
                 <div class="col-md-3 col-6 py-1"><p class="mb-1 text-bold">Mobile : </p></div>
-                <div class="col-md-3 col-6 py-1">
+                <div class="col-md-9 col-6 py-1">
                   <p class="mb-1"><?php echo $member_info[0]['member_mobile']; ?></p>
                 </div>
                 <div class="col-md-6">
@@ -465,31 +469,31 @@
       <div class="modal-body">
         <form class="" action="<?php echo base_url(); ?>Member/update_personal_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
-          <div class="form-group col-md-2 pr-0"><label>Name ( नाम )</label></div>
-          <div class="form-group col-md-10">
+          <div class="form-group col-md-5 pr-0"><label>Name ( नाम )</label></div>
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm w-100 required title-case text" name="member_name" id="member_name" value="<?php if(isset($member_name)){ echo $member_name; } ?>"  placeholder="Enter Full Name" required>
           </div>
-          <div class="form-group col-md-2 mb-0"><label>Gender ( लिंग )</label></div>
-          <div class="form-group col-md-2 mb-0">
+          <div class="form-group col-md-5 mb-0"><label>Gender ( लिंग )</label></div>
+          <div class="form-group col-md-3 mb-0">
             <div class="form-check">
               <input class="form-check-input" value="Male" type="radio" name="member_gender" <?php if(isset($member_gender) && $member_gender == 'Male'){ echo 'checked'; } else{ echo 'checked'; } ?>>
               Male
             </div>
           </div>
-          <div class="form-group col-md-2 mb-0">
+          <div class="form-group col-md-3 mb-0">
             <div class="form-check">
               <input class="form-check-input" value="Female" type="radio" name="member_gender"<?php if(isset($member_gender) && $member_gender == 'Female'){ echo 'checked'; } ?>>
               Female
             </div>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Date of birth ( जन्म तारीख )</label></div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-5 pr-0"><label>Date of birth ( जन्म तारीख )</label></div>
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm" name="member_birth_date" value="<?php if(isset($member_birth_date)){ echo $member_birth_date; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" title="Enter Birth date" placeholder="Enter Birth date" required>
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Marital Status ( वैवाहिक स्थिति )</label>
           </div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="marital_status" id="marital_status" title="Select Marital Status" data-placeholder="Select Marital Status" >
               <option selected="selected" value="" >Select Marital Status</option>
               <?php foreach ($marital_status_list as $list) { ?>
@@ -497,8 +501,8 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Created By</label></div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-5 pr-0"><label>Profile Created by(प्रोफ़ाइल किससे बनाई गई)</label></div>
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="onbehalf_id" id="onbehalf_id" title="Profile Created By" data-placeholder="Profile Created By" >
               <option selected="selected" value="" >Profile Created By</option>
               <?php foreach ($onbehalf_list as $list) { ?>
@@ -506,10 +510,10 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Interesred In ( इसमें दिलचस्पी है )</label>
           </div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="marriage_type_id" id="marriage_type_id" title="Interested In" data-placeholder="Select Marriage Type" >
               <option selected="selected" value="" >Select Marriage Type</option>
               <?php foreach ($marriage_type_list as $list) { ?>
@@ -517,10 +521,10 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Religion ( धर्म )</label>
           </div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="religion_id" id="religion_id2" title="Select Religion" data-placeholder="Select Religion" >
               <option selected="selected" value="" >Select Religion</option>
               <?php foreach ($religion_list as $list) { ?>
@@ -528,10 +532,10 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Cast ( जाति )</label>
           </div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="cast_id" id="cast_id2" title="Select Caste" data-placeholder="Select Caste" >
               <option selected="selected" value="" >Select Caste</option>
               <?php foreach ($cast_list as $list) { ?>
@@ -541,10 +545,10 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_cast_name" id="other_cast_name" title="Enter Caste"  placeholder="Enter Caste">
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Sub Cast ( उप-जाति )</label>
           </div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="sub_cast_id" id="sub_cast_id2" title="Select Sub Caste" data-placeholder="Select Sub Caste" >
               <option selected="selected" value="" >Select Sub Caste</option>
               <?php foreach ($sub_cast_list as $list) { ?>
@@ -554,8 +558,8 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_subcast_name" id="other_subcast_name" title="Enter Sub Caste"  placeholder="Enter Sub Caste">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Mother tongue (मातृ भाषा )</label></div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-5 pr-0"><label>Mother tongue (मातृ भाषा )</label></div>
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="language_id" id="language_id" title="Select Mother tongue" data-placeholder="Select Mother tongue" >
               <option selected="selected" value="" >Select Mother Tongue </option>
               <?php foreach ($language_list as $list) { ?>
@@ -588,16 +592,16 @@
       <div class="modal-body">
         <form class="" action="<?php echo base_url(); ?>Member/update_address_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-4 pr-0">
             <label>Address</label>
           </div>
-          <div class="form-group col-md-10">
+          <div class="form-group col-md-8">
             <textarea name="member_address" id="member_address" class="form-control form-control-sm" rows="2" cols="80" placeholder="Enter Address"><?php if(isset($member_address)){ echo $member_address; } ?></textarea>
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-4 pr-0">
             <label>Country ( देश )</label>
           </div>
-          <div class="form-group col-md-4 ">
+          <div class="form-group col-md-8 ">
             <select class="form-control select2 form-control-sm" name="country_id" id="country_id2" data-placeholder="Select Country" required>
               <option selected="selected" value="" >Select Country </option>
               <?php foreach ($country_list as $list) { ?>
@@ -605,8 +609,8 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>State ( राज्य )</label></div>
-          <div class="form-group col-md-4 ">
+          <div class="form-group col-md-4 pr-0"><label>State ( राज्य )</label></div>
+          <div class="form-group col-md-8 ">
             <select class="form-control select2 form-control-sm w-100" name="state_id" id="state_id2"  title="Select State" data-placeholder="Select State" required>
               <option selected="selected" value="" >Select State </option>
               <?php foreach ($state_list as $list) { ?>
@@ -614,8 +618,8 @@
               <?php  } ?>
             </select>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>District (जिला )</label></div>
-          <div class="form-group col-md-4 ">
+          <div class="form-group col-md-4 pr-0"><label>District (जिला )</label></div>
+          <div class="form-group col-md-8 ">
             <select class="form-control select2 form-control-sm w-100" name="district_id" id="district_id2"  title="Select District" data-placeholder="Select District" required>
               <option selected="selected" value="" >Select District </option>
               <?php foreach ($district_list as $list) { ?>
@@ -625,8 +629,8 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_district_name" id="other_district_name" placeholder="Enter District Name">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Tehsil (तहसील)</label></div>
-          <div class="form-group col-md-4 ">
+          <div class="form-group col-md-4 pr-0"><label>Tehsil (तहसील)</label></div>
+          <div class="form-group col-md-8 ">
             <select class="form-control select2 form-control-sm w-100" name="tahasil_id" id="tahasil_id2"  title="Select Tahsil" data-placeholder="Select Tahsil" required>
               <option selected="selected" value="" >Select Tahsil </option>
               <?php foreach ($tahasil_list as $list) { ?>
@@ -636,8 +640,8 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_tahasil_name" id="other_tahasil_name" title="Enter Tahsil Name"  placeholder="Enter Tahsil Name">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>City ( शहर )</label></div>
-          <div class="form-group col-md-4 ">
+          <div class="form-group col-md-4 pr-0"><label>City ( शहर )</label></div>
+          <div class="form-group col-md-8 ">
             <select class="form-control select2 form-control-sm w-100 " name="city_id" id="city_id2" title="Select City" data-placeholder="Select City">
               <option selected="selected" value="" >Select City </option>
               <?php foreach ($city_list as $list) { ?>
@@ -647,20 +651,20 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_city_name" id="other_city_name" title="Enter City Name"  placeholder="Enter City Name">
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Area ( इलाका )</label></div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4 pr-0"><label>Area ( इलाका )</label></div>
+          <div class="form-group col-md-8">
             <input type="text" class="form-control form-control-sm" name="member_area" id="member_area2" value="<?php if(isset($member_area)){ echo $member_area; } ?>"  title="Enter Area"  placeholder="Enter Area" required>
           </div>
 
-          <div class="form-group col-md-2 pr-0"><label>Email</label></div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4 pr-0"><label>Email</label></div>
+          <div class="form-group col-md-8">
             <input type="email" class="form-control form-control-sm " name="member_email" id="member_email" value="<?php if(isset($member_email)){ echo $member_email; } ?>" title="Enter Email" placeholder="Enter Email" required>
           </div>
-          <div class="form-group col-md-2 pr-0"><label>Mobile No</label></div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4 pr-0"><label>Mobile No</label></div>
+          <div class="form-group col-md-8">
             <input type="text" class="form-control form-control-sm mobile only_number" name="member_mobile" id="member_mobile" value="<?php if(isset($member_mobile)){ echo $member_mobile; } ?>" title="Enter Mobile" placeholder="Enter Mobile" required readonly>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="row">
               <div class="form-group col-md-5 mb-0"><label>Show Email To : </label></div>
               <div class="form-group col-md-3 mb-0">
@@ -673,7 +677,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="row">
               <div class="form-group col-md-5 mb-0"><label for="">Show Mobile To : </label></div>
               <div class="form-group col-md-3 mb-0">
@@ -711,10 +715,10 @@
       <div class="modal-body">
         <form class="" action="<?php echo base_url(); ?>Member/update_education_info/<?php echo $member_id; ?>" method="post" autocomplete="off">
         <div class="row">
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Education ( शिक्षा )</label>
           </div>
-          <div class="form-group col-md-4 drop-sm">
+          <div class="form-group col-md-7 drop-sm">
             <select class="form-control select2 form-control-sm w-100" name="education_id" id="education_id2" title="Select Education" data-placeholder="Select Education" >
               <option selected="selected" value="" >Select Education</option>
               <option value="-1">Other</option>
@@ -724,10 +728,10 @@
             </select>
             <input type="text" style="display:none;" class="form-control form-control-sm mt-1" name="other_education_name" id="other_education_name" placeholder="Enter Education">
           </div>
-          <div class="form-group col-md-2 pr-0">
+          <div class="form-group col-md-5 pr-0">
             <label>Education Details ( शिक्षा )</label>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-7">
             <input type="text" class="form-control form-control-sm" name="education_details" id="education_details" value="<?php if(isset($education_details)){ echo $education_details; } ?>" placeholder="Enter Education Details">
           </div>
         </div>
